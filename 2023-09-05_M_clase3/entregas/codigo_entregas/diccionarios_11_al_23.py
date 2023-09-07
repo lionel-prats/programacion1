@@ -3,6 +3,7 @@ Alumno: Lionel Prats
 DNI: 31367577
 División: 1H
 Nro. legajo: 115678
+Diccionarios - Ejercicio 11 al 23
 """
 
 nro_ejercicio = input("\nNro. de ejercicio a ejecutar (11 - 23): ")

@@ -9,7 +9,8 @@ nro_ejercicio = input("\nNro. de ejercicio a ejecutar (1 - 10): ")
 while not nro_ejercicio.isdigit() or not (int(nro_ejercicio) >= 1 and int(nro_ejercicio) <= 10):  
     nro_ejercicio= input("Nro. de ejercicio a ejecutar (1 - 10): ")
 
-match nro_ejercicio: 
+match nro_ejercicio:
+     
     case "1":
 
         """  
