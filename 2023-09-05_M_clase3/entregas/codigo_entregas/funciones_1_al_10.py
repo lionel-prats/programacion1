@@ -251,7 +251,7 @@ match nro_ejercicio:
                 if es_divisor_comun:
                     dcm = i
             return dcm
-
+        # REVISAR REHACER
         print(f"\nEjercicio #7:\n")
         print("""Crear una función que calcule el máximo común divisor de dos números.\n Recibe dos parámetros (números) y devuelve el máximo común divisor.\n""")
 

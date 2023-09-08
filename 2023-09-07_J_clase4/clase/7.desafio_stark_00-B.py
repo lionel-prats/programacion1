@@ -1,0 +1,1 @@
+# B - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
