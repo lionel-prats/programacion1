@@ -1,3 +1,7 @@
+# python 9.ejercicioJ.py
+
+import os
+
 lista_personajes =\
 [
   {
@@ -320,36 +324,80 @@ def show_menu(lista_heroes: list[dict]):
       #     "empresa": "Marvel Comics",
       #     "altura": "79.349999999999994",
       #     "peso": "18.449999999999999",
-      #     "genero": "M",
+      #     "genero": "M",3
       #     "color_ojos": "Brown",
       #     "color_pelo": "Yellow",
       #     "fuerza": "2",
       #     "inteligencia": ""
       # }
+
       # 1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
       case "1":
-          print("\nNombres superhéroes:\n")
-          names = find_by_fields(lista_personajes, ["nombre"])
-          print(names)
+          heading = "1- Listado superhéroes (nombre):"
+          filtered_heroes_list = find_by_fields(lista_personajes, ["nombre"])
+          print_dict_list(heading, filtered_heroes_list)
           if proceed():
             print("\nHasta la próxima!\n")
             break
 
       # 2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
       case "2":
-          print("\nNombres y alturas superhéroes:\n")
-          names_and_heights = find_by_fields(lista_personajes, ["nombre", "altura"])
-          print(names_and_heights)
+          heading = "2- Listado superhéroes (nombre y altura):"
+          filtered_heroes_list = find_by_fields(lista_personajes, ["nombre", "altura"])
+          print_dict_list(heading, filtered_heroes_list)
           if proceed():
             print("\nHasta la próxima!\n")
             break
+
       # 3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
       case "3":
-          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
-          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
-          heroe_mas_alto = determina_heroe_mas_alto()
-          print("\n")
-          #imprimir_nombres_de_heroes()
+          heading = "3- Héroe más alto:"
+          # filtered_heroes_list = find_by_fields(lista_personajes, ["altura"])
+
+          # personas = formatear(personas, ["altura", "peso"])
+          # filtered_heroes_list = find_by_fields(personas, ["altura"])
+
+
+          # print_dict_list(heading, lista_personajes)
+          # print_dict_list(heading, lista_personajes)
+          # print_dict_list(heading, lista_personajes)
+          exit()
+          # print(min_key_value_in_dict_list(lista_personajes, "altura"))
+          
+          
+          personas =\
+          [
+              {
+                  "nombre": "Sionel",
+                  "apellido": "PRATS",
+                  "altura": "55.5",
+                  "peso": "79"
+              },
+              {
+                  "nombre": "Sergio",
+                  "apellido": "Balestrini",
+                  "altura": "111.54",
+                  "peso": "86"
+              },
+              {
+                  "nombre": "sixntiago",
+                  "apellido": "Priorini",
+                  "altura": "2154.6668",
+                  "peso": "90"
+              }
+          ]
+          
+          heading = "3- Héroe más alto:"
+          personas = formatear(personas, ["altura", "peso"])
+          filtered_heroes_list = find_by_fields(personas, ["altura"])
+          print_dict_list(heading, filtered_heroes_list)
+          print(min_key_value_in_dict_list(personas, "altura"))
+          exit()
+
+          print_dict_list(heading, filtered_heroes_list)
+          
+
+
           if proceed():
             print("\nHasta la próxima!\n")
             break
@@ -395,31 +443,49 @@ def show_menu(lista_heroes: list[dict]):
       case _:
               print("\n--------------------------\n")
               print("Opcion incorrecta, elija entre 1 y 9.")
-  
 
 def find_by_fields(list: list[dict], fields: list[str]) -> list[dict]:
-    """  
-    returns a list of the keys specified as parameters from a given list of dictionaries\n
-    takes the list of dictionaries to reduce and a second list with the keys to search for
-    """
-    result = ""
-    for dict in list:
-      for field in fields: 
-        result += f"{field}: {dict[field]} | "
-      result = result[:-3]
-      result += "\n"
-    return result
+    new_list = [{field: dict[field] for field in fields} for dict in list]
+    return new_list
 
-def alturas_heroes():
-    pass
-def determina_heroe_mas_alto():
-    pass
+def print_dict_list(heading, list: list[dict]):
+  print(f"\n{heading}\n")
+  content = ""
+  position = 1
+  for dict in list: 
+    content += f"{position}- "
+    for k, v in dict.items():
+      content += f"{k}: {v} | "
+    content = content[:-3]
+    content += "\n"
+    position += 1
+  print(content)
+      
+def min_key_value_in_dict_list(list: list[dict], key):
+  result = max(list, key = lambda item: item[key])[key]
+  return result
+
+# def min_key_value_in_dict_list(list: list[dict], key):
+#   result = max(list, key = lambda item: item[key])[key]
+#   return result
+
+def formatear(lista, claves_a_formatear):
+  for item in lista:
+      for clave in claves_a_formatear:
+          item[clave] = float(item[clave])
+  return lista
+
 def proceed():
     proceed = input("Quieres realizar una nueva consulta (s-n)? ").lower()
     while proceed != "s" and proceed != "n":
       proceed = input("Quieres realizar una nueva consulta (s-n)? ").lower()
     if proceed == "n":
       return True
+    else:
+      clear_console() 
+
+def clear_console():
+  os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # App 

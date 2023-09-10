@@ -29,3 +29,40 @@ print( type( {"number": 123} ) )
 print(type(True))
 
 -----
+
+compresion de dicionarios 
+
+def formatear_diccionario(diccionario, claves):
+    nuevo_diccionario = [{clave: persona[clave] for clave in claves} for persona in diccionario]
+    return nuevo_diccionario
+
+personas = [
+    {
+        "nombre": "Lionel",
+        "apellido": "Prats",
+        "edad": "38"
+    },
+    {
+        "nombre": "Sergio",
+        "apellido": "Balestrini",
+        "edad": "39"
+    },
+    {
+        "nombre": "Santiago",
+        "apellido": "Fiorini",
+        "edad": "40"
+    }
+]
+
+claves_a_seleccionar = ["nombre", "edad"]
+claves_a_seleccionar = ["apellido", "edad"]
+claves_a_seleccionar = ["nombre"]
+claves_a_seleccionar = ["apellido"]
+claves_a_seleccionar = ["edad"]
+claves_a_seleccionar = ["nombre", "apellido"]
+claves_a_seleccionar = ["edad", "apellido"]
+
+print(personas)
+print(formatear_diccionario(personas, claves_a_seleccionar))
+
+-----
