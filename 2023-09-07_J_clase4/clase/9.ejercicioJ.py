@@ -290,70 +290,137 @@ lista_personajes =\
   }
 ]
 
-# {
-#     "nombre": "Howard the Duck",
-#     "identidad": "Howard (Last name unrevealed)",
-#     "empresa": "Marvel Comics",
-#     "altura": "79.349999999999994",
-#     "peso": "18.449999999999999",
-#     "genero": "M",
-#     "color_ojos": "Brown",
-#     "color_pelo": "Yellow",
-#     "fuerza": "2",
-#     "inteligencia": ""
-# }
-
 # J - Construir un menú que permita elegir qué dato obtener
 
-def mostrar_menu(lista_heroes: list[dict]):
+def show_menu(lista_heroes: list[dict]):
+  """  
+  Ejecuta todo nuestro programa\n
+  Recibe la lista de heroes
+  """
+  menu = \
+  """
+  1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
+  2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
+  3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
+  4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)
+  5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)
+  6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO, MÍNIMO)
+  7 - Calcular e informar cual es el superhéroe más y menos pesado.
+  8 - Salir
+  """
+
+
+  while True:
+    print(menu)
+    selected_option = input("Elija una opcion: ")
+    match selected_option:
+      # {
+      #     "nombre": "Howard the Duck",
+      #     "identidad": "Howard (Last name unrevealed)",
+      #     "empresa": "Marvel Comics",
+      #     "altura": "79.349999999999994",
+      #     "peso": "18.449999999999999",
+      #     "genero": "M",
+      #     "color_ojos": "Brown",
+      #     "color_pelo": "Yellow",
+      #     "fuerza": "2",
+      #     "inteligencia": ""
+      # }
+      # 1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
+      case "1":
+          print("\nNombres superhéroes:\n")
+          names = find_by_fields(lista_personajes, ["nombre"])
+          print(names)
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+
+      # 2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
+      case "2":
+          print("\nNombres y alturas superhéroes:\n")
+          names_and_heights = find_by_fields(lista_personajes, ["nombre", "altura"])
+          print(names_and_heights)
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+      # 3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
+      case "3":
+          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
+          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
+          heroe_mas_alto = determina_heroe_mas_alto()
+          print("\n")
+          #imprimir_nombres_de_heroes()
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+      # 4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)
+      case "4":
+          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
+          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
+          print("\n")
+          #imprimir_nombres_de_heroes()
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+      # 5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)
+      case "5":
+          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
+          # funcion que reciba una lista numerica y retorne el promedio
+          print("\n")
+          # imprimir_nombres_de_heroes()
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+      # 6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO, MÍNIMO)
+      case "6":
+          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
+          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
+          print("\n")
+          # imprimir_nombres_de_heroes()
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+      # 7 - Calcular e informar cual es el superhéroe más y menos pesado.
+      case "7":
+          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
+          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
+          print("\n")
+          # imprimir_nombres_de_heroes()
+          if proceed():
+            print("\nHasta la próxima!\n")
+            break
+      case "8":
+          print("\nHasta la próxima!\n")
+          break
+      case _:
+              print("\n--------------------------\n")
+              print("Opcion incorrecta, elija entre 1 y 9.")
+  
+
+def find_by_fields(list: list[dict], fields: list[str]) -> list[dict]:
     """  
-    Ejecuta todo nuestro programa\n
-    Recibe la lista de heroes
+    returns a list of the keys specified as parameters from a given list of dictionaries\n
+    takes the list of dictionaries to reduce and a second list with the keys to search for
     """
-    menu = \
-    """
-    1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
-    2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
-    3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
-    4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)
-    5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)
-    6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO, MÍNIMO)
-    7 - Calcular e informar cual es el superhéroe más y menos pesado.
-    8 - Salir
-    """
+    result = ""
+    for dict in list:
+      for field in fields: 
+        result += f"{field}: {dict[field]} | "
+      result = result[:-3]
+      result += "\n"
+    return result
 
-
-    while True:
-        print(menu)
-        opcion_elegida = input("Elija una opcion: ")
-        match opcion_elegida:
-            case "1":
-                imprimir_nombres_de_heroes()
-            case "2":
-                imprimir_nombres_altura_de_heroes()
-            case "3":
-                heroe_mas_alto = determina_heroe_mas_alto()
-                print(f"El heroe mas alto es {heroe_mas_alto}")
-            case "4":
-                pass
-            case "5":
-                pass
-            case "6":
-                pass
-            case "7":
-                pass
-            case "8":
-                break
-            case _:
-                print("Opcion incorrecta, elija entre 1 y 9.")
-    return True
-
-def imprimir_nombres_de_heroes():
-    pass
-def imprimir_nombres_altura_de_heroes():
+def alturas_heroes():
     pass
 def determina_heroe_mas_alto():
     pass
+def proceed():
+    proceed = input("Quieres realizar una nueva consulta (s-n)? ").lower()
+    while proceed != "s" and proceed != "n":
+      proceed = input("Quieres realizar una nueva consulta (s-n)? ").lower()
+    if proceed == "n":
+      return True
 
-# Ejecucion 
-mostrar_menu(lista_personajes)
+
+# App 
+show_menu(lista_personajes)

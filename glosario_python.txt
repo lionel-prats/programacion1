@@ -1,0 +1,31 @@
+Recortar un string vvv 
+
+string = "Camasutra"
+string_recortado = string[:-5]
+print(string)
+print(string_recortado)
+
+-----
+
+Validar si puedo convertir un string en float vvv 
+
+entrada = "314.159"
+
+try:
+    valor_float = float(entrada)
+    print(f"El valor '{entrada}' se puede convertir a float: {valor_float}")
+except ValueError:
+    print(f"El valor '{entrada}' no se puede convertir a float.")
+
+-----
+
+Verificar tipo de dato
+
+print(type(123))
+print(type(1.23))
+print(type("123"))
+print(type(["123"]))
+print( type( {"number": 123} ) )
+print(type(True))
+
+-----

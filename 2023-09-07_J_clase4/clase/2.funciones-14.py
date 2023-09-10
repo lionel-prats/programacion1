@@ -3,9 +3,8 @@
 def diccionario_numeros(lista_de_numeros: list) -> dict:
     minimo = None
     maximo = None
-    total = 0
+    suma_total = 0
     for numero in lista_de_numeros:
-        
         if not minimo:
             minimo = numero
             maximo = numero
@@ -14,9 +13,9 @@ def diccionario_numeros(lista_de_numeros: list) -> dict:
         elif numero > maximo:
             maximo = numero
 
-        total += numero
+        suma_total += numero
 
-    promedio = total / len(lista_de_numeros)
+    promedio = suma_total / len(lista_de_numeros)
 
     return {
         "minimo": minimo,
