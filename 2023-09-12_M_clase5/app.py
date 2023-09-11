@@ -25,5 +25,7 @@ N. Listar todos los superhéroes agrupados por color de pelo.
 O. Listar todos los superhéroes agrupados por tipo de inteligencia
 """
 from data_stark import lista_personajes
+from functions import *
 
-print(lista_personajes)
+heading = "Listado"
+print_dict_list(lista_personajes, heading)
