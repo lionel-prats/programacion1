@@ -68,34 +68,35 @@ def formatear(lista, claves_a_formatear):
             item[clave] = float(item[clave])
     return lista
 
-personas =\
-[
+personas = [
     {
         "nombre": "Sionel",
         "apellido": "PRATS",
         "altura": "55.5",
-        "peso": "79"
+        "peso": 50
     },
     {
         "nombre": "Sergio",
         "apellido": "Balestrini",
         "altura": "111.54",
-        "peso": "86"
+        "peso": 100
     },
     {
         "nombre": "sixntiago",
         "apellido": "Priorini",
         "altura": "2154.6668",
-        "peso": "90"
+        "peso": 150
     }
 ]
 
-print(personas)
-personas = formatear(personas, ["altura", "peso"])
-print(personas)
+# Obtener la suma de los valores de "peso"
+suma_pesos = sum(persona["peso"] for persona in personas)
 
-# print(personas)
-# for persona in personas:
-#     persona["altura"] = float(persona["altura"])
-#     persona["peso"] = float(persona["peso"])
-# print(personas)
+# Calcular el promedio
+promedio_peso = suma_pesos / len(personas)
+
+print(suma_pesos)
+
+print(f"El promedio de peso es: {promedio_peso}")
+
+

@@ -1,4 +1,10 @@
-# python 9.ejercicioJ.py
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Funciones - Ejercicio 11 al 15
+"""
 
 import os
 
@@ -294,12 +300,13 @@ lista_personajes =\
   }
 ]
 
-# J - Construir un menú que permita elegir qué dato obtener
-
 def show_menu(lista_heroes: list[dict]):
   """  
-  Ejecuta todo nuestro programa\n
-  Recibe la lista de heroes
+  run the program\n 
+  receive the list of heroes
+
+  ejecuta el programa\n
+  recibe la lista de superheroes
   """
   menu = \
   """
@@ -307,35 +314,23 @@ def show_menu(lista_heroes: list[dict]):
   2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
   3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
   4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)
-  5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)
+  5 - Recorrer la lista y determinar la altura promedio de los superhéroes (PROMEDIO)
   6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO, MÍNIMO)
   7 - Calcular e informar cual es el superhéroe más y menos pesado.
   8 - Salir
   """
 
-
   while True:
     print(menu)
     selected_option = input("Elija una opcion: ")
     match selected_option:
-      # {
-      #     "nombre": "Howard the Duck",
-      #     "identidad": "Howard (Last name unrevealed)",
-      #     "empresa": "Marvel Comics",
-      #     "altura": "79.349999999999994",
-      #     "peso": "18.449999999999999",
-      #     "genero": "M",3
-      #     "color_ojos": "Brown",
-      #     "color_pelo": "Yellow",
-      #     "fuerza": "2",
-      #     "inteligencia": ""
-      # }
-
       # 1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
       case "1":
           heading = "1- Listado superhéroes (nombre):"
           filtered_heroes_list = find_by_fields(lista_personajes, ["nombre"])
-          print_dict_list(heading, filtered_heroes_list)
+
+          print_dict_list(filtered_heroes_list, heading)
+
           if proceed():
             print("\nHasta la próxima!\n")
             break
@@ -344,112 +339,126 @@ def show_menu(lista_heroes: list[dict]):
       case "2":
           heading = "2- Listado superhéroes (nombre y altura):"
           filtered_heroes_list = find_by_fields(lista_personajes, ["nombre", "altura"])
-          print_dict_list(heading, filtered_heroes_list)
+          filtered_heroes_list = format_value_in_numeric(filtered_heroes_list, ["altura"], "float")
+
+          print_dict_list(filtered_heroes_list, heading)
+
           if proceed():
             print("\nHasta la próxima!\n")
             break
 
       # 3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
       case "3":
-          heading = "3- Héroe más alto:"
-          # filtered_heroes_list = find_by_fields(lista_personajes, ["altura"])
-
-          # personas = formatear(personas, ["altura", "peso"])
-          # filtered_heroes_list = find_by_fields(personas, ["altura"])
-
-
-          # print_dict_list(heading, lista_personajes)
-          # print_dict_list(heading, lista_personajes)
-          # print_dict_list(heading, lista_personajes)
-          exit()
-          # print(min_key_value_in_dict_list(lista_personajes, "altura"))
+          heading = "3- Héroe/s más alto/s:"
+          # genero una nueva lista con los valores "nombre" y "altura"
+          filtered_heroes_list = find_by_fields(lista_personajes, ["nombre", "altura"])
+          # formateo como float los valores "altura" y "peso"
+          filtered_heroes_list = format_value_in_numeric(filtered_heroes_list, ["altura"], "float")
+          # obtengo la altura maxima de toda la lista  
+          max_height = max_key_value_in_dict_list(filtered_heroes_list, 'altura')
+          # genero una lista con todos los heroes cuya altura coincida con la maxima
+          list_heroes_max_height = [hero for hero in filtered_heroes_list if hero["altura"] == max_height]
           
-          
-          personas =\
-          [
-              {
-                  "nombre": "Sionel",
-                  "apellido": "PRATS",
-                  "altura": "55.5",
-                  "peso": "79"
-              },
-              {
-                  "nombre": "Sergio",
-                  "apellido": "Balestrini",
-                  "altura": "111.54",
-                  "peso": "86"
-              },
-              {
-                  "nombre": "sixntiago",
-                  "apellido": "Priorini",
-                  "altura": "2154.6668",
-                  "peso": "90"
-              }
-          ]
-          
-          heading = "3- Héroe más alto:"
-          personas = formatear(personas, ["altura", "peso"])
-          filtered_heroes_list = find_by_fields(personas, ["altura"])
-          print_dict_list(heading, filtered_heroes_list)
-          print(min_key_value_in_dict_list(personas, "altura"))
-          exit()
-
-          print_dict_list(heading, filtered_heroes_list)
-          
-
+          print(f"\n3- Altura máxima = {max_height}")
+          print_dict_list(list_heroes_max_height, heading)
 
           if proceed():
             print("\nHasta la próxima!\n")
             break
+
       # 4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)
       case "4":
-          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
-          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
-          print("\n")
-          #imprimir_nombres_de_heroes()
+          heading = "4- Héroe/s más bajo/s:"
+          filtered_heroes_list = find_by_fields(lista_personajes, ["nombre", "altura"])
+          filtered_heroes_list = format_value_in_numeric(filtered_heroes_list, ["altura"], "float")
+          min_height = min_key_value_in_dict_list(filtered_heroes_list, 'altura')
+          list_heroes_min_height = [hero for hero in filtered_heroes_list if hero["altura"] == min_height]
+          
+          print(f"\n4- Altura mínima = {min_height}")
+          print_dict_list(list_heroes_min_height, heading)
+
           if proceed():
             print("\nHasta la próxima!\n")
             break
+
       # 5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)
       case "5":
-          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
-          # funcion que reciba una lista numerica y retorne el promedio
-          print("\n")
-          # imprimir_nombres_de_heroes()
+          
+          formated_list = format_value_in_numeric(lista_personajes, ["altura"], "float")
+          
+          average = get_average(formated_list, "altura")
+          print(f"\n5- Altura promedio = {average}\n")
+          
           if proceed():
             print("\nHasta la próxima!\n")
             break
+
       # 6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO, MÍNIMO)
       case "6":
-          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
-          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
-          print("\n")
-          # imprimir_nombres_de_heroes()
+          filtered_heroes_list = find_by_fields(lista_personajes, ["nombre", "altura"])
+          filtered_heroes_list = format_value_in_numeric(filtered_heroes_list, ["altura"], "float")
+          
+          max_height = max_key_value_in_dict_list(filtered_heroes_list, 'altura')
+          list_heroes_max_height = [hero for hero in filtered_heroes_list if hero["altura"] == max_height]
+
+          min_height = min_key_value_in_dict_list(filtered_heroes_list, 'altura')
+          list_heroes_min_height = [hero for hero in filtered_heroes_list if hero["altura"] == min_height]
+          
+          heading_1 = "6- Héroe/s más alto/s:"
+          print_dict_list(list_heroes_max_height, heading_1)
+          
+          heading_2 = "6- Héroe/s más bajo/s:"
+          print_dict_list(list_heroes_min_height, heading_2)
+
           if proceed():
             print("\nHasta la próxima!\n")
             break
+
       # 7 - Calcular e informar cual es el superhéroe más y menos pesado.
       case "7":
-          # funcion que retorne la/s clave/s especificada/s de una lista de diccionarios
-          # funcion que reciba una lista numerica y retorne el min/max (retorna todo el dict)
-          print("\n")
-          # imprimir_nombres_de_heroes()
+          filtered_heroes_list = find_by_fields(lista_personajes, ["nombre", "peso"])
+          filtered_heroes_list = format_value_in_numeric(filtered_heroes_list, ["peso"], "float")
+          
+          max_weight = max_key_value_in_dict_list(filtered_heroes_list, 'peso')
+          list_heroes_max_weight = [hero for hero in filtered_heroes_list if hero["peso"] == max_weight]
+
+          min_weight = min_key_value_in_dict_list(filtered_heroes_list, 'peso')
+          list_heroes_min_weight = [hero for hero in filtered_heroes_list if hero["peso"] == min_weight]
+          
+          heading_1 = "6- Héroe/s más pesado/s:"
+          print_dict_list(list_heroes_max_weight, heading_1)
+          
+          heading_2 = "6- Héroe/s menos pesado/s:"
+          print_dict_list(list_heroes_min_weight, heading_2)
+
           if proceed():
             print("\nHasta la próxima!\n")
             break
+
       case "8":
           print("\nHasta la próxima!\n")
           break
+       
       case _:
               print("\n--------------------------\n")
               print("Opcion incorrecta, elija entre 1 y 9.")
 
 def find_by_fields(list: list[dict], fields: list[str]) -> list[dict]:
+    """  
+    genera una nueva lista de diccionarios a partir de una recibida, prsisitiendo en los diccionarios las claves especificadas por el usuario\n
+    recibe una lista de diccionarios y la lista de claves que deben persistir\n
+    retorna una lista de diccionarios comprimidos respecto a los recibidos
+    """
     new_list = [{field: dict[field] for field in fields} for dict in list]
     return new_list
 
-def print_dict_list(heading, list: list[dict]):
-  print(f"\n{heading}\n")
+def print_dict_list(list: list[dict], heading = None):
+  """  
+  imprime por consola un titulo (opcional) y un listado de diccionarios
+  recibe un titulo (str - opcional) y una lista de diccionarios
+  """
+  if heading:
+    print(f"\n{heading}\n")
   content = ""
   position = 1
   for dict in list: 
@@ -461,21 +470,58 @@ def print_dict_list(heading, list: list[dict]):
     position += 1
   print(content)
       
-def min_key_value_in_dict_list(list: list[dict], key):
+def max_key_value_in_dict_list(list: list[dict], key: str) -> float:
+  """ 
+  retorna el maximo valor en relacion a una clave especifica, de una lista de diccionarios
+  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser int o float)
+  """
   result = max(list, key = lambda item: item[key])[key]
   return result
 
-# def min_key_value_in_dict_list(list: list[dict], key):
-#   result = max(list, key = lambda item: item[key])[key]
-#   return result
+def min_key_value_in_dict_list(list: list[dict], key: str) -> float:
+  """ 
+  retorna el minimo valor en relacion a una clave especifica, de una lista de diccionarios
+  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser int o float)
+  """
+  result = min(list, key = lambda item: item[key])[key]
+  return result
 
-def formatear(lista, claves_a_formatear):
-  for item in lista:
-      for clave in claves_a_formatear:
-          item[clave] = float(item[clave])
-  return lista
+def format_value_in_numeric(list: list[dict], keys: list[str], type: str) -> list[dict]:
+  """  
+  castea como int o float valores de una lista de diccionarios que sean compatibles con estos formatos\n
+  recibe la lista de diccionarios a formatear, las claves a castear en los diccionarios y el tipo de casteo
+  """
+  for item in list:
+      for key in keys:
+          if(type == "int"):
+            item[key] = int(item[key])
+          elif(type == "float"):
+            item[key] = float(item[key])
+  return list
+
+def get_total(list: list[dict], k: str) -> float:
+  """  
+  calcula la suma de una determinada clave en una lista de diccionarios
+  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser inn o float)
+  retorna la suma de los valores de la clave especificada 
+  """
+  total = sum(item[k] for item in list)
+  return total
+
+def get_average(list: list[dict], k: str) -> float: 
+  """  
+  recorre una lista de diccionarios y calcula el promedio, a partir de una clave especificada
+  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser inn o float)
+  retorna el promedio de los valores de la clave especificada 
+  """
+  average = round(get_total(list, k) / len(list), 2) 
+  return average
 
 def proceed():
+    """  
+    valida si el usuario desea seguir ejecutando el programa luego de una consulta realizada\n
+    recibe un determinado input por parte del usuario y en base a lo obtenido corta la ejecucion o permite que se siga ejecutando el programa
+    """
     proceed = input("Quieres realizar una nueva consulta (s-n)? ").lower()
     while proceed != "s" and proceed != "n":
       proceed = input("Quieres realizar una nueva consulta (s-n)? ").lower()
@@ -485,8 +531,10 @@ def proceed():
       clear_console() 
 
 def clear_console():
+  """  
+  limpia la consola
+  """
   os.system('cls' if os.name == 'nt' else 'clear')
-
 
 # App 
 show_menu(lista_personajes)
