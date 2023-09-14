@@ -66,3 +66,37 @@ print(personas)
 print(formatear_diccionario(personas, claves_a_seleccionar))
 
 -----
+
+FUNCIONES LAMBDA
+
+# -> las funciones lambda o anonimas son una manera abreviada de escribir una funcion simple. 
+# -> segun la documentacion de python "... son solo una notacion abreviada si eres demasiado perezoso para definir una funcion"
+
+# Ejemplos
+
+def sumar(a, b):
+    return a + b
+
+sumar_lambda = lambda a, b: a + b
+
+print(sumar_lambda(10, 8))
+
+# con lambda es comun usar metodos y funciones propias de python como map y filter
+
+----- 
+
+OPERADORES TERNARIOS (mas conocidos en python como EXPRESIONES CONDICIONALES) 
+
+mayor = lambda a, b: f"{a}.1 es mayor" if a > b else f"{b}.2 es mayor"
+print(mayor(26,26)) 
+
+# if 8 > 4 ? True : False
+print(True if 8 > 9 else False)
+
+input_nombre_usuario = "None"
+input_nombre_usuario = None
+print(input_nombre_usuario if input_nombre_usuario else "No está definido")
+
+----- 
+
+LISTAS ANIDADAS
