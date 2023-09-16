@@ -67,6 +67,55 @@ print(formatear_diccionario(personas, claves_a_seleccionar))
 
 -----
 
+funciones max() y min()
+
+array = [70, 54, 16, 51]
+print(max(array))
+print(min(array))
+
+listado_personas = [
+{
+    "nombre": "lionel",
+    "edad": 2315,
+    "velocidad": 83.5151151531,
+    "fuerza": 7.75862
+},
+{
+    "nombre": "rocio",
+    "edad": 2300,
+    "velocidad": 84,
+    "fuerza": 7
+},
+{
+    "nombre": "carolina",
+    "edad": 270,
+    "velocidad": 83,
+    "fuerza": 6
+}
+]
+
+# MAXIMOS vvv 
+edad_maxima = max(listado_personas, key = lambda diccionario_persona: diccionario_persona['edad'])['edad']
+print(f"edad maxima = {edad_maxima}")
+
+velocidad_maxima = max(listado_personas, key = lambda diccionario_persona: diccionario_persona['velocidad'])['velocidad']
+print(f"velocidad maxima = {velocidad_maxima}")
+
+fuerza_maxima = max(listado_personas, key = lambda diccionario_persona: diccionario_persona['fuerza'])['fuerza']
+print(f"fuerza maxima = {fuerza_maxima}")
+
+# MINIMOS vvv
+edad_minima = min(listado_personas, key = lambda diccionario_persona: diccionario_persona['edad'])['edad']
+print(f"edad minima = {edad_minima}")
+
+velocidad_minima = min(listado_personas, key = lambda diccionario_persona: diccionario_persona['velocidad'])['velocidad']
+print(f"velocidad minima = {velocidad_minima}")
+
+fuerza_minima = min(listado_personas, key = lambda diccionario_persona: diccionario_persona['fuerza'])['fuerza']
+print(f"fuerza minima = {fuerza_minima}")
+
+----- 
+
 FUNCIONES LAMBDA
 
 # -> las funciones lambda o anonimas son una manera abreviada de escribir una funcion simple. 
