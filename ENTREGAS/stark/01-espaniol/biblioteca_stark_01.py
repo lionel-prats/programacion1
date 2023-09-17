@@ -34,7 +34,8 @@ o - Listar todos los superhéroes agrupados por tipo de inteligencia
   """
 }
 
-texto_default = "Elija una opcion entre \"a\" y \"o\" o presione q para salir: "
+lista_inputs_validos = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "q"]
+texto_default = "Elija una opcion entre \"a\" y \"o\", o presione \"q\" para salir: "
 
 def reducir_diccionarios_en_lista(lista: list[dict], campos: list[str]) -> list[dict]:
     """  
@@ -124,17 +125,27 @@ def mostrar_menu():
   
 def continuar(input_usuario: str) -> bool:
   """  
-  valida si el usuario desea realizar una nueva consulta\n
-  recibe un input del usuario: "c" para realizar una consulta o "q" para salir del programa\n
-  retorna True si "c" o False si "n"
+  accion: valida si el usuario desea realizar una nueva consulta\n
+  parametros: input del usuario [input_usuario]\n
+  retorna: True si el input es valido o False si es "q"
   """
-  while input_usuario != "1" and input_usuario != "2" and input_usuario != "3" and input_usuario != "4" and input_usuario != "5" and input_usuario != "6" and input_usuario != "7" and input_usuario != "q":
+  while input_usuario == "Q" or not buscar_elemento_en_lista(input_usuario, lista_inputs_validos):
+    print(input_usuario)
     mostrar_menu()
-    input_usuario = input(texto_default).lower()
+    input_usuario = input(texto_default)
   if input_usuario == "q":
     limpiar_consola()
     return False
   return input_usuario
+
+def buscar_elemento_en_lista(elemento, lista):
+  """  
+  accion: busca un elemento en una lista de un solo nivel de objetos\n
+  parametros: elemento a buscar [elemento] y lista en la que buscar [lista]\n
+  retorna: True si el elemento existe en la lista, False en caso contrario
+  """
+  elemento = elemento.lower() 
+  return elemento in lista
 
 def limpiar_consola():
     """  

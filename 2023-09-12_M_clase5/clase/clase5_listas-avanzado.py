@@ -1,3 +1,12 @@
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/2023-09-12_M_clase5/clase
+# python clase5_listas-avanzado.py
+
+import os
+if os.name in ["ce", "nt", "dos"]: # windows
+    os.system("cls")
+else: # linux o mac
+    os.system("clear")
+    
 # FUNCIONES LAMBDA
 
 # -> las funciones lambda o anonimas son una manera abreviada de escribir una funcion simple. 
@@ -17,8 +26,8 @@ print(sumar_lambda(10, 8))
 # -----------------------------------------------------------------------------------------------
 
 # OPERADORES TERNARIOS (mas conocidos en python como EXPRESIONES CONDICIONALES) 
-
 print ("\n---------- OPERADORES TERNARIOS ----------\n")
+
 
 mayor = lambda a, b: f"{a}.1 es mayor" if a > b else f"{b}.2 es mayor"
 print(mayor(26,26)) 
