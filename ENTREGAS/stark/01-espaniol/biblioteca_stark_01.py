@@ -27,7 +27,7 @@ h - Recorrer la lista y determinar la altura promedio de los  superhéroes de g�
 i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
 j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
 k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
-l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con ‘No Tiene’)
+l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
 m - Listar todos los superhéroes agrupados por color de ojos.
 n - Listar todos los superhéroes agrupados por color de pelo.
 o - Listar todos los superhéroes agrupados por tipo de inteligencia
@@ -64,7 +64,39 @@ def imprimir_lista_de_diccionarios(lista: list[dict], titulo = None):
     listado += "\n"
     nro_orden += 1
   print(listado)
-      
+
+def imprimir_diccionario_formato_tabla(diccionario: dict, encabezado: str, titulo = None):
+  """  
+  ACCION: imprime por consola un titulo (opcional) [titulo] y un diccionarios [diccionario]\n
+  PARAMETROS: el diccionario a imprimir [diccionario] y un titulo [titulo] opcional
+  RETURN: None
+  """
+  if titulo:
+    print(f"\n{titulo}")
+  print("\n")
+  listado = f"{encabezado}\n"
+  for k, v in diccionario.items():
+    listado += f"{k} | {v}\n"
+  print(listado)    
+
+def imprimir_lista_diccionarios_agrupando_segun_clave(titulo: str, subtitulo: str, lista: list[dict], clave_agrupamiento, claves_a_imprimir: list):
+  """  
+  ACCION: lista por consola la lista de diccionarios recibida, agrupando segun una clave determinada\n
+  PARAMETROS:\n
+  [titulo] = titulo que se mostrara por pantalla\n
+  [subtitulo] = subtitulo para cada grupo de diccionarios\n
+  [lista] = lista e diccionarios que se procesara\n
+  [clave_agrupamiento] = clave por la cual se agruparan los diccionarios\n
+  [claves_a_imprimir] = lista con las claves (y valores) que se quiere imprimir de cada diccionario\n
+  RETURN: None
+  """
+  print(f"\n{titulo}\n")
+  tipos_de_clave = listado_de_valores_existentes_segun_clave(lista, clave_agrupamiento)
+  for tipo_de_clave in tipos_de_clave:
+    pass     
+    print(f"{subtitulo} \"{tipo_de_clave}\":")
+    imprimir_lista_de_diccionarios( reducir_diccionarios_en_lista( filtrar_por_clave(lista, clave_agrupamiento, tipo_de_clave), claves_a_imprimir ) )
+
 def valor_maximo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: str) -> float:
   """ 
   retorna el maximo valor en relacion a una clave especifica, de una lista de diccionarios\n
@@ -129,7 +161,7 @@ def continuar(input_usuario: str) -> bool:
   parametros: input del usuario [input_usuario]\n
   retorna: True si el input es valido o False si es "q"
   """
-  while input_usuario == "Q" or not buscar_elemento_en_lista(input_usuario, lista_inputs_validos):
+  while input_usuario == "Q" or not existe_elemento_en_lista(input_usuario, lista_inputs_validos):
     print(input_usuario)
     mostrar_menu()
     input_usuario = input(texto_default)
@@ -138,14 +170,39 @@ def continuar(input_usuario: str) -> bool:
     return False
   return input_usuario
 
-def buscar_elemento_en_lista(elemento, lista):
+def existe_elemento_en_lista(elemento, lista: list):
   """  
-  accion: busca un elemento en una lista de un solo nivel de objetos\n
+  accion: valida si existe un elemento en una lista de un solo nivel de objetos\n
   parametros: elemento a buscar [elemento] y lista en la que buscar [lista]\n
   retorna: True si el elemento existe en la lista, False en caso contrario
   """
   elemento = elemento.lower() 
   return elemento in lista
+
+def listado_de_valores_existentes_segun_clave(lista: list[dict], clave: str):
+  """  
+  ACCION: en una lista de diccionarios [lista] identifica los valores existentes para una determinada clave [clave]\n
+  PARAMETROS: lista de diccionarios [lista] y clave a analizar [clave]\n
+  RETURN: un iterable con los valores encontrados
+  """
+  iterable = set()
+  for diccionario in lista:
+      iterable.add(diccionario[clave])
+  return iterable
+
+def cantidad_valores_segun_clave(lista: list[dict], clave, mensaje_error = None) ->dict:
+  """  
+  ACCION: dada una lista de diccionarios [lista] y una clave a analizar [clave], retornara un nuevo diccionario con los valores existentes de dicha clave en la lista de diccionarios (informando si en algun caso no existe o es None mediante el parametro opcional [mensaje_error]) y la cantidad de repeticiones de cada uno\n
+  PARAMETROS: lista de diccionarios [lista], clave a analizar [clave] y opcionalmente el mensaje de error [mensaje_error]\n
+  RETURN: diccionario con los resultados
+  """
+  diccionario_resultante = {}
+  for diccionario in lista:
+      nueva_clave = diccionario.get(clave, mensaje_error) 
+      if not nueva_clave:
+        nueva_clave = mensaje_error
+      diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
+  return diccionario_resultante
 
 def limpiar_consola():
     """  
@@ -157,79 +214,8 @@ def limpiar_consola():
     else: # linux o mac
       os.system("clear")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 if __name__ == "__main__":
-  from datos_stark import lista_personajes
-  # lista_reducida = reducir_diccionarios_en_lista(lista_personajes, ["nombre", "altura", "peso", "fuerza"])
-  # formatear_valores_diccionario_a_numericos(lista_reducida, ["altura", "peso", "fuerza"], "float")
-  # imprimir_lista_de_diccionarios(lista_reducida, "moroco")
-  listado_personas = [
-    {
-      "nombre": "lionel",
-      "edad": 2315,
-      "velocidad": 83.5151151531,
-      "fuerza": 7.75862,
-      "cuadro": "river"
-    },
-    {
-      "nombre": "luis",
-      "edad": 2300,
-      "velocidad": 84,
-      "fuerza": 7,
-      "cuadro": "river"
-    },
-    {
-      "nombre": "alex",
-      "edad": 270,
-      "velocidad": 83,
-      "fuerza": 6,
-      "cuadro": "boca"
-    },
-    {
-      "nombre": "sergio",
-      "edad": 270,
-      "velocidad": 83,
-      "fuerza": 6,
-      "cuadro": "racing"
-    }
-  ]
+  pass
 
-  nueva = filtrar_por_clave(listado_personas, "edad", 2300)
-  for dict in nueva: 
-    print(dict)
-  # imprimir_lista_de_diccionarios(listado_personas)
-  # print(obtener_total(listado_personas, "fuerza"))
-  # print(obtener_promedio(listado_personas, "fuerza"))
-  
 # cd Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/01-espaniol>
 # python biblioteca_stark_01.py

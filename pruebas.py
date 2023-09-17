@@ -9,21 +9,62 @@ else: # linux o mac
 
 """
 estoy trabajando en python
-tengo que hacer algo como esto
-el problema es que las opciones validas son entre la a y la o (valen mayusculas o minusculas), y es demasiado engorroso validar por cada posibilidad
+tengo que esta lista de diccionarios
+necesito que valores existen para la propiedad "cuadro"
 cual es la forma mas eficiente y profesional de hacerlo?
 """
 
+listado_personas = [
+    {
+      "nombre": "ale",
+      "cuadro": "estudiantes"
+    },
+    {
+      "nombre": "bata",
+      "cuadro": "independiente"
+    },
+    {
+      "nombre": "cabe",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "checho",
+      "cuadro": "racing"
+    },
+    {
+      "nombre": "emi",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "fara",
+      "cuadro": "independiente"
+    },
+    {
+      "nombre": "juan",
+      "nombre": "cabe",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "lionel",
+      "cuadro": "all boys"
+    },
+    {
+      "nombre": "maro",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "negro",
+      "cuadro": "river"
+    }
+]
 
-def validar(input_usuario, lista_opciones_validas):
-    if input_usuario == "Q":
-        return False 
-    input_usuario = input_usuario.lower() 
-    return input_usuario in lista_opciones_validas
+cuadro_objetivo = "boca"
 
-opciones_validas = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "q"]
+# Usar filter con una función lambda para filtrar los diccionarios
+personas_con_cuadro_objetivo = list(filter(lambda persona: persona["cuadro"] == cuadro_objetivo, listado_personas))
 
-input_usuario = "M"
+# Imprimir la lista de personas con el cuadro "independiente"
+for i, persona in enumerate(personas_con_cuadro_objetivo):
+    print(f"{i+1}: {persona['nombre']} - Cuadro: {persona['cuadro']}")
 
-print(validar(input_usuario, opciones_validas))
 

@@ -659,3 +659,82 @@ diccionario_con_elementos =\
 print(diccionario_con_elementos)
 diccionario_con_elementos.clear()
 print(diccionario_con_elementos)
+
+----- 
+
+set()
+
+listado_personas = [
+    {
+      "nombre": "ale",
+      "cuadro": "estudiantes"
+    },
+    {
+      "nombre": "bata",
+      "cuadro": "independiente"
+    },
+    {
+      "nombre": "cabe",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "checho",
+      "cuadro": "racing"
+    },
+    {
+      "nombre": "emi",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "fara",
+      "cuadro": "independiente"
+    },
+    {
+      "nombre": "juan",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "lionel",
+      "cuadro": "all boys"
+    },
+    {
+      "nombre": "maro",
+      "cuadro": "boca"
+    },
+    {
+      "nombre": "negro",
+      "cuadro": "river"
+    }
+]
+
+# Utilizamos un conjunto (set) para almacenar los valores únicos de la propiedad "cuadro"
+cuadros = set() # Build an unordered collection of unique elements.
+
+for persona in listado_personas:
+    cuadros.add(persona["cuadro"])
+print(type(cuadros))
+print(cuadros)
+
+cuadros = list(cuadros)
+print(type(cuadros))
+print(cuadros)
+
+cuadros.sort()
+
+for cuadro in cuadros:
+    print(cuadro)
+
+----- 
+
+cantidad de valores que se repiten segun clave en una lista de diccionarios vvv 
+
+def cantidad_valores_segun_clave(lista: list[dict], clave) ->dict:
+    diccionario_resultante = {}
+    for diccionario in lista:
+        nueva_clave = diccionario.get(clave, f"No existe \"{clave}\"") 
+        if not nueva_clave:
+            nueva_clave = f"No existe \"{clave}\""
+        diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
+    return diccionario_resultante
+
+-----
