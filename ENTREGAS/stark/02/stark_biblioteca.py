@@ -3,7 +3,7 @@ import os
 menu =\
 {
   "desafio_00": """
-DESAFIO STARK 00
+DESAFIO STARK 02
 
 1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
 2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
@@ -27,15 +27,14 @@ h - Recorrer la lista y determinar la altura promedio de los  superhéroes de g�
 i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
 j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
 k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
-l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
+l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con ‘No Tiene’)
 m - Listar todos los superhéroes agrupados por color de ojos.
 n - Listar todos los superhéroes agrupados por color de pelo.
 o - Listar todos los superhéroes agrupados por tipo de inteligencia
   """
 }
 
-lista_inputs_validos = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "q"]
-texto_default = "Elija una opcion entre \"a\" y \"o\", o presione \"q\" para salir: "
+texto_default = "Elija una opcion entre 1 y 7 o presione q para salir: "
 
 def reducir_diccionarios_en_lista(lista: list[dict], campos: list[str]) -> list[dict]:
     """  
@@ -64,39 +63,7 @@ def imprimir_lista_de_diccionarios(lista: list[dict], titulo = None):
     listado += "\n"
     nro_orden += 1
   print(listado)
-
-def imprimir_diccionario_formato_tabla(diccionario: dict, encabezado: str, titulo = None):
-  """  
-  ACCION: imprime por consola un titulo (opcional) [titulo] y un diccionarios [diccionario]\n
-  PARAMETROS: el diccionario a imprimir [diccionario] y un titulo [titulo] opcional
-  RETURN: None
-  """
-  if titulo:
-    print(f"\n{titulo}")
-  print("\n")
-  listado = f"{encabezado}\n"
-  for k, v in diccionario.items():
-    listado += f"{k} | {v}\n"
-  print(listado)    
-
-def imprimir_lista_diccionarios_agrupando_segun_clave(titulo: str, subtitulo: str, lista: list[dict], clave_agrupamiento, claves_a_imprimir: list):
-  """  
-  ACCION: lista por consola la lista de diccionarios recibida, agrupando segun una clave determinada\n
-  PARAMETROS:\n
-  [titulo] = titulo que se mostrara por pantalla\n
-  [subtitulo] = subtitulo para cada grupo de diccionarios\n
-  [lista] = lista e diccionarios que se procesara\n
-  [clave_agrupamiento] = clave por la cual se agruparan los diccionarios\n
-  [claves_a_imprimir] = lista con las claves (y valores) que se quiere imprimir de cada diccionario\n
-  RETURN: None
-  """
-  print(f"\n{titulo}\n")
-  tipos_de_clave = listado_de_valores_existentes_segun_clave(lista, clave_agrupamiento)
-  for tipo_de_clave in tipos_de_clave:
-    pass     
-    print(f"{subtitulo} \"{tipo_de_clave}\":")
-    imprimir_lista_de_diccionarios( reducir_diccionarios_en_lista( filtrar_por_clave(lista, clave_agrupamiento, tipo_de_clave), claves_a_imprimir ) )
-
+      
 def valor_maximo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: str) -> float:
   """ 
   retorna el maximo valor en relacion a una clave especifica, de una lista de diccionarios\n
@@ -115,8 +82,12 @@ def valor_minimo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: st
 
 def formatear_valores_diccionario_a_numericos(lista: list[dict], claves: list[str], tipo_casteo: str) -> list[dict]:
   """  
-  castea como int o float valores de una lista de diccionarios que sean compatibles con estos formatos\n
-  recibe la lista de diccionarios a formatear, las claves a castear en los diccionarios y el tipo de casteo que se busca
+  ACCION: castea como int o float valores de una lista de diccionarios que sean compatibles con estos formatos\n
+  PARAMETROS:\n 
+  [lista] -> lista de diccionarios a formatear\n
+  [claves] -> las claves a castear en los diccionarios\n
+  [tipo_casteo] -> el tipo de casteo que se busca (int o float)\n 
+  RETURN: lista de diccionarios formateada
   """
   for diccionario in lista:
       for clave in claves:
@@ -153,56 +124,119 @@ def obtener_promedio(lista_diccionarios: list[dict], clave: str) -> float:
 
 def mostrar_menu():
   limpiar_consola()
-  print(menu["desafio_01"])
+  print(menu["desafio_00"])
   
+# ----------------- inicio bloque requerimientos desafio 02
+
+def stark_normalizar_datos(lista: list[dict]) -> list[dict]:
+  """  
+  ACCION: recorre una lista de diccionarios y castea a float toda propiedad compatible con ese formato\n
+  PARAMETROS:\n 
+  [lista] -> lista de diccionarios a formatear\n
+  RETURN: la lista recibida con las propiedades factibles de ser casteada a float, casteadas
+  """
+  if not len(lista):
+    return "Error: Lista de héroes vacía"
+  respuesta = None
+  for diccionario in lista:
+    for k, v in diccionario.items():
+      if type(v) == str:
+        resultado_casteo = convertir_string_en_float(v)
+        if resultado_casteo:
+          diccionario[k] = resultado_casteo
+          if not respuesta:
+            respuesta = "Datos normalizados"
+        else:
+          diccionario[k] = v
+      else:
+        diccionario[k] = v
+  return respuesta
+
+def convertir_string_en_float(string):
+  """ 
+  ACCION: recibe una string, y de ser compatible es casteado a float:\n 
+  PARAMETROS:\n 
+  [string] -> string a formatear\n
+  RETURN: el string recibido casteado a float si el tipo de dato original es compatible, False en caso contrario
+  """
+  if type(string) == str:
+    try:
+      return float(string)
+    except ValueError:
+      return False
+  return False
+
+def obtener_nombre(diccionario: dict) -> str:
+  """  
+  ACCION: obtiene el valor de la propiedad "nombre" de un diccionario y lo retorna en una leyenda (str):\n 
+  PARAMETROS:\n
+  [diccionario] -> diccionario del cual se obtendra la el valor de la clave "nombre"\n
+  RETURN: una leyenda (str)
+  """
+  return f"Nombre: {diccionario.get('nombre', 'sin datos')}"
+
+def obtener_nombre_y_dato(diccionario: dict, key: str) -> str:
+  """  
+  ACCION: recibe un diccionario del que obtiene los valores de la propiedad "nombre" y de la especificada en [key], y con esos datos construye y retorna una leyenda (str):\n 
+  PARAMETROS:\n
+  [diccionario] -> diccionario del cual se obtendran los datos para construir la leyenda a retornar\n
+  [key] -> clave dinamica recibida como parametro\n
+  RETURN: una leyenda (str)
+  """
+  return f"Nombre: {diccionario.get('nombre', 'sin datos')} | {key}: {diccionario[key]}"
+
+def stark_imprimir_nombres_heroes(lista: list[dict]):
+  """  
+  ACCION: imprime el listado de nombres de los heroes:\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  RETURN: si la lista está vacía retornará -1, caso contrario None
+  """
+  if not len(lista):
+    return -1
+  imprimir_dato("\n1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe\n")
+  for i, heroe in enumerate(lista):
+    imprimir_dato(f"{i + 1}- {obtener_nombre(heroe)}")
+  imprimir_dato("\n")
+
+def stark_imprimir_nombres_alturas(lista: list[dict]):
+  """  
+  ACCION: imprime el listado de nombres y alturas de los heroes:\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  RETURN: si la lista está vacía retornará -1, caso contrario None
+  """
+  if not len(lista):
+    return -1
+  imprimir_dato("\n2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo\n")
+  for i, heroe in enumerate(lista):
+    imprimir_dato(f"{i + 1}- {obtener_nombre_y_dato(heroe, 'altura')}")
+  imprimir_dato("\n")
+
+def imprimir_dato(string: str):
+  """  
+  ACCION: recibe un string y lo imprime por consola\n 
+  PARAMETROS:\n
+  [string] -> string a imprimir\n
+  RETURN: None
+  """
+  print(string)
+
+# ----------------- fin bloque requerimientos desafio 02
+
 def continuar(input_usuario: str) -> bool:
   """  
-  accion: valida si el usuario desea realizar una nueva consulta\n
-  parametros: input del usuario [input_usuario]\n
-  retorna: True si el input es valido o False si es "q"
+  valida si el usuario desea realizar una nueva consulta\n
+  recibe un input del usuario: "c" para realizar una consulta o "q" para salir del programa\n
+  retorna True si "c" o False si "n"
   """
-  while input_usuario == "Q" or not existe_elemento_en_lista(input_usuario, lista_inputs_validos):
-    print(input_usuario)
+  while input_usuario != "1" and input_usuario != "2" and input_usuario != "3" and input_usuario != "4" and input_usuario != "5" and input_usuario != "6" and input_usuario != "7" and input_usuario != "q":
     mostrar_menu()
-    input_usuario = input(texto_default)
+    input_usuario = input(texto_default).lower()
   if input_usuario == "q":
     limpiar_consola()
     return False
   return input_usuario
-
-def existe_elemento_en_lista(elemento, lista: list):
-  """  
-  accion: valida si existe un elemento en una lista de un solo nivel de objetos\n
-  parametros: elemento a buscar [elemento] y lista en la que buscar [lista]\n
-  retorna: True si el elemento existe en la lista, False en caso contrario
-  """
-  elemento = elemento.lower() 
-  return elemento in lista
-
-def listado_de_valores_existentes_segun_clave(lista: list[dict], clave: str):
-  """  
-  ACCION: en una lista de diccionarios [lista] identifica los valores existentes para una determinada clave [clave]\n
-  PARAMETROS: lista de diccionarios [lista] y clave a analizar [clave]\n
-  RETURN: un iterable con los valores encontrados
-  """
-  iterable = set()
-  for diccionario in lista:
-      iterable.add(diccionario[clave])
-  return iterable
-
-def cantidad_valores_segun_clave(lista: list[dict], clave, mensaje_error = None) ->dict:
-  """  
-  ACCION: dada una lista de diccionarios [lista] y una clave a analizar [clave], retornara un nuevo diccionario con los valores existentes de dicha clave en la lista de diccionarios (informando si en algun caso no existe o es None mediante el parametro opcional [mensaje_error]) y la cantidad de repeticiones de cada uno\n
-  PARAMETROS: lista de diccionarios [lista], clave a analizar [clave] y opcionalmente el mensaje de error [mensaje_error]\n
-  RETURN: diccionario con los resultados
-  """
-  diccionario_resultante = {}
-  for diccionario in lista:
-      nueva_clave = diccionario.get(clave, mensaje_error) 
-      if not nueva_clave:
-        nueva_clave = mensaje_error
-      diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
-  return diccionario_resultante
 
 def limpiar_consola():
     """  
@@ -215,7 +249,10 @@ def limpiar_consola():
       os.system("clear")
 
 if __name__ == "__main__":
-  pass
+  limpiar_consola()
+  from data_stark import lista_personajes
+  stark_imprimir_nombres_heroes(lista_personajes)
+  stark_imprimir_nombres_alturas(lista_personajes)
 
-# cd Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/01-espaniol>
-# python biblioteca_stark_01.py
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/02
+# python stark_biblioteca.py

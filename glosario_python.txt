@@ -19,6 +19,116 @@ except ValueError:
 
 -----
 
+FORMA QUE ENCONTRE PARA VALIDAR SIN LUGAR A ERRORES SI UN DATO PUEDE SER CASTEADO A FLOAT vvv 
+
+def stark_normalizar_datos(valor):
+  if type(valor) == int:
+    return "Es int, no hace falta castearlo"
+  elif type(valor) == str:
+    try:
+      valor = float(valor)
+      return "Es string y se puede castear a float"
+    except ValueError:
+      return "Es string pero no se puede castear a float"
+  else:
+    return "No es string ni int. Si es float ya esta casteado, y si es otro tipo de dato no hace falta castearlo"
+     
+print(f"int 15 | Rta = {stark_normalizar_datos(15)}\n")
+
+print(f"float 25.4 | Rta = {stark_normalizar_datos(25.4)}\n")
+
+print(f"str '118.457' | Rta = {stark_normalizar_datos('118.457')}\n")
+
+print(f"str '118.4.57' | Rta = {stark_normalizar_datos('118.4.57')}\n")
+
+print(f"bool False | Rta = {stark_normalizar_datos(False)}\n")
+
+print(f"str 'AC010BO' | Rta = {stark_normalizar_datos('AC010BO')}\n")
+
+print(f"str '154' | Rta = {stark_normalizar_datos('154')}\n")
+
+print(f"dict (15: 15.5) | Rta = {stark_normalizar_datos({15: 15.5})}\n")
+
+print(f"tuple (15, 20) | Rta = {stark_normalizar_datos((15, 20))}\n")
+
+print(f"list [15, 20] | Rta = {stark_normalizar_datos([15, 20])}\n")
+
+-----
+
+FORMA QUE ENCONTRE PARA RECORRER UNA LISTA DE DICCIONARIOS Y CASTEAR A FLOAT TODAS LAS PROPIEDADES FACTIBLES DE SER CASTEADAS vvv 
+
+personas = [
+  {
+    "nombre": "Lionel",
+    "apellido": "Prats",
+    "edad": 38,
+    "anio_nacimiento": "1985",
+    "altura": "1.83",
+    "patente": "A010BO"
+  },
+  {
+    "nombre": "Sergio",
+    "apellido": "Balestrini",
+    "edad": 39,
+    "anio_nacimiento": "1984",
+    "altura": "1.85",
+    "patente": "AF154HJ"
+  },
+  {
+    "nombre": "Santiago",
+    "apellido": "Fiorini",
+    "edad": 40,
+    "anio_nacimiento": "1983",       
+    "altura": "1.90",
+    "patente": "PFG264"
+  }
+]
+
+def stark_normalizar_datos(lista: list[dict]) -> list[dict]:
+  """  
+  ACCION: recorre una lista de diccionarios y castea a float toda propiedad compatible con ese formato\n
+  PARAMETROS:\n 
+  [lista] -> lista de diccionarios a formatear\n
+  RETURN: una lista de diccionarios igual a la recibida, en la que cada propiedad factible de ser casteada a float será de ese tipo de dato
+  """
+  respuesta = None
+  nueva_lista = []
+  for diccionario in lista:
+    nuevo_diccionario = {}
+    for k, v in diccionario.items():
+      if type(v) == str:
+        resultado_casteo = convertir_string_en_float(v)
+        if resultado_casteo:
+          nuevo_diccionario[k] = resultado_casteo
+          if not respuesta:
+            respuesta = "Datos normalizados"
+        else:
+          nuevo_diccionario[k] = v
+      else:
+        nuevo_diccionario[k] = v
+    nueva_lista.append(nuevo_diccionario)
+  return nueva_lista
+
+def convertir_string_en_float(string):
+  """ 
+  ACCION: recibe una string, y de ser compatible es casteado a float:\n 
+  [string] -> string a formatear\n
+  RETURN: el string recibido casteado a float si el tipo de dato original es compatible, False en caso contrario
+  """
+  if type(string) == str:
+    try:
+      return float(string)
+    except ValueError:
+      return False
+  return False
+  
+
+print(personas, "\n")
+personas = stark_normalizar_datos(personas)
+print(personas)
+
+-----
+
 Verificar tipo de dato
 
 print(type(123))
