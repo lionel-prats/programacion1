@@ -1,3 +1,11 @@
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Desafío Stark 02
+"""
+
 import os
 
 menu =\
@@ -35,98 +43,6 @@ o - Listar todos los superhéroes agrupados por tipo de inteligencia
 }
 
 texto_default = "Elija una opcion entre 1 y 7 o presione q para salir: "
-
-def reducir_diccionarios_en_lista(lista: list[dict], campos: list[str]) -> list[dict]:
-    """  
-    genera una nueva lista de diccionarios a partir de una recibida, prsisitiendo en los diccionarios las claves especificadas por el usuario\n
-    recibe una lista de diccionarios y la lista de claves que deben persistir\n
-    retorna una lista de diccionarios reducidos respecto a los de la lista original
-    """
-    nueva_lista = [{campo: diccionario[campo] for campo in campos} for diccionario in lista]
-    return nueva_lista
-
-def imprimir_lista_de_diccionarios(lista: list[dict], titulo = None):
-  """  
-  imprime por consola un titulo (opcional) y un listado de diccionarios\n
-  recibe un titulo (str - opcional) y una lista de diccionarios
-  no retorna nada
-  """
-  if titulo:
-    print(f"\n{titulo}\n")
-  listado = ""
-  nro_orden = 1
-  for diccionario in lista: 
-    listado += f"{nro_orden}- "
-    for k, v in diccionario.items():
-      listado += f"{k}: {v} | "
-    listado = listado[:-3]
-    listado += "\n"
-    nro_orden += 1
-  print(listado)
-      
-def valor_maximo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: str) -> float:
-  """ 
-  retorna el maximo valor en relacion a una clave especifica, de una lista de diccionarios\n
-  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser int o float)
-  """
-  resultado = max(lista, key = lambda diccionario: diccionario[clave])[clave]
-  return resultado
-
-def valor_minimo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: str) -> float:
-  """ 
-  retorna el minimo valor en relacion a una clave especifica, de una lista de diccionarios\n
-  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser int o float)
-  """
-  resultado = min(lista, key = lambda diccionario: diccionario[clave])[clave]
-  return resultado
-
-def formatear_valores_diccionario_a_numericos(lista: list[dict], claves: list[str], tipo_casteo: str) -> list[dict]:
-  """  
-  ACCION: castea como int o float valores de una lista de diccionarios que sean compatibles con estos formatos\n
-  PARAMETROS:\n 
-  [lista] -> lista de diccionarios a formatear\n
-  [claves] -> las claves a castear en los diccionarios\n
-  [tipo_casteo] -> el tipo de casteo que se busca (int o float)\n 
-  RETURN: lista de diccionarios formateada
-  """
-  for diccionario in lista:
-      for clave in claves:
-          if(tipo_casteo == "int"):
-            diccionario[clave] = int(diccionario[clave])
-          elif(tipo_casteo == "float"):
-            diccionario[clave] = float(diccionario[clave])
-  return lista
-
-def filtrar_por_clave(lista_diccionarios: list[dict], clave: str, valor_buscado) -> list[dict]:
-  """
-  ACCION: genera una lista de diccionarios a partir de una lista original [lista_diccionarios], persistiendo los diccionarios cuya clave "n" [clave] coincida con un valor dado [valor_buscado]\n
-  PARAMETROS: lista de diccionarios [lista_diccionarios], clave a evaluar [clave], valor a evaluar [valor_buscado]
-  """
-  return [diccionario for diccionario in lista_diccionarios if diccionario[clave] == valor_buscado]
-
-def obtener_total(lista: list[dict], k: str) -> float:
-  """  
-  calcula la suma de una determinada clave en una lista de diccionarios (el tipo de dato de la clave a sumar debe ser int o float)\n
-  recibe una lista de diccionarios y la clave a contabilizar (el tipo de dato debe ser int o float)\n
-  retorna la suma de los valores de la clave especificada 
-  """
-  total = sum(item[k] for item in lista)
-  return total
-
-def obtener_promedio(lista_diccionarios: list[dict], clave: str) -> float: 
-  """  
-  calcula el promedio de una determinada clave en una lista de diccionarios (el tipo de dato de la clave a considerar debe ser int o float)\n
-  recibe una lista de diccionarios y la clave a considerar (el tipo de dato debe ser int o float)\n
-  retorna el promedio de los valores de la clave especificada en relacion a la cantidad de diccionarios en la lista recibida 
-  """
-  promedio = round(obtener_total(lista_diccionarios, clave) / len(lista_diccionarios), 2) 
-  return promedio
-
-def mostrar_menu():
-  limpiar_consola()
-  print(menu["desafio_00"])
-  
-# ----------------- inicio bloque requerimientos desafio 02
 
 def stark_normalizar_datos(lista: list[dict]) -> list[dict]:
   """  
@@ -177,13 +93,117 @@ def obtener_nombre(diccionario: dict) -> str:
 
 def obtener_nombre_y_dato(diccionario: dict, key: str) -> str:
   """  
-  ACCION: recibe un diccionario del que obtiene los valores de la propiedad "nombre" y de la especificada en [key], y con esos datos construye y retorna una leyenda (str):\n 
+  ACCION: recibe un diccionario del que obtiene los valores de la propiedad "nombre" y de la propiedad especificada en [key], y con esos datos construye y retorna una leyenda (str):\n 
   PARAMETROS:\n
   [diccionario] -> diccionario del cual se obtendran los datos para construir la leyenda a retornar\n
   [key] -> clave dinamica recibida como parametro\n
-  RETURN: una leyenda (str)
+  RETURN: "Nombre: xxx | [key]: xxx" (str)
   """
-  return f"Nombre: {diccionario.get('nombre', 'sin datos')} | {key}: {diccionario[key]}"
+  nombre = diccionario.get('nombre', 'sin datos')
+  valor_dinamico = diccionario.get(key, 'sin datos')
+  return f"Nombre: {nombre} | {key}: {valor_dinamico}"
+
+def calcular_max(lista: list[dict], clave: str):
+  """ 
+  ACCION: recibe una lista de diccionarios y una key para la que se buscará el máximo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor máximo hallado \n 
+  PARAMETROS:\n
+  [lista] -> lista de diccionarios\n
+  [key] -> clave a evaluar\n
+  RETURN: retorna un iterable de diccionarios
+  """
+  stark_normalizar_datos(lista)
+  valor_maximo = max(lista, key = lambda diccionario: diccionario[clave])[clave]
+  listado_heroes_valor_maximo = filter(lambda elemento: elemento[clave] == valor_maximo, lista)
+  return listado_heroes_valor_maximo
+
+def calcular_min(lista: list[dict], clave: str):
+  """ 
+  ACCION: recibe una lista de diccionarios y una key para la que se buscará el mínimo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor mínimoximo hallado \n 
+  PARAMETROS:\n
+  [lista] -> lista de diccionarios\n
+  [key] -> clave a evaluar\n
+  RETURN: retorna un iterable de diccionarios
+  """
+  stark_normalizar_datos(lista)
+  valor_minimo = min(lista, key = lambda diccionario: diccionario[clave])[clave]
+  listado_heroes_valor_minimo = filter(lambda elemento: elemento[clave] == valor_minimo, lista)
+  return listado_heroes_valor_minimo
+
+def calcular_max_min_dato(lista: list[dict], tipo_calculo: str, clave: str):
+  """ 
+  ACCION: recibe una lista de diccionarios [lista], un string "maximo" o "minimo" [tipo_calculo] y una key a evaluar. Dependiendo de [tipo_calculo] hallará el valor correspondiente para [clave] y retornara un iterable con todos los superheroes cuyo valor para [clave] coincida con el hallado\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  [tipo_calculo] -> "maximo" o "minimo"\n
+  [clave] -> clave a evaluar\n
+  RETURN: retorna un iterable de diccionarios
+  """
+  if tipo_calculo == "minimo": 
+    return calcular_min(lista, clave)
+  elif tipo_calculo == "maximo": 
+    return calcular_max(lista, clave)
+  return -1
+
+def sumar_dato_heroe(lista: list[dict], key: str) -> float:
+  """  
+  ACCION: calcula la suma de una determinada clave [key] en una lista de diccionarios [lista] (el tipo de dato de la clave a sumar debe ser int o float)\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  [key] -> clave a sumar (type str | value int o float)\n
+  RETURN: la suma de los valores de la clave especificada 
+  \n
+  """
+  stark_normalizar_datos(lista)
+  total = 0
+  for diccionario in lista:
+    if isinstance(diccionario, dict) and len(diccionario):
+      total += diccionario[key]
+  return total
+
+def dividir(dividendo: float, divisor: float) -> float:
+  """  
+  ACCION: calcula el resultado de la division entre dos numeros\n
+  PARAMETROS:\n
+  [divisor] -> divisor\n
+  [dividendo] -> dividendo\n
+  RETURN: el resultado de la division 
+  """
+  if divisor:
+    return dividendo / divisor
+  return divisor
+
+def calcular_promedio(lista: list[dict], key: str) -> float:
+  """  
+  ACCION: en una lista de diccionarios [lista] calcula el promedio (valor numerico) de una clave dada [key]\n
+  PARAMETROS:\n
+  [lista] -> lista de diccionarios\n
+  [key] -> clave a considerar para realizar el calculo\n
+  RETURN: el resultado del calculo (si la lista no tiene elementos, la funcion retonara 0) 
+  """
+  dividendo = sumar_dato_heroe(lista, key)
+  divisor = len(lista)
+  return dividir(dividendo, divisor)
+
+def validar_entero(string) -> bool:
+  """  
+  ACCION: recibe un string. Verifica si esta conformado unicamente por digitos\n 
+  PARAMETROS:\n
+  [string] -> str\n
+  RETURN: True si esta conformado unicamente por digitos, False en caso contrario 
+  """
+  return string.isdigit()
+
+def stark_menu_principal() -> int:
+  """  
+  ACCION: imprime el menu principal y almacena y valida el input ingresado por el usuario\n 
+  PARAMETROS: None\n
+  RETURN: si el input es un entero, retorna dicho input casteado como int, caso contrario retorna -1
+  """
+  imprimir_menu()
+  opcion_seleccionada = input(texto_default)
+  if validar_entero(opcion_seleccionada):
+    return int(opcion_seleccionada)
+  return -1
 
 def stark_imprimir_nombres_heroes(lista: list[dict]):
   """  
@@ -213,6 +233,48 @@ def stark_imprimir_nombres_alturas(lista: list[dict]):
     imprimir_dato(f"{i + 1}- {obtener_nombre_y_dato(heroe, 'altura')}")
   imprimir_dato("\n")
 
+def stark_calcular_imprimir_heroe(lista: list[dict], tipo_calculo: str, clave: str):
+  """  
+  ACCION: recibe la lista de heroes [lista] e imprime por consola los heroes cuyo valor de clave [clave] coincida con el maximo o minimo [tipo_calculo] hallado para esa clave en toda la lista\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  [tipo_calculo] -> "maximo" o "minimo"\n
+  [clave] -> clave a evaluar\n
+  RETURN: si len([]) == 0, retorna -1, caso contrario None  
+  """
+  if not len(lista):
+    return -1
+  heroes_valor_buscado = calcular_max_min_dato(lista, tipo_calculo, clave)
+  if tipo_calculo == "minimo":
+    inicio = "Menor"
+  else:
+    inicio = "Mayor"
+  for heroe in heroes_valor_buscado:
+    imprimir_dato(f"{inicio} {clave}: {obtener_nombre_y_dato(heroe, clave)}")
+  imprimir_dato("\n")
+
+def stark_calcular_imprimir_promedio_altura(lista: list[dict]):
+  """  
+  ACCION: recibe la lista de heroes [lista] e imprime por consola la altura promedio del total de los mismos\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  RETURN: si la lista de heroes esta vacia retorna -1, caso contrario None  
+  """
+  if not len(lista):
+    return -1
+  imprimir_dato("\n5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)\n")
+  imprimir_dato(f"Altura promedio: {calcular_promedio(lista, 'altura')}")
+  imprimir_dato("\n")
+
+def imprimir_menu():
+  """ 
+  ACCION: imprime el menu de opciones en consola\n
+  PARAMETROS: None\n
+  RETURN: None
+  """
+  limpiar_consola()
+  imprimir_dato(menu["desafio_00"])
+  
 def imprimir_dato(string: str):
   """  
   ACCION: recibe un string y lo imprime por consola\n 
@@ -222,16 +284,15 @@ def imprimir_dato(string: str):
   """
   print(string)
 
-# ----------------- fin bloque requerimientos desafio 02
-
 def continuar(input_usuario: str) -> bool:
-  """  
-  valida si el usuario desea realizar una nueva consulta\n
-  recibe un input del usuario: "c" para realizar una consulta o "q" para salir del programa\n
-  retorna True si "c" o False si "n"
+  """ 
+  ACCION: valida si el usuario desea realizar una nueva consulta o finalizar la ejecuciond el programa\n
+  PARAMETROS: None\n
+  [input_usuario] -> opcion ingresada por el usuario: con "q" o "Q" finaliza la ejecucion; entre "1" y "7" las opciones validas para acceder a la informacion proporcionada por la aplicacion; cualquier otro input ingresado, el programa le pedira nuevamente que ingrese una opcion 
+  RETURN: True si ingreso entre "1" y "7", False si ingreso "q" o "Q"
   """
   while input_usuario != "1" and input_usuario != "2" and input_usuario != "3" and input_usuario != "4" and input_usuario != "5" and input_usuario != "6" and input_usuario != "7" and input_usuario != "q":
-    mostrar_menu()
+    imprimir_menu()
     input_usuario = input(texto_default).lower()
   if input_usuario == "q":
     limpiar_consola()
@@ -239,10 +300,11 @@ def continuar(input_usuario: str) -> bool:
   return input_usuario
 
 def limpiar_consola():
-    """  
-    limpia la consola
+    """ 
+    ACCION: limpia la consola\n
+    PARAMETROS: None\n
+    RETURN: None
     """
-    # os.system('cls' if os.name == 'nt' else 'clear')
     if os.name in ["ce", "nt", "dos"]: # windows
       os.system("cls")
     else: # linux o mac
@@ -250,9 +312,7 @@ def limpiar_consola():
 
 if __name__ == "__main__":
   limpiar_consola()
-  from data_stark import lista_personajes
-  stark_imprimir_nombres_heroes(lista_personajes)
-  stark_imprimir_nombres_alturas(lista_personajes)
+  print(stark_menu_principal())
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/02
 # python stark_biblioteca.py

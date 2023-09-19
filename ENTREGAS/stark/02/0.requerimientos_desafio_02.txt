@@ -81,9 +81,6 @@ Crear la función 'stark_calcular_imprimir_heroe' la cual recibirá tres paráme
 - La lista de héroes
 - El tipo de cálculo a realizar: es un valor string que puede tomar los valores ‘maximo’ o ‘minimo’
 - Un string que representa la key del dato a calcular, por ejemplo: ‘altura’, ‘peso’, ‘edad’, etc.
-
-*** Con este se resuelve el Ej 3, Ej 4, Ej 6 y Ej 7 del desafío #00
-
 La función deberá obtener el héroe que cumpla dichas condiciones, imprimir su nombre y el valor calculado. 
 Reutilizar las funciones de los puntos: punto 1.2, punto: 2 y punto 4.3 
 Validar que la lista de héroes no esté vacía para realizar sus acciones, caso contrario no hará nada y retornara -1.
@@ -91,6 +88,8 @@ Validar que la lista de héroes no esté vacía para realizar sus acciones, caso
  	stark_calcular_imprimir_heroe (lista, "maximo", "edad")
     Ejemplo de salida:
 	Mayor altura: Nombre: Howard the Duck | altura: 79.34
+
+*** Con este se resuelve el Ej 3, Ej 4, Ej 6 y Ej 7 del desafío #00
 
 --------------------
 

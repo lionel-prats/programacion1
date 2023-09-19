@@ -1,10 +1,16 @@
-# entry point de la app
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Desafío Stark 02
+"""
 
 from data_stark import lista_personajes
-from desafio_stark_02 import main_app as main_desafio_stark_02
+from desafio_stark_02 import stark_marvel_app
 
 if __name__ == "__main__":
-    main_desafio_stark_02(lista_personajes) # funcion principal del programa
+    stark_marvel_app(lista_personajes)
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/00
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/02
 # python main.py

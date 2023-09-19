@@ -1,16 +1,26 @@
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Desafío Stark 02
+"""
+
 from stark_biblioteca import(
-  texto_default, reducir_diccionarios_en_lista, imprimir_lista_de_diccionarios, valor_maximo_propiedad_en_lista_de_diccionarios, valor_minimo_propiedad_en_lista_de_diccionarios, filtrar_por_clave, formatear_valores_diccionario_a_numericos, obtener_promedio, limpiar_consola, continuar, mostrar_menu, stark_imprimir_nombres_heroes, stark_imprimir_nombres_alturas
+  texto_default, limpiar_consola, continuar, stark_imprimir_nombres_heroes, stark_imprimir_nombres_alturas, stark_calcular_imprimir_heroe, stark_calcular_imprimir_promedio_altura, imprimir_menu
 )
 
-# funcion principal de la aplicacion
-def main_app(lista_personajes: list[dict]):
-  """ 
-  ejecuta todo nuestro programa\n
-  recibe la lista de heroes 
+def stark_marvel_app(lista: list[dict]):
+  """  
+  ACCION: se encarga de la ejecucion principal de nuestro programa\n 
+  PARAMETROS:\n
+  [lista] -> lista de superheroes
+  RETURN: None
   """
+
   inicio = True
   while True:
-    mostrar_menu()
+    imprimir_menu()
     if inicio:
       inicio = False
       opcion_seleccionada = input(texto_default)
@@ -22,7 +32,7 @@ def main_app(lista_personajes: list[dict]):
       # 1 - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe
       case "1":
 
-        stark_imprimir_nombres_heroes(lista_personajes)
+        stark_imprimir_nombres_heroes(lista)
 
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:
@@ -31,7 +41,7 @@ def main_app(lista_personajes: list[dict]):
       # 2 - Recorrer la lista imprimiendo por consola nombre de cada superhéroe junto a la altura del mismo
       case "2":
 
-        stark_imprimir_nombres_alturas(lista_personajes)
+        stark_imprimir_nombres_alturas(lista)
 
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:
@@ -40,72 +50,51 @@ def main_app(lista_personajes: list[dict]):
       # 3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)
       case "3":
 
-        titulo = "3- Héroe/s más alto/s:"
-        lista_heroes_nombre_altura = reducir_diccionarios_en_lista(lista_personajes, ["nombre", "altura"]) 
-        formatear_valores_diccionario_a_numericos(lista_heroes_nombre_altura, ["altura"], "float")
-        altura_maxima = valor_maximo_propiedad_en_lista_de_diccionarios(lista_heroes_nombre_altura, 'altura')
-        lista_heroes_altura_maxima = filtrar_por_clave(lista_heroes_nombre_altura, "altura", altura_maxima)
-        print(f"\n3- Altura máxima = {altura_maxima}")
-        imprimir_lista_de_diccionarios(lista_heroes_altura_maxima, titulo)
+        print("\n3 - Recorrer la lista y determinar cuál es el superhéroe más alto (MÁXIMO)\n")
+        stark_calcular_imprimir_heroe(lista, "maximo", "altura")
 
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:
           break
       # 4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)
       case "4":
-        titulo = "4- Héroe/s más bajo/s:"
-        lista_heroes_nombre_altura = reducir_diccionarios_en_lista(lista_personajes, ["nombre", "altura"])
-        formatear_valores_diccionario_a_numericos(lista_heroes_nombre_altura, ["altura"], "float")
-        altura_minima = valor_minimo_propiedad_en_lista_de_diccionarios(lista_heroes_nombre_altura, 'altura')
-        lista_heroes_altura_minima = filtrar_por_clave(lista_heroes_nombre_altura, "altura", altura_minima)
         
-        print(f"\n4- Altura mínima = {altura_minima}")
-        imprimir_lista_de_diccionarios(lista_heroes_altura_minima, titulo)
+        print("\n4 - Recorrer la lista y determinar cuál es el superhéroe más bajo (MÍNIMO)\n")
+        stark_calcular_imprimir_heroe(lista, "minimo", "altura")
 
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:
           break
+
       # 5 - Recorrer la lista y determinar la altura promedio de los  superhéroes (PROMEDIO)
       case "5":
-        lista_heroes_altura = formatear_valores_diccionario_a_numericos(lista_personajes, ["altura"], "float")
-        altura_promedio = obtener_promedio(lista_heroes_altura, "altura")
-        print(f"\n5- Altura promedio = {altura_promedio}\n")
 
+        stark_calcular_imprimir_promedio_altura(lista)
+        
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:
           break
+      
       # 6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO, MÍNIMO)
       case "6":
-        lista_heroes_nombre_altura = reducir_diccionarios_en_lista(lista_personajes, ["nombre", "altura"])
-        lista_heroes_nombre_altura = formatear_valores_diccionario_a_numericos(lista_heroes_nombre_altura, ["altura"], "float")
-        altura_maxima = valor_maximo_propiedad_en_lista_de_diccionarios(lista_heroes_nombre_altura, 'altura')
-        lista_heroes_altura_maxima = [hero for hero in lista_heroes_nombre_altura if hero["altura"] == altura_maxima]
-        altura_minima = valor_minimo_propiedad_en_lista_de_diccionarios(lista_heroes_nombre_altura, 'altura')
-        lista_heroes_altura_minima = [hero for hero in lista_heroes_nombre_altura if hero["altura"] == altura_minima]
-        titulo_mas_alto = "6- Héroe/s más alto/s:"
-        titulo_mas_bajo = "6- Héroe/s más bajo/s:"
-        imprimir_lista_de_diccionarios(lista_heroes_altura_maxima, titulo_mas_alto)
-        imprimir_lista_de_diccionarios(lista_heroes_altura_minima, titulo_mas_bajo)
+
+        print("\n6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÁXIMO)\n")
+        stark_calcular_imprimir_heroe(lista, "maximo", "altura")
+        
+        print("\n6 - Informar cual es la identidad del superhéroe asociado a cada uno de los indicadores anteriores (MÍNIMO)\n")
+        stark_calcular_imprimir_heroe(lista, "minimo", "altura")
 
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:
           break
       # 7 - Calcular e informar cual es el superhéroe más y menos pesado.
       case "7":
-        lista_heroes_nombre_peso = reducir_diccionarios_en_lista(lista_personajes, ["nombre", "peso"])
-        lista_heroes_nombre_peso = formatear_valores_diccionario_a_numericos(lista_heroes_nombre_peso, ["peso"], "float")
         
-        peso_maximo = valor_maximo_propiedad_en_lista_de_diccionarios(lista_heroes_nombre_peso, 'peso')
-        lista_heroes_peso_maximo = [hero for hero in lista_heroes_nombre_peso if hero["peso"] == peso_maximo]
-
-        peso_minimo = valor_minimo_propiedad_en_lista_de_diccionarios(lista_heroes_nombre_peso, 'peso')
-        lista_heroes_peso_minimo = [hero for hero in lista_heroes_nombre_peso if hero["peso"] == peso_minimo]
+        print("\n7 - Calcular e informar cual es el superhéroe más pesado.\n")
+        stark_calcular_imprimir_heroe(lista, "maximo", "peso")
         
-        titulo_mas_pesado = "7- Héroe/s más pesado/s:"
-        titulo_menos_pesado = "7- Héroe/s menos pesado/s:"
-        
-        imprimir_lista_de_diccionarios(lista_heroes_peso_maximo, titulo_mas_pesado)
-        imprimir_lista_de_diccionarios(lista_heroes_peso_minimo, titulo_menos_pesado)
+        print("\n7 - Calcular e informar cual es el superhéroe menos pesado.\n")
+        stark_calcular_imprimir_heroe(lista, "minimo", "peso")
 
         input_continuar = continuar(input(texto_default).lower())
         if not input_continuar:

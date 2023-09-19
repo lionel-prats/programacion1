@@ -1,3 +1,11 @@
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Desafío Stark 02
+"""
+
 lista_personajes =\
 [
   {

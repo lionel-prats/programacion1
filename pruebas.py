@@ -38,51 +38,10 @@ personas = [
     # "anio_nacimiento": "1983",       
     # "altura": "1.90",
     "patente": "PFG264"
-  }
+  },"sad"
 ]
 
-def stark_normalizar_datos(lista: list[dict]) -> list[dict]:
-  """  
-  ACCION: recorre una lista de diccionarios y castea a float toda propiedad compatible con ese formato\n
-  PARAMETROS:\n 
-  [lista] -> lista de diccionarios a formatear\n
-  RETURN: una lista de diccionarios igual a la recibida, en la que cada propiedad factible de ser casteada a float será de ese tipo de dato
-  """
-  if not len(lista):
-    return "Error: Lista de héroes vacía"
-  respuesta = None
-  for diccionario in lista:
-    for k, v in diccionario.items():
-      if type(v) == str:
-        resultado_casteo = convertir_string_en_float(v)
-        if resultado_casteo:
-          diccionario[k] = resultado_casteo
-          if not respuesta:
-            respuesta = "Datos normalizados"
-        else:
-          diccionario[k] = v
-      else:
-        diccionario[k] = v
-  return respuesta
+son_diccionarios = all(isinstance(elemento, dict) for elemento in personas)
 
-def convertir_string_en_float(string):
-  """ 
-  ACCION: recibe una string, y de ser compatible es casteado a float:\n 
-  [string] -> string a formatear\n
-  RETURN: el string recibido casteado a float si el tipo de dato original es compatible, False en caso contrario
-  """
-  if type(string) == str:
-    try:
-      return float(string)
-    except ValueError:
-      return False
-  return False
-  
+print(son_diccionarios)
 
-print(personas, "\n")
-
-print(stark_normalizar_datos(personas), "\n")
-
-print(personas)
-
-# print(convertir_string_en_float([1]))
