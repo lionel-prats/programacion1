@@ -41,7 +41,7 @@ personas = [
   },"sad"
 ]
 
-son_diccionarios = all(isinstance(elemento, dict) for elemento in personas)
+string = "AC010BO"
 
-print(son_diccionarios)
+print(string.isdecimal())
 
