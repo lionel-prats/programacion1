@@ -12,5 +12,5 @@ from ejercicio_clase_7_main_app import ejercicio_clase_7_main_app
 if __name__ == "__main__":
     ejercicio_clase_7_main_app(lista_personajes)
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/02
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/0.entregas/clase_7
 # python main.py

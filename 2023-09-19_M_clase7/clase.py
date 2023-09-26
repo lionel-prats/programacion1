@@ -25,20 +25,20 @@ print(
 
 # ---------- strip() ----------
 
-print("\n----- strip() -----\n")
+print("\n----- strip() linea 28 -----\n")
 cadena1 = "     Hola      mundo    "
 print(cadena1)
 print(cadena1.strip())
 
-# ---------- strip() ----------
+# ---------- strip()  ----------
 
-print("\n----- strip() -----\n")
+print("\n----- strip() linea 35 -----\n")
 print(cadena1)
 print(cadena1.lstrip())
 print(cadena1.rstrip())
 print(cadena1.strip())
 
-# ---------- strip() ----------
+# ---------- strip()  ----------
 
 list = [17, 5, 10, 8]
 print(list)

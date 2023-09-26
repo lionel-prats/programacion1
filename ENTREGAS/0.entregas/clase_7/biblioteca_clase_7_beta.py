@@ -1,4 +1,6 @@
+# python biblioteca_clase_7_beta.py
 import os
+from urllib.parse import urlparse
 
 def limpiar_consola():
     """ 
@@ -106,58 +108,163 @@ def convertir_lista_de_nombres_en_texto(lista: list[str]) -> str:
 # 10)
 # Escribir una función que tome un nombre y un apellido y devuelva un email en formato "inicial_nombre.apellido@utn-fra.com.ar".
 # Por ejemplo Facundo Falcone: f.falcone@utn-fra.com.ar
-def xxx(lista: list[str]) -> str:
+def generar_email(nombre: str, apellido: str) -> str:
     """
     ACCION:\n
     PARAMETROS:\n
     RETURN:\n
     """
-    return "\n".join(lista)
-
-if __name__ == "__main__":
-    limpiar_consola()
-
-    parametro1 = "asd"
-    parametro2 = "      prats              "
-
-    respuesta = xxx(parametro1)
-    # print(parametro1, parametro2)
-    # print(respuesta, parametro2)
-    print(respuesta)
-    separador()
+    return f"{convertir_en_minusculas(eliminar_espacios(nombre)[0])}.{convertir_en_minusculas(eliminar_espacios(apellido))}@utn-fra.com.ar"
 
 # 11)
 # Escribir una función que tome una lista de palabras y devuelva un string que contenga todas las palabras concatenadas con comas y "y" antes de la última palabra. Por ejemplo, si la lista es ["manzanas", "naranjas", "bananas"], el string resultante debería ser "manzanas, naranjas y bananas"..
+def generar_leyenda(lista: list[str]) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    # print(lista)
+    # print(lista[:-1])
+    # print(", ".join(lista[:-1]))
+    # print(", ".join(lista[:-1]) + " y ")
+    # print(", ".join(lista[:-1]) + " y " + lista[-1])
+    return ", ".join(lista[:-1]) + " y " + lista[-1]
 
 # 12)
 # Escribir una función que tome un número de tarjeta de crédito como input, verificar que todos los caracteres sean numéricos y devolver los últimos cuatro dígitos y los primeros dígitos como asteriscos, por ejemplo: "**** **** **** 1234". 
+def formatear_nro_tarjeta():
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    nro_tarjeta = input("Ingrese los 16 dígitos de su tarjeta: ")
+    print("\n")
+    if len(nro_tarjeta) != 16:
+        return "Cantidad de dígitos incorrecto"
+    elif not nro_tarjeta.isdigit():
+        return "Solo ingresar dígitos"
+    return f"**** **** **** {nro_tarjeta[12:16]}"
 
 # 13)
 # Escribir una función que tome un correo electrónico y elimine cualquier carácter después del símbolo @, por ejemplo: "usuario@gmail.com" -> "usuario".
+def get_username(url: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    return url.split("@")[0]
 
 # 14)
 # Escribir una función que tome una URL y devuelva solo el nombre de dominio, por ejemplo: "https://www.ejemplo.com.ar/pagina1" -> "ejemplo"..
+def obtener_dominio(email: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    return email.split(".")[1]
 
+def obtener_dominio_pro(url: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    url_parseada = urlparse(url)
+    # print(url_parseada)
+    # print(url_parseada.scheme)
+    # print(url_parseada.netloc)
+    # print(url_parseada.path)
+    # print(url_parseada.params)
+    # print(url_parseada.query)
+    # print(url_parseada.fragment)
+    return url_parseada.netloc
+    
 # 15)
 # Escribir una función que tome una cadena de texto y devuelva solo los caracteres alfabéticos, eliminando cualquier número o símbolo (sólo son válidos letras y espacios), por ejemplo: "H0l4, m4nd0!" -> "Hl mnd”
+def filtrar_alfabeticos(string: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    respuesta = ""
+    for caracter in string:
+        if caracter.isalpha() or caracter == " ":
+            respuesta += caracter
+    return respuesta
 
 # 16)
 # Escribir una función que tome una cadena de texto y la convierta en un acrónimo, tomando la primera letra de cada palabra, por ejemplo: "Universidad Tecnológica Nacional Facultad Regional Avellaneda" -> "UTNFRA”.
+def obtener_acronimo(string: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    lista = string.split(" ")
+    respuesta = ""
+    for palabra in lista:
+        respuesta += palabra[0]
+    return convertir_en_mayusculas(respuesta)
 
 # 17)
 # Escribir una función que tome un número binario y lo convierta en una cadena de 8 bits, rellenando con ceros a la izquierda si es necesario, por ejemplo: "101" -> "00000101".
+def completar_byte(string: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    return string.zfill(8)
 
 # 18)
 # Escribir una función que tome una cadena de caracteres y reemplace todas las letras mayúsculas por letras minúsculas y todas las letras minúsculas por letras mayúsculas, por ejemplo: "HoLa" -> "hOlA"
+def invertir_mayusculas_y_minusculas(string: str) -> str:
+    return string.swapcase()
 
 # 19)
 # Escribir una función que tome una cadena de caracteres y cuente la cantidad de dígitos que contiene, por ejemplo: "1234 Hola Mundo" -> contiene 4 dígitos.
+def contar_digitos(cadena: str) -> str:
+    cantidad_digitos = sum(1 for caracter in cadena if caracter.isdigit())
+    return f"contiene {cantidad_digitos} digito{'' if cantidad_digitos == 1 else 's' }"
 
 # 20)
 # Escribir una función que tome una lista de direcciones de correo electrónico y las una en una sola cadena separada por punto y coma, por ejemplo: ["juan@gmail.com", "maria@hotmail.com"] -> "juan@gmail.com;maria@hotmail.com".
+def formatear_lista_emails(lista: list[str]) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    return ";".join(lista)
 
 # 21)
-# Crear una función que reciba como parámetro un string y devuelva un diccionario donde cada clave es una palabra y cada valor es un entero que indica cuántas veces aparece esa palabra dentro del string.import os
-
-
-        
+# Crear una función que reciba como parámetro un string y devuelva un diccionario donde cada clave es una palabra y cada valor es un entero que indica cuántas veces aparece esa palabra dentro del string.
+def obtener_diccionario(string: str) -> str:
+    """
+    ACCION:\n
+    PARAMETROS:\n
+    RETURN:\n
+    """
+    lista = string.split()
+    diccionario = {}
+    for palabra in lista:
+        palabra = convertir_en_minusculas(palabra)
+        if palabra in diccionario:
+            diccionario[palabra] += 1
+        else:
+            diccionario[palabra] = 1
+    return diccionario
+    
+if __name__ == "__main__":
+    limpiar_consola()
+    string = """Bajó una mano del cielo y acariciando su pelo Rulo y señal de la cruz La caricia de Jesús Hizo posible el milagro Convirtió la red en tierra Del balón hizo palomas Que aterrizaban su paz En la isla soledad Borrando una absurda guerra
+    """
+    respuesta = obtener_diccionario(string)
+    print(string)
+    print(respuesta)
+    separador()
