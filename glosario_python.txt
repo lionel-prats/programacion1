@@ -55,6 +55,36 @@ print(f"list [15, 20] | Rta = {stark_normalizar_datos([15, 20])}\n")
 
 -----
 
+Hasta ahora, la forma más óptima que encontré para validar sin lugar a errores si un dato puede ser casteado a float
+
+def castear_dato_a_float(dato):
+  """  
+  recibe un dato y si es posible lo retorna casteado a float\n 
+  [dato] -> dato a intentar castear a float\n
+  return -> (float) dato casteado a float (si es posible), (bool) False si no se puede castear 
+  """
+  if type(dato) == int or type(dato) == str and dato.replace(".", "", 1).isdigit():
+    return float(dato)
+  elif type(dato) == float:
+    return dato
+  return False
+
+dato_original = []
+dato_original = {}
+dato_original = "15a4.5"
+dato_original = False
+dato_original = 15.5
+dato_original = 15
+dato_original = "156.8.5"
+dato_original = "156.8"
+
+print("dato_original | ", type(dato_original), " | ", dato_original)
+
+dato_casteado = castear_dato_a_float(dato_original) 
+
+print("dato_casteado | ", type(dato_casteado), " | ", dato_casteado)
+
+-----
 FORMA QUE ENCONTRE PARA RECORRER UNA LISTA DE DICCIONARIOS Y CASTEAR A FLOAT TODAS LAS PROPIEDADES FACTIBLES DE SER CASTEADAS vvv 
 
 personas = [
