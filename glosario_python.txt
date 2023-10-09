@@ -207,6 +207,41 @@ print(formatear_diccionario(personas, claves_a_seleccionar))
 
 -----
 
+obtener la suma de una determinada clave numerica de los diccionarios de una lista -> sum() + compresion de diccionarios
+
+personas = [
+  {
+    "nombre": "Lionel",
+    "apellido": "Prats",
+    "edad": 38,
+    "anio_nacimiento": "1985",
+    "altura": "1.83",
+    "patente": "A010BO"
+  },
+  {
+    "nombre": "Sergio",
+    "apellido": "Balestrini",
+    "edad": 39,
+    "anio_nacimiento": "1984",
+    "altura": "1.85",
+    "patente": "AF154HJ"
+  },
+  {
+    "nombre": "Santiago",
+    "apellido": "Fiorini",
+    "edad": 40,
+    "anio_nacimiento": "1983",       
+    "altura": "1.90",
+    "patente": "PFG264"
+  },"sad"
+]
+
+suma_edades = sum(persona["edad"] for persona in personas if "edad" in persona and isinstance(persona["edad"], (int, float)))
+
+print("La suma de las edades es:", suma_edades)
+
+-----
+
 funciones max() y min()
 
 array = [70, 54, 16, 51]
@@ -878,3 +913,8 @@ def cantidad_valores_segun_clave(lista: list[dict], clave) ->dict:
     return diccionario_resultante
 
 -----
+
+EXCEPCIONES 
+
+documentacion oficial - excepciones incorporadas en el lenguaje vvv
+https://docs.python.org/3/library/exceptions.html

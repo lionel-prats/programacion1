@@ -45,120 +45,6 @@ o - Listar todos los superhéroes agrupados por tipo de inteligencia
 lista_inputs_validos = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "q"]
 texto_default = "Elija una opcion entre \"a\" y \"o\", o presione \"q\" para salir: "
 
-def reducir_diccionarios_en_lista(lista: list[dict], campos: list[str]) -> list[dict]:
-    """  
-    genera una nueva lista de diccionarios a partir de una recibida, prsisitiendo en los diccionarios las claves especificadas por el usuario\n
-    recibe una lista de diccionarios y la lista de claves que deben persistir\n
-    retorna una lista de diccionarios reducidos respecto a los de la lista original
-    """
-    nueva_lista = [{campo: diccionario[campo] for campo in campos} for diccionario in lista]
-    return nueva_lista
-
-def imprimir_lista_de_diccionarios(lista: list[dict], titulo = None):
-  """  
-  imprime por consola un titulo (opcional) y un listado de diccionarios\n
-  recibe un titulo (str - opcional) y una lista de diccionarios
-  no retorna nada
-  """
-  if titulo:
-    print(f"\n{titulo}\n")
-  listado = ""
-  nro_orden = 1
-  for diccionario in lista: 
-    listado += f"{nro_orden}- "
-    for k, v in diccionario.items():
-      listado += f"{k}: {v} | "
-    listado = listado[:-3]
-    listado += "\n"
-    nro_orden += 1
-  print(listado)
-
-def imprimir_diccionario_formato_tabla(diccionario: dict, encabezado: str, titulo = None):
-  """  
-  ACCION: imprime por consola un titulo (opcional) [titulo] y un diccionarios [diccionario]\n
-  PARAMETROS: el diccionario a imprimir [diccionario] y un titulo [titulo] opcional
-  RETURN: None
-  """
-  if titulo:
-    print(f"\n{titulo}")
-  print("\n")
-  listado = f"{encabezado}\n"
-  for k, v in diccionario.items():
-    listado += f"{k} | {v}\n"
-  print(listado)    
-
-def imprimir_lista_diccionarios_agrupando_segun_clave(titulo: str, subtitulo: str, lista: list[dict], clave_agrupamiento, claves_a_imprimir: list):
-  """  
-  ACCION: lista por consola la lista de diccionarios recibida, agrupando segun una clave determinada\n
-  PARAMETROS:\n
-  [titulo] = titulo que se mostrara por pantalla\n
-  [subtitulo] = subtitulo para cada grupo de diccionarios\n
-  [lista] = lista e diccionarios que se procesara\n
-  [clave_agrupamiento] = clave por la cual se agruparan los diccionarios\n
-  [claves_a_imprimir] = lista con las claves (y valores) que se quiere imprimir de cada diccionario\n
-  RETURN: None
-  """
-  print(f"\n{titulo}\n")
-  tipos_de_clave = listado_de_valores_existentes_segun_clave(lista, clave_agrupamiento)
-  for tipo_de_clave in tipos_de_clave:
-    pass     
-    print(f"{subtitulo} \"{tipo_de_clave}\":")
-    imprimir_lista_de_diccionarios( reducir_diccionarios_en_lista( filtrar_por_clave(lista, clave_agrupamiento, tipo_de_clave), claves_a_imprimir ) )
-
-def valor_maximo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: str) -> float:
-  """ 
-  retorna el maximo valor en relacion a una clave especifica, de una lista de diccionarios\n
-  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser int o float)
-  """
-  resultado = max(lista, key = lambda diccionario: diccionario[clave])[clave]
-  return resultado
-
-def valor_minimo_propiedad_en_lista_de_diccionarios(lista: list[dict], clave: str) -> float:
-  """ 
-  retorna el minimo valor en relacion a una clave especifica, de una lista de diccionarios\n
-  recibe una lista de diccionarios y la clave a relevar (el tipo de dato debe ser int o float)
-  """
-  resultado = min(lista, key = lambda diccionario: diccionario[clave])[clave]
-  return resultado
-
-def formatear_valores_diccionario_a_numericos(lista: list[dict], claves: list[str], tipo_casteo: str) -> list[dict]:
-  """  
-  castea como int o float valores de una lista de diccionarios que sean compatibles con estos formatos\n
-  recibe la lista de diccionarios a formatear, las claves a castear en los diccionarios y el tipo de casteo que se busca
-  """
-  for diccionario in lista:
-      for clave in claves:
-          if(tipo_casteo == "int"):
-            diccionario[clave] = int(diccionario[clave])
-          elif(tipo_casteo == "float"):
-            diccionario[clave] = float(diccionario[clave])
-  return lista
-
-def filtrar_por_clave(lista_diccionarios: list[dict], clave: str, valor_buscado) -> list[dict]:
-  """
-  ACCION: genera una lista de diccionarios a partir de una lista original [lista_diccionarios], persistiendo los diccionarios cuya clave "n" [clave] coincida con un valor dado [valor_buscado]\n
-  PARAMETROS: lista de diccionarios [lista_diccionarios], clave a evaluar [clave], valor a evaluar [valor_buscado]
-  """
-  return [diccionario for diccionario in lista_diccionarios if diccionario[clave] == valor_buscado]
-
-def obtener_total(lista: list[dict], k: str) -> float:
-  """  
-  calcula la suma de una determinada clave en una lista de diccionarios (el tipo de dato de la clave a sumar debe ser int o float)\n
-  recibe una lista de diccionarios y la clave a contabilizar (el tipo de dato debe ser int o float)\n
-  retorna la suma de los valores de la clave especificada 
-  """
-  total = sum(item[k] for item in lista)
-  return total
-
-def obtener_promedio(lista_diccionarios: list[dict], clave: str) -> float: 
-  """  
-  calcula el promedio de una determinada clave en una lista de diccionarios (el tipo de dato de la clave a considerar debe ser int o float)\n
-  recibe una lista de diccionarios y la clave a considerar (el tipo de dato debe ser int o float)\n
-  retorna el promedio de los valores de la clave especificada en relacion a la cantidad de diccionarios en la lista recibida 
-  """
-  promedio = round(obtener_total(lista_diccionarios, clave) / len(lista_diccionarios), 2) 
-  return promedio
-
 def mostrar_menu():
   limpiar_consola()
   print(menu["desafio_01"])
@@ -187,33 +73,6 @@ def existe_elemento_en_lista(elemento, lista: list):
   elemento = elemento.lower() 
   return elemento in lista
 
-def listado_de_valores_existentes_segun_clave(lista: list[dict], clave: str):
-  """  
-  ACCION: en una lista de diccionarios [lista] identifica los valores existentes para una determinada clave [clave]\n
-  PARAMETROS: lista de diccionarios [lista] y clave a analizar [clave]\n
-  RETURN: un iterable con los valores encontrados
-  """
-  iterable = set()
-  for diccionario in lista:
-      iterable.add(diccionario[clave])
-  return iterable
-
-def cantidad_valores_segun_clave(lista: list[dict], clave, mensaje_error = None) ->dict:
-  """  
-  ACCION: dada una lista de diccionarios [lista] y una clave a analizar [clave], retornara un nuevo diccionario con los valores existentes de dicha clave en la lista de diccionarios (informando si en algun caso no existe o es None mediante el parametro opcional [mensaje_error]) y la cantidad de repeticiones de cada uno\n
-  PARAMETROS: lista de diccionarios [lista], clave a analizar [clave] y opcionalmente el mensaje de error [mensaje_error]\n
-  RETURN: diccionario con los resultados
-  """
-  diccionario_resultante = {}
-  for diccionario in lista:
-      nueva_clave = diccionario.get(clave, mensaje_error) 
-      if not nueva_clave:
-        nueva_clave = mensaje_error
-      diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
-  return diccionario_resultante
-
-
-# --------------------------------- BLOQUE DE FUNCIONES 02 ---------------------------------------
 def obtener_nombre(diccionario: dict) -> str:
   """  
   obtiene el valor de la propiedad "nombre" de un diccionario y lo retorna en una leyenda (str):\n 
@@ -223,6 +82,17 @@ def obtener_nombre(diccionario: dict) -> str:
   """
   return f"Nombre: {diccionario.get('nombre', 'sin datos')}"
 
+def obtener_nombre_y_dato(diccionario: dict, key: str) -> str:
+  """  
+  de un diccionario dado, retorna una leyenda (str) con los valores de las claves "nombre" y la especificada por parametro\n 
+  [diccionario: dict] datos de un superheroe en formato dict\n
+  [key: str] clave que se busca retornar junto a "nombre"\n
+  return str "Nombre: xxx | [key]: xxx"
+  """
+  nombre = diccionario.get('nombre', 'sin datos')
+  valor_dinamico = diccionario.get(key, 'sin datos')
+  return f"Nombre: {nombre} | {key}: {valor_dinamico}"
+
 def imprimir_dato(string: str):
   """  
   recibe un string y lo imprime por consola\n 
@@ -231,20 +101,28 @@ def imprimir_dato(string: str):
   """
   print(string)
 
-# --------------------------------- BLOQUE DE FUNCIONES 02 ---------------------------------------
+def limpiar_consola():
+    """  
+    limpia la consola
+    """
+    # os.system('cls' if os.name == 'nt' else 'clear')
+    if os.name in ["ce", "nt", "dos"]: # windows
+      os.system("cls")
+    else: # linux o mac
+      os.system("clear")
 
-# --------------------------------- BLOQUE DE FUNCIONES 03 ---------------------------------------
+# --------------------------------- BLOQUE DE FUNCIONES 03 - INICIO ---------------------------------------
 
 # 1.1
-def es_genero(diccionario:dict, str_genero:str) -> bool:
+def es_genero(diccionario:dict, str_genero:str)-> bool:
   """  
   determina si el genero de un personaje recibido por parametro coincide con el genero recibido por parametro\n 
   [diccionario : dict] -> diccionario con la info de un heroe, incluida la clave "genero"\n
   [str_genero : str] -> string para realizar la verificacion ("F", "M" o "NB")\n
   return bool -> True si hay coincidencia, False caso contrario
   """
-  if diccionario["genero"].upper() == str_genero.upper():
-    return True
+  if isinstance(diccionario, dict) and diccionario and "genero" in diccionario and diccionario["genero"].lower() == str_genero.lower():
+    return True 
   return False
 
 # 1.2
@@ -262,7 +140,7 @@ def stark_imprimir_heroe_genero(lista_heroes: list[dict], str_genero: str) -> No
   print("\n")
 
 # 2.1
-def calcular_min_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
+def calcular_min_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
   """  
   analiza la lista de heroes del genero especificado por parametro y retorna el valor minimo del campo numerico especificado (altura, fuerza o peso)\n 
   [lista_heroes : list[dict]] -> listado de heroes\n
@@ -275,7 +153,7 @@ def calcular_min_genero(lista_heroes: list[dict], clave: str, str_genero: str)->
   return valor_minimo_hallado
 
 # 2.2
-def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
+def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
   """  
   analiza la lista de heroes del genero especificado por parametro y retorna el valor maximo del campo numerico especificado (altura, fuerza o peso)\n 
   [lista_heroes : list[dict]] -> listado de heroes\n
@@ -288,7 +166,7 @@ def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)->
   return valor_maximo_hallado
 
 # 2.3
-def calcular_max_min_dato_genero(lista_heroes: list[dict], valor_buscado: str, clave: str, str_genero: str)->float:
+def calcular_max_min_dato_genero(lista_heroes: list[dict], valor_buscado: str, clave: str, str_genero: str)-> list:
   """  
   dadas la lista de heroes, un string "minimo" o "maximo", una clave a analizar y un genero, retorna el listado de superheroes que coincidan con dichos criterios\n 
   [lista_heroes : list[dict]] -> listado de heroes\n
@@ -307,22 +185,191 @@ def calcular_max_min_dato_genero(lista_heroes: list[dict], valor_buscado: str, c
   return lista_final
 
 # 2.4
-def stark_calcular_imprimir_heroe_genero(lista_heroes: list[dict], valor_buscado: str, clave: str, str_genero: str)->float:
+def stark_calcular_imprimir_heroe_genero(lista_heroes: list[dict], valor_buscado: str, clave: str, str_genero: str, margin_top: bool = False)-> None:
   """  
   dadas la lista de heroes, un string "minimo" o "maximo", una clave a analizar y un genero, imprime el listado de superheroes que coincidan con dichos criterios\n 
   [lista_heroes : list[dict]] -> listado de heroes\n
   [valor_buscado : str] -> "minimo"|"maximo", criterio de seleccion\n
-  [clave : str] -> clave a analizar\n
-  [str_genero : str] -> genero a analizar\n
+  [clave : str] -> clave a evaluar\n
+  [str_genero : str] -> genero a evaluar\n
   return None 
   """
   if not lista_heroes:
     return -1
-  print("\n")
+  if margin_top:
+    print("\n")
   lista_final = calcular_max_min_dato_genero(lista_heroes, valor_buscado, clave, str_genero)
   for heroe in lista_final:
-    print(heroe["nombre"], " | ", heroe[clave])
+    imprimir_dato(obtener_nombre_y_dato(heroe, clave))
   print("\n")
+
+# 3.1
+def sumar_dato_heroe_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
+  """  
+  dada la lista de diccionarios de superheroes, un genero ("F", "M" o "NB") y un campo numerico especificado (altura, fuerza o peso), retorna la suma de todos los valores de ese campo numerico hallados en todos los diccionarios cuyo campo genero coincida con el recibido por parametro\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] clave numrica a sumar\n
+  [str_genero: str] genero a relevar\n
+  return: float -> suma hallada 
+  """
+  heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
+  # * las validaciones solicitadas requerimiento 3.1 se encuentran en la funcion es_genero y son aplicadas en la linea anterior
+  return sum(castear_dato_a_float(heroe[clave]) for heroe in heroes_genero if clave in heroe and isinstance(castear_dato_a_float(heroe[clave]), (int, float)))
+
+# 3.2
+def cantidad_heroes_genero(lista_heroes: list[dict], str_genero: str)-> int:
+  """  
+  dada la lista de diccionarios de superheroes y un genero ("F", "M" o "NB"), retorna la cantidad de superheres cuyo genero coincide con el recibido por parametro\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [str_genero: str] genero a relevar\n
+  return: int -> cantidad hallada 
+  """
+  heroes_genero = list(filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes))
+  return len(heroes_genero)
+
+# 3.3
+def calcular_promedio_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
+  """  
+  dada la lista de diccionarios de superheroes, un genero ("F", "M" o "NB") y un campo numerico especificado (altura, fuerza o peso), retorna el promedio resultante del total de los valores del campo numerico hallado en todos los diccionarios con el campo genero especificado\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] clave numrica a sumar\n
+  [str_genero: str] genero a relevar\n
+  return: float -> promedio hallado 
+  """
+  total_clave_especificada = sumar_dato_heroe_genero(lista_heroes, clave, str_genero)
+  cantidad_heroes = cantidad_heroes_genero(lista_heroes, str_genero)
+  return total_clave_especificada / cantidad_heroes
+
+# 3.4
+def stark_calcular_imprimir_promedio_altura_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
+  """  
+  dada la lista de diccionarios de superheroes, un genero ("F", "M" o "NB") y un campo numerico especificado (altura, fuerza o peso), imprime una leyenda que incluye el promedio resultante del total de los valores del campo numerico hallado en todos los diccionarios con el campo genero especificado\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo numerico a sumar\n
+  [str_genero: str] genero a relevar\n
+  return: None -> imprime una leyenda (str) que incluye el promedio hallado 
+  """
+  if not lista_heroes:
+    return "Error: Lista de héroes vacía"
+  print("\n")
+  print(f"{clave.capitalize()} promedio genero {str_genero.upper()}: {calcular_promedio_genero(lista_heroes, clave, str_genero)}")
+  print("\n")
+
+# 4.1
+def calcular_cantidad_tipo(lista_heroes: list[dict], clave: str) -> dict:
+  """  
+  retorna un diccionario con los distintos valores del tipo de dato recibido por parámetro y la cantidad de cada uno\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a procesar\n
+  return bool|dict -> False si la lista de heroes recibida esta vacia|diccionario resultante
+  """
+  if not lista_heroes:
+    return "Error: Lista de héroes vacía"
+  diccionario_resultante = {}
+  for heroe in lista_heroes:
+      nueva_clave = heroe.get(clave, "No tiene") 
+      if not nueva_clave:
+        nueva_clave = "No tiene"
+      diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
+  claves_ordenadas = sorted(diccionario_resultante.keys())
+  diccionario_resultante = {key: diccionario_resultante[key] for key in claves_ordenadas}
+  return diccionario_resultante
+
+# 4.2
+def imprimir_cantidad_heroes_tipo(diccionario: dict, clave: str) -> None:
+  """  
+  recibe un diccionario con los datos procesados de una propiedad en particular de los heroes en la lista de superheroes, los formatea e imprime el resultado por consola\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] propiedad asociada a los datos procesados en el diccionario\n
+  return None -> imprime un informe por consola
+  """
+  imprimir_dato("\n")
+  string = ""
+  for k,v in diccionario.items():
+    string += f"Característica: {clave} {k} - Cantidad de héroes: {v}\n"
+  imprimir_dato(string) 
+  imprimir_dato("\n")
+
+# 4.3
+def stark_calcular_cantidad_por_tipo(lista_heroes: list[dict], clave: str) -> None:
+  """  
+  recibe la lista de superheroes y un campo en particular a partir del cual se imprimira por pantalla un informe con los distintos valores existentes para ese campo y la cantidad de veces que se repite cada uno en la lista\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a relevar en los diccionarios\n
+  return None -> imprime un informe por consola
+  """
+  imprimir_cantidad_heroes_tipo(calcular_cantidad_tipo(lista_heroes, clave), clave)
+
+# 5.1
+def obtener_lista_de_tipos(lista_heroes: list[dict], clave: str) -> None:
+  """  
+  a partir de la lista de superheroes y un clave dada, genera una lista de str con todos los valores hallados para dicha clave, eliminando duplicados y agregando el elemento "N/A" si alguno de los diccionarios no contara con dicha clave o el valor de la clave fuera None\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a relevar en los diccionarios\n
+  return list -> lista de str
+  """
+  return sorted(list({heroe[clave] if clave in heroe and heroe[clave] else "N/A" for heroe in lista_heroes}))
+
+# 5.2
+def normalizar_dato(dato: str, string_default: str) -> str:
+  """  
+  valida si el string recibido como primer parametro no es un string vacio, en caso de serlo retorna el string recibido como segundo parametro\n 
+  [dato: str] string a validar\n
+  return [dato] si no es string vacio, "Sin datos" caso contrario
+  """
+  try:
+    if not dato.strip():
+      return string_default
+    return dato.strip()
+  except AttributeError as error:
+    return "El primer parametro debe ser de tipo string"
+
+# 5.3
+def obtener_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> None:
+  from collections import defaultdict
+  from collections import OrderedDict
+  """  
+  a partir de la lista de superheroes y un clave dada, genera un diccionario cuyas claves son las variedades encontradas de la clave recibida, y el valor de cada una de estas claves es la lista de los superheroes, agrupados segun cada variedad de la clave recibida\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a relevar en los diccionarios\n
+  return dict -> diccionario de listas
+  """
+  diccionario = defaultdict(list)
+  for heroe in lista_heroes:
+    valor_clave = heroe.get(clave, "Sin datos")
+    valor_clave = "Sin datos" if not valor_clave else valor_clave
+    nombre = heroe["nombre"]
+    diccionario[valor_clave].append(nombre)
+  return OrderedDict(sorted(dict(diccionario).items()))
+
+# 5.4
+def imprimir_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> str:
+  """  
+  recibe la lista de heroes y una clave, detecta las variantes para esa clave e imprime por pantalla un informe agrupando a los superheroes cuyos valores para una determinada variedad de la clave recibida sean coincidentes\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a relevar en los diccionarios\n
+  return None -> imprime un informe por pantalla
+  """
+  print("\n")
+  fila = ""
+  diccionario_variedad = obtener_heroes_por_tipo(lista_heroes, clave)
+  for variedad, lista_h in diccionario_variedad.items():
+    fila += f"{clave} \"{variedad}\": " 
+    for nombre in lista_h:
+      fila += f"{nombre} | "
+    fila = fila[:-2]
+    fila += "\n"
+  imprimir_dato(fila)
+  print("\n")
+
+# 5.5
+def stark_listar_heroes_por_dato(lista_heroes: list[dict], clave: str) -> str:
+  """  
+  valida si el string recibido como primer parametro no es un string vacio, en caso de serlo retorna el string recibido como segundo parametro\n 
+  [dato: str] string a validar\n
+  return [dato] si no es string vacio, "Sin datos" caso contrario
+  """
+  imprimir_heroes_por_tipo(lista_heroes, clave)
 
 # extra
 def castear_dato_a_float(dato):
@@ -337,30 +384,13 @@ def castear_dato_a_float(dato):
     return dato
   return False
 
-# --------------------------------- BLOQUE DE FUNCIONES 03 ---------------------------------------
-
-def limpiar_consola():
-    """  
-    limpia la consola
-    """
-    # os.system('cls' if os.name == 'nt' else 'clear')
-    if os.name in ["ce", "nt", "dos"]: # windows
-      os.system("cls")
-    else: # linux o mac
-      os.system("clear")
+# --------------------------------- BLOQUE DE FUNCIONES 03 - FIN ---------------------------------------
 
 if __name__ == "__main__":
   limpiar_consola()
   from datos_stark import lista_personajes
-  resultado = calcular_max_min_dato_genero(lista_personajes, "mInImO", "peso", "M")
 
-  for heroe in resultado:
-    print(heroe["nombre"], " | ", heroe["peso"])
-
-  stark_calcular_imprimir_heroe_genero(lista_personajes, "MAXimo", "peso", "M")
-  print(stark_calcular_imprimir_heroe_genero([], "MAXimo", "peso", "M"))
-  
-  
+  stark_listar_heroes_por_dato(lista_personajes, "color_ojos")
 
 
 # cd Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/03
