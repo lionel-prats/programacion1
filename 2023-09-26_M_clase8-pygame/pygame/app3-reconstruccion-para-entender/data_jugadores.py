@@ -1,3 +1,11 @@
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Pygame
+"""
+
 lista_diccionarios_jugadores = [
     { "nro": "1.", "nombre": "     CelEstE", "puntaje": 100 },
     { "nro": "2.", "nombre": "IvaN     ", "puntaje": 90 },
@@ -7,7 +15,3 @@ lista_diccionarios_jugadores = [
     { "nro": "6.", "nombre": "        ALEJO    ", "puntaje": 50 },
     { "nro": "7.", "nombre": "mario", "puntaje": 40 }
 ]
-
-# print(lista_diccionarios_jugadores)
-# print(formatear_nombre_jugador("    lionel            prats              "))
-# print(formatear_puntaje("25"))

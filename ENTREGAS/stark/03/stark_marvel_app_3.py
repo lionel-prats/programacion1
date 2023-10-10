@@ -3,7 +3,7 @@ Alumno: Lionel Prats
 DNI: 31367577
 División: 1H
 Nro. legajo: 115678
-Desafío Stark 01
+Desafío Stark 03
 """
 
 from biblioteca_stark_03 import(
@@ -11,7 +11,7 @@ from biblioteca_stark_03 import(
 )
 
 # funcion principal de la aplicacion
-def stark_marvel_app_2(lista_personajes: list[dict]):
+def stark_marvel_app_3(lista_personajes: list[dict]):
   """ 
   ejecuta todo nuestro programa\n
   recibe la lista de heroes 
@@ -88,12 +88,10 @@ def stark_marvel_app_2(lista_personajes: list[dict]):
         print(titulo)
         stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M")
         
-        
         titulo = "- Héroe/s más bajo/s género \"F\":"
         print(titulo)
         stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F")
-        
-
+      
         input_continuar = continuar(input(texto_default))
         if not input_continuar:
           break

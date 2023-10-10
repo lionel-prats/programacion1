@@ -1,4 +1,11 @@
-# python biblioteca_clase_7_beta.py
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Ejercicios strings
+"""
+
 import os
 from urllib.parse import urlparse
 
@@ -20,21 +27,11 @@ def separador():
 # 1)
 # Escribir una función que reciba un string y devuelva el mismo string todo en mayúsculas.
 def convertir_en_mayusculas(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return string.upper()
 
 # 2)
 # Escribir una función que reciba un string y devuelva el mismo string todo en minúsculas.
 def convertir_en_minusculas(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return string.lower()
 
 # 3)
@@ -45,51 +42,26 @@ def concatenar_strings(string_1: str, string_2: str) -> str:
 # 4)
 # Escribir una función que tome un string y devuelva el número de caracteres que tiene el string.
 def calcular_largo_string(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return len(string)
 
 # 5)
 # Escribir una función que tome un string y un carácter y devuelva el número de veces que aparece ese carácter en el string.
 def obtener_cantidad_de_coincidencias(string: str, caracter: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return string.count(caracter)
 
 # 6)
 # Escribir una función que tome un string y un carácter y devuelva una lista con todas las palabras en el string que contienen ese carácter.
 def buscar_coincidencias(string: str, caracter: str) -> list:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return list(filter(lambda palabra: palabra.find(caracter) != -1, string.split(" ")))
 
 # 7)
 # Escribir una función que tome un string y devuelva el mismo string con los espacios eliminados
 def eliminar_espacios(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return string.strip()
 
 # 8)
 # Escribir una función que reciba dos string (nombre y apellido) y devuelva un diccionario con el nombre y apellido, eliminando los espacios del comienzo y el final y colocando la primer letra en mayúscula
 def obtener_diccionario_datos(nombre: str, apellido: str) -> dict:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return {
         "nombre": eliminar_espacios(nombre).capitalize(),
         "apellido": eliminar_espacios(apellido).capitalize()
@@ -98,32 +70,17 @@ def obtener_diccionario_datos(nombre: str, apellido: str) -> dict:
 # 9)
 # Escribir una función que tome una lista de nombres y los una en una sola cadena separada por un salto de línea, por ejemplo: ["Juan", "María", "Pedro"] -> "Juan\nMaría\nPedro".
 def convertir_lista_de_nombres_en_texto(lista: list[str]) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return "\n".join(lista)
 
 # 10)
 # Escribir una función que tome un nombre y un apellido y devuelva un email en formato "inicial_nombre.apellido@utn-fra.com.ar".
 # Por ejemplo Facundo Falcone: f.falcone@utn-fra.com.ar
 def generar_email(nombre: str, apellido: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return f"{convertir_en_minusculas(eliminar_espacios(nombre)[0])}.{convertir_en_minusculas(eliminar_espacios(apellido))}@utn-fra.com.ar"
 
 # 11)
 # Escribir una función que tome una lista de palabras y devuelva un string que contenga todas las palabras concatenadas con comas y "y" antes de la última palabra. Por ejemplo, si la lista es ["manzanas", "naranjas", "bananas"], el string resultante debería ser "manzanas, naranjas y bananas"..
 def generar_leyenda(lista: list[str]) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     # print(lista)
     # print(lista[:-1])
     # print(lista[-5])
@@ -135,11 +92,6 @@ def generar_leyenda(lista: list[str]) -> str:
 # 12)
 # Escribir una función que tome un número de tarjeta de crédito como input, verificar que todos los caracteres sean numéricos y devolver los últimos cuatro dígitos y los primeros dígitos como asteriscos, por ejemplo: "**** **** **** 1234". 
 def formatear_nro_tarjeta():
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     nro_tarjeta = input("Ingrese los 16 dígitos de su tarjeta: ")
     print("\n")
     if len(nro_tarjeta) != 16:
@@ -151,40 +103,20 @@ def formatear_nro_tarjeta():
 # 13)
 # Escribir una función que tome un correo electrónico y elimine cualquier carácter después del símbolo @, por ejemplo: "usuario@gmail.com" -> "usuario".
 def get_username(url: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return url.split("@")[0]
 
 # 14)
 # Escribir una función que tome una URL y devuelva solo el nombre de dominio, por ejemplo: "https://www.ejemplo.com.ar/pagina1" -> "ejemplo"..
 def obtener_dominio(email: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return email.split(".")[1]
 
 def obtener_dominio_pro(url: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     url_parseada = urlparse(url)
     return url_parseada.netloc.split(".")[1]
     
 # 15)
 # Escribir una función que tome una cadena de texto y devuelva solo los caracteres alfabéticos, eliminando cualquier número o símbolo (sólo son válidos letras y espacios), por ejemplo: "H0l4, m4nd0!" -> "Hl mnd”
 def filtrar_alfabeticos(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     # respuesta = ""
     # for caracter in string:
     #     if caracter.isalpha() or caracter == " ":
@@ -195,11 +127,6 @@ def filtrar_alfabeticos(string: str) -> str:
 # 16)
 # Escribir una función que tome una cadena de texto y la convierta en un acrónimo, tomando la primera letra de cada palabra, por ejemplo: "Universidad Tecnológica Nacional Facultad Regional Avellaneda" -> "UTNFRA”.
 def obtener_acronimo(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     # lista = string.split(" ")
     # respuesta = ""
     # for palabra in lista:
@@ -210,11 +137,6 @@ def obtener_acronimo(string: str) -> str:
 # 17)
 # Escribir una función que tome un número binario y lo convierta en una cadena de 8 bits, rellenando con ceros a la izquierda si es necesario, por ejemplo: "101" -> "00000101".
 def completar_byte(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return string.zfill(8)
 
 # 18)
@@ -226,26 +148,16 @@ def invertir_mayusculas_y_minusculas(string: str) -> str:
 # Escribir una función que tome una cadena de caracteres y cuente la cantidad de dígitos que contiene, por ejemplo: "1234 Hola Mundo" -> contiene 4 dígitos.
 def contar_digitos(cadena: str) -> str:
     cantidad_digitos = sum(1 for caracter in cadena if caracter.isdigit())
-    return f"contiene {cantidad_digitos} digito{'' if cantidad_digitos == 1 else 's' }"
+    return f"\"{cadena}\" -> contiene {cantidad_digitos} digito{'' if cantidad_digitos == 1 else 's' }"
 
 # 20)
 # Escribir una función que tome una lista de direcciones de correo electrónico y las una en una sola cadena separada por punto y coma, por ejemplo: ["juan@gmail.com", "maria@hotmail.com"] -> "juan@gmail.com;maria@hotmail.com".
 def formatear_lista_emails(lista: list[str]) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     return ";".join(lista)
 
 # 21)
 # Crear una función que reciba como parámetro un string y devuelva un diccionario donde cada clave es una palabra y cada valor es un entero que indica cuántas veces aparece esa palabra dentro del string.
 def obtener_diccionario(string: str) -> str:
-    """
-    ACCION:\n
-    PARAMETROS:\n
-    RETURN:\n
-    """
     lista = string.split()
     diccionario = {}
     for palabra in lista:
@@ -258,12 +170,8 @@ def obtener_diccionario(string: str) -> str:
     
 if __name__ == "__main__":
     limpiar_consola()
-    string = """Bajó una mano del cielo y acariciando su pelo Rulo y señal de la cruz La caricia de Jesús Hizo posible el milagro Convirtió la red en tierra Del balón hizo palomas Que aterrizaban su paz En la isla soledad Borrando una absurda guerra
-    """
-    respuesta = obtener_diccionario(string)
-    print(string)
-    print(respuesta)
-    separador()
+    string = "estudiantes independiente boca estudiantes racing boca independiente racing racing boca river boca river"
+    print(obtener_diccionario(string))
 
 # cd /Users/lprats/Desktop/cursos/utn/1er-cuatrimestre/programacion1/ENTREGAS/0.entregas/tp_metodos_strings
 # python biblioteca.py

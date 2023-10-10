@@ -3,7 +3,7 @@ Alumno: Lionel Prats
 DNI: 31367577
 División: 1H
 Nro. legajo: 115678
-Desafío Stark 01
+Desafío Stark 03
 """
 
 import os
@@ -365,9 +365,10 @@ def imprimir_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> str:
 # 5.5
 def stark_listar_heroes_por_dato(lista_heroes: list[dict], clave: str) -> str:
   """  
-  valida si el string recibido como primer parametro no es un string vacio, en caso de serlo retorna el string recibido como segundo parametro\n 
-  [dato: str] string a validar\n
-  return [dato] si no es string vacio, "Sin datos" caso contrario
+  recibe la lista de heroes y una clave, detecta las variantes para esa clave e imprime por pantalla un informe agrupando a los superheroes cuyos valores para una determinada variedad de la clave recibida sean coincidentes\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a relevar en los diccionarios\n
+  return None -> imprime un informe por pantalla
   """
   imprimir_heroes_por_tipo(lista_heroes, clave)
 

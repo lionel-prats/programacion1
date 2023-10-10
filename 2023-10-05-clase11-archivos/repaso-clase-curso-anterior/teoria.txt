@@ -1,0 +1,31 @@
+# https://www.youtube.com/watch?v=65FcdtyIK4M -> link de la clase en YT 
+
+Archivos de texto:
+Los archivos de texto contienen caracteres legibles, es posible no solo  leer dicho contenido sino también modificarlo usando un editor de texto. 
+Tipos de archivos de texto: .txt, .csv, .html, etc.
+
+Archivos binarios:
+Un archivo binario es cualquier archivo que no se pueda interpretar en forma de texto: una imagen, un sonido o incluso un archivo comprimido.
+Tipos de archivos de texto: .jpg, .mp4, .gif, etc.
+
+Modos de apertura de un archivo:
+MODO    DESCRIPCIÓN
+r       Abre un archivo de texto sólo para lectura
+rb      Abre un archivo binario sólo para lectura
+r+      Abre un archivo de texto para escritura y lectura (el puntero esta colocado al principio, si voy escribiendo, voy sobreescribiendo)
+w       Abre un archivo de texto sólo para escritura (si existe lo sobreescribe) (apenas lo abro, se borra todo el contenido, y el puntero queda posicionado al principio del archivo)
+wb      Abre un archivo sólo para escritura (si existe lo sobreescribe)
+w+      Abre un archivo de texto para escritura y lectura (si existe lo sobreescribe)
+a       Abre un archivo para anexar información, pero sin leerlo previamente (el puntero esta colocado al final del contenido del archivo, si voy escribiendo, voy agregando informacion)
+
+----- 
+
+CSV:
+El CSV es un tipo de documento que representa los datos de forma parecida a una tabla, es decir, organizando la información en filas y columnas.
+Las columnas son separadas, por un signo de puntuación (, ; .) u otro carácter y las diferentes filas suelen separarse por un salto de línea.
+
+----- 
+
+JSON:
+El nombre es un acrónimo de las siglas en inglés de JavaScript Object Notation.
+JSON es un formato para el intercambio de datos basado en texto. Por lo que es fácil de leer tanto para una persona como para una máquina. 
