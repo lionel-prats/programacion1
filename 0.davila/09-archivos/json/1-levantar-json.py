@@ -1,8 +1,7 @@
 import json
 
-ruta_archivo_json = r"C:\Users\User\Desktop\utn\cuatrimestre1\programacion_1\2023-10-05-clase11-archivos\repaso-clase-curso-anterior\data.json"
-
-metodo_apertura = "r"
+ROOT_DIR = "0.davila/09-archivos/json/"
+ruta_archivo_json = f"{ROOT_DIR}data.json"
 
 def parse_json(ruta_archivo: str)-> dict:
     lista = []
@@ -10,7 +9,7 @@ def parse_json(ruta_archivo: str)-> dict:
         lista = json.load(archivo)
         # for linea in archivo:
         #     print(linea, end = "")
-    return lista[0]["name"]
+    return lista
 
 lista = parse_json(ruta_archivo_json)
 print(lista)
