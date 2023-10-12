@@ -155,7 +155,7 @@ def obtener_lista_de_tipos(lista_personas: list[dict], clave: str) -> dict:
     return dict(diccionario)
 
 resultado = obtener_lista_de_tipos(personas, "equipo")
-print(resultado)
+# print(resultado)
 
 """ 
 {
@@ -165,3 +165,38 @@ print(resultado)
 
 """
 
+
+
+
+
+"""
+estoy trabajando con python
+tengo las listas:
+claves = ["nombre", "apellido", "edad"]
+valores = ["lionel", "prats", "38"]
+necesito armar el diccionario:
+diccionario = {
+  "nombre": "lionel", 
+  "apellido": "prats", 
+  "edad": "38"
+}
+cual es la forma mas eficiente y profesional de hacerlo?
+"""
+
+claves = ["nombre", "apellido", "edad"]
+valores = ["lionel", "prats", "38"]
+
+# objeto = zip(claves, valores)
+# print(type(objeto), objeto)
+# for item in objeto:
+#     print(type(item), item)
+
+# lista = list(zip(claves, valores))
+# print(type(lista), lista)
+# for item in lista:
+#   print(type(item), item)
+
+diccionario = dict(zip(claves, valores))
+print(type(diccionario), diccionario)
+for k, v in diccionario.items():
+  print(k, v)

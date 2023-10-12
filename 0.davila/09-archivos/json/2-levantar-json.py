@@ -9,4 +9,5 @@ def parse_json(ruta_archivo: str)-> dict:
     return contenido_json
 
 resultado = parse_json(ruta_archivo_json)
+print(type(resultado))
 print(resultado)

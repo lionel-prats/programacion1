@@ -518,6 +518,42 @@ for nombre, edad, equipo in zip(lista_nombres, lista_edades, lista_equipos):
 
 # -----------------------------------------------------------------------------------------------
 
+# Mas aplicaciones para zip() 
+
+"""
+estoy trabajando con python
+tengo las listas:
+claves = ["nombre", "apellido", "edad"]
+valores = ["lionel", "prats", "38"]
+necesito armar el diccionario:
+diccionario = {
+  "nombre": "lionel", 
+  "apellido": "prats", 
+  "edad": "38"
+}
+cual es la forma mas eficiente y profesional de hacerlo?
+"""
+
+claves = ["nombre", "apellido", "edad"]
+valores = ["lionel", "prats", "38"]
+
+# objeto = zip(claves, valores)
+# print(type(objeto), objeto)
+# for item in objeto:
+#     print(type(item), item)
+
+# lista = list(zip(claves, valores))
+# print(type(lista), lista)
+# for item in lista:
+#   print(type(item), item)
+
+diccionario = dict(zip(claves, valores))
+print(type(diccionario), diccionario)
+for k, v in diccionario.items():
+  print(k, v)
+  
+-----------------------------------------------------------------------------------------------
+
 # map()
 
 # la funcion map() pasa como parametros a una funcion a cada uno de los elementos de una lista, dando como resultado una nueva lista formada por los elementos que dicha funcion retorna
