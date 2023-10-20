@@ -954,3 +954,10 @@ EXCEPCIONES
 
 documentacion oficial - excepciones incorporadas en el lenguaje vvv
 https://docs.python.org/3/library/exceptions.html
+
+----- 
+
+simil __LINE__
+
+from inspect import currentframe as linea
+print(linea().f_lineno)
