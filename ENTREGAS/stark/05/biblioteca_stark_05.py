@@ -40,11 +40,11 @@ def stark_marvel_app_5(lista_personajes):
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F", True)
             # g - Recorrer la lista y determinar la altura promedio de los superhéroes de género M
             case "g" | "G":
-                imprimir_dato("g- Altura promedio superhéroes género masculino(M)")
+                imprimir_dato("g- Altura promedio superhéroes género masculino(M):\n")
                 stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "m")
             # h - Recorrer la lista y determinar la altura promedio de los  superhéroes de género F
             case "h" | "H":
-                imprimir_dato("h- Altura promedio superhéroes género femenino(M)")
+                imprimir_dato("h- Altura promedio superhéroes género femenino(M):\n")
                 stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "f")
             # i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
             case "i" | "I":
@@ -62,15 +62,15 @@ def stark_marvel_app_5(lista_personajes):
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F")
             # j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
             case "j" | "J":
-                imprimir_dato("j- Color de ojos (cantidad según tipo):")
+                imprimir_dato("j- Color de ojos (cantidad según tipo):\n")
                 stark_calcular_cantidad_por_tipo(lista_personajes, "color_ojos")
             # k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
             case "k" | "K":
-                imprimir_dato("k- Color de pelo (cantidad según tipo):")
+                imprimir_dato("k- Color de pelo (cantidad según tipo):\n")
                 stark_calcular_cantidad_por_tipo(lista_personajes, "color_pelo")
             # l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
             case "l" | "L":
-                imprimir_dato("l- Inteligencia (cantidad según tipo):")
+                imprimir_dato("l- Inteligencia (cantidad según tipo):\n")
                 stark_calcular_cantidad_por_tipo(lista_personajes, "inteligencia")
             # m - Listar todos los superhéroes agrupados por color de ojos.
             case "m" | "M":
@@ -260,9 +260,7 @@ def stark_calcular_imprimir_promedio_altura_genero(lista_heroes: list[dict], cla
   """
   if not lista_heroes:
     return "Error: Lista de héroes vacía"
-  print("\n")
   print(f"{clave.capitalize()} promedio genero {str_genero.upper()}: {calcular_promedio_genero(lista_heroes, clave, str_genero)}")
-  print("\n")
 
 def obtener_nombre(diccionario: dict) -> str:
   """  
@@ -321,12 +319,10 @@ def imprimir_cantidad_heroes_tipo(diccionario: dict, clave: str) -> None:
   [clave: str] propiedad asociada a los datos procesados en el diccionario\n
   return None -> imprime un informe por consola
   """
-  imprimir_dato("\n")
   string = ""
   for k,v in diccionario.items():
     string += f"Característica: {clave} {k} - Cantidad de héroes: {v}\n"
-  imprimir_dato(string) 
-  imprimir_dato("\n")
+  imprimir_dato(string[:-1]) 
 
 def stark_calcular_cantidad_por_tipo(lista_heroes: list[dict], clave: str) -> None:
   """  
@@ -424,8 +420,8 @@ def imprimir_linea(linea):
 if __name__ == "__main__":
     lista_heroes = leer_archivo("data_stark.json")
     stark_marvel_app_5(lista_heroes)
-    # print(stark_menu_principal_desafio_5())
-
+    
+   
 
 
 
