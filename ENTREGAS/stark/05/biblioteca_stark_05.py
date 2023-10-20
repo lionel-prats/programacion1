@@ -2,77 +2,79 @@
 def stark_marvel_app_5(lista_personajes):
     """
     """
-    opcion_seleccionada = -1
-    while opcion_seleccionada == -1:
-        limpiar_consola()
-        opcion_seleccionada = stark_menu_principal_desafio_5() 
-    match opcion_seleccionada:
-        # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
-        case "a" | "A":
-            pass
-            stark_imprimir_heroe_genero(lista_personajes, "m")
-        # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
-        case "b" | "B":
-            stark_imprimir_heroe_genero(lista_personajes, "f")
-        # c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
-        case "c" | "C":
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M", True)
-        # e - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
-        case "d" | "D":
-            pass
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F", True)
-        # e - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género M
-        case "e" | "E":
-            pass
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M", True)
-        # f - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género F
-        case "f" | "F":
-            pass
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F", True)
-        # g - Recorrer la lista y determinar la altura promedio de los  superhéroes de género M
-        case "g" | "G":
-            stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "m")
-        # h - Recorrer la lista y determinar la altura promedio de los  superhéroes de género F
-        case "h" | "H":
-            stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "f")
-        # i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
-        case "i" | "I":
-            titulo = "c- Héroe/s más alto/s género \"M\":"
-            print(f"\n{titulo}")
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M")
+    while True:
+        opcion_seleccionada = -1
+        while opcion_seleccionada == -1:
+            # limpiar_consola()
+            opcion_seleccionada = stark_menu_principal_desafio_5() 
+        match opcion_seleccionada:
+            # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
+            case "a" | "A":
+                pass
+                stark_imprimir_heroe_genero(lista_personajes, "m")
+            # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
+            case "b" | "B":
+                stark_imprimir_heroe_genero(lista_personajes, "f")
+            # c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
+            case "c" | "C":
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M", True)
+            # e - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
+            case "d" | "D":
+                pass
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F", True)
+            # e - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género M
+            case "e" | "E":
+                pass
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M", True)
+            # f - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género F
+            case "f" | "F":
+                pass
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F", True)
+            # g - Recorrer la lista y determinar la altura promedio de los  superhéroes de género M
+            case "g" | "G":
+                stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "m")
+            # h - Recorrer la lista y determinar la altura promedio de los  superhéroes de género F
+            case "h" | "H":
+                stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "f")
+            # i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
+            case "i" | "I":
+                titulo = "c- Héroe/s más alto/s género \"M\":"
+                print(f"\n{titulo}")
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M")
 
-            titulo = "d- Héroe/s más alto/s género \"F\":"
-            print(titulo)
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F")
+                titulo = "d- Héroe/s más alto/s género \"F\":"
+                print(titulo)
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F")
 
-            titulo = "e- Héroe/s más bajo/s género \"M\":"
-            print(titulo)
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M")
+                titulo = "e- Héroe/s más bajo/s género \"M\":"
+                print(titulo)
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M")
 
-            titulo = "f- Héroe/s más bajo/s género \"F\":"
-            print(titulo)
-            stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F")
-        # j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
-        case "j" | "J":
-            stark_calcular_cantidad_por_tipo(lista_personajes, "color_ojos")
-        # k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
-        case "k" | "K":
-            stark_calcular_cantidad_por_tipo(lista_personajes, "color_pelo")
-        # l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
-        case "l" | "L":
-            stark_calcular_cantidad_por_tipo(lista_personajes, "inteligencia")
-        # m - Listar todos los superhéroes agrupados por color de ojos.
-        case "m" | "M":
-            stark_listar_heroes_por_dato(lista_personajes, "color_ojos")
-        # n - Listar todos los superhéroes agrupados por color de pelo.
-        case "n" | "N":
-            stark_listar_heroes_por_dato(lista_personajes, "color_pelo")
-        # o - Listar todos los superhéroes agrupados por tipo de inteligencia
-        case "o" | "O":
-            stark_listar_heroes_por_dato(lista_personajes, "inteligencia")
-        # salir del programa
-        case "z":
-            print("salir del programa")
+                titulo = "f- Héroe/s más bajo/s género \"F\":"
+                print(titulo)
+                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F")
+            # j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
+            case "j" | "J":
+                stark_calcular_cantidad_por_tipo(lista_personajes, "color_ojos")
+            # k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
+            case "k" | "K":
+                stark_calcular_cantidad_por_tipo(lista_personajes, "color_pelo")
+            # l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
+            case "l" | "L":
+                stark_calcular_cantidad_por_tipo(lista_personajes, "inteligencia")
+            # m - Listar todos los superhéroes agrupados por color de ojos.
+            case "m" | "M":
+                stark_listar_heroes_por_dato(lista_personajes, "color_ojos")
+            # n - Listar todos los superhéroes agrupados por color de pelo.
+            case "n" | "N":
+                stark_listar_heroes_por_dato(lista_personajes, "color_pelo")
+            # o - Listar todos los superhéroes agrupados por tipo de inteligencia
+            case "o" | "O":
+                stark_listar_heroes_por_dato(lista_personajes, "inteligencia")
+            # salir del programa
+            case "z":
+                print("Hasta la próxima\n")
+                break
 
 # 1.2
 def stark_menu_principal_desafio_5():
@@ -90,7 +92,7 @@ def stark_menu_principal_desafio_5():
 def imprimir_menu_desafio_5():
     """  
     """
-    menu = """a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
+    menu = """\na - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
 b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
 c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
 d - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
