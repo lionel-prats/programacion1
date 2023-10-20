@@ -5,19 +5,20 @@ def stark_marvel_app_5(lista_personajes):
     while True:
         opcion_seleccionada = -1
         while opcion_seleccionada == -1:
-            # limpiar_consola()
             opcion_seleccionada = stark_menu_principal_desafio_5() 
+        limpiar_consola()
         match opcion_seleccionada:
             # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
             case "a" | "A":
-                limpiar_consola()
-                print("a- Listado superhéroes de género masculino (M)")
+                imprimir_dato("a- Listado superhéroes de género masculino(M)")
                 stark_imprimir_heroe_genero(lista_personajes, "m")
             # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
             case "b" | "B":
+                imprimir_dato("b- Listado superhéroes de género femenino(F)")
                 stark_imprimir_heroe_genero(lista_personajes, "f")
             # c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
             case "c" | "C":
+                imprimir_dato("c- Superhéroe más alto género masculino(M)")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M", True)
             # e - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
             case "d" | "D":
