@@ -10,7 +10,8 @@ def stark_marvel_app_5(lista_personajes):
         match opcion_seleccionada:
             # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
             case "a" | "A":
-                pass
+                limpiar_consola()
+                print("a- Listado superhéroes de género masculino (M)")
                 stark_imprimir_heroe_genero(lista_personajes, "m")
             # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
             case "b" | "B":
@@ -28,7 +29,7 @@ def stark_marvel_app_5(lista_personajes):
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M", True)
             # f - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género F
             case "f" | "F":
-                pass
+                limpiar_consola()
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F", True)
             # g - Recorrer la lista y determinar la altura promedio de los  superhéroes de género M
             case "g" | "G":
