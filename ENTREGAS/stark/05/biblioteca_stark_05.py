@@ -74,15 +74,15 @@ def stark_marvel_app_5(lista_personajes):
                 stark_calcular_cantidad_por_tipo(lista_personajes, "inteligencia")
             # m - Listar todos los superhéroes agrupados por color de ojos.
             case "m" | "M":
-                imprimir_dato("m- Color de ojos (agrupados por tipo):")
+                imprimir_dato("m- Color de ojos (agrupados por tipo):\n")
                 stark_listar_heroes_por_dato(lista_personajes, "color_ojos")
             # n - Listar todos los superhéroes agrupados por color de pelo.
             case "n" | "N":
-                imprimir_dato("n- Color de pelo (agrupados por tipo):")
+                imprimir_dato("n- Color de pelo (agrupados por tipo):\n")
                 stark_listar_heroes_por_dato(lista_personajes, "color_pelo")
             # o - Listar todos los superhéroes agrupados por tipo de inteligencia
             case "o" | "O":
-                imprimir_dato("o- Inteligencia (agrupados por tipo):")
+                imprimir_dato("o- Inteligencia (agrupados por tipo):\n")
                 stark_listar_heroes_por_dato(lista_personajes, "inteligencia")
             # salir del programa
             case "z" | "Z":
@@ -357,7 +357,6 @@ def imprimir_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> str:
   [clave: str] campo a relevar en los diccionarios\n
   return None -> imprime un informe por pantalla
   """
-  print("\n")
   fila = ""
   diccionario_variedad = obtener_heroes_por_tipo(lista_heroes, clave)
   for variedad, lista_h in diccionario_variedad.items():
@@ -366,8 +365,7 @@ def imprimir_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> str:
       fila += f"{nombre} | "
     fila = fila[:-2]
     fila += "\n"
-  imprimir_dato(fila)
-  print("\n")
+  imprimir_dato(fila[:-1])
 
 def stark_listar_heroes_por_dato(lista_heroes: list[dict], clave: str) -> str:
   """  
