@@ -7,7 +7,6 @@ def stark_marvel_app_5(lista_personajes):
     """
     limpiar_consola()
     while True:
-       
         opcion_seleccionada = -1
         while opcion_seleccionada == -1:
             opcion_seleccionada = stark_menu_principal_desafio_5() 
@@ -134,14 +133,18 @@ def leer_archivo(nombre_archivo_json):
     return contenido_json["lista_personajes"]
 
 1.5
-def guardar_archivo():
-   """
+def guardar_archivo(nombre_archivo_csv, contenido):
+    """
     Crear la función 'guardar_archivo' la cual recibirá por parámetro un string que indicará el nombre con el cual se guardará el archivo junto con su extensión (ejemplo: 'archivo.csv') y como segundo parámetro tendrá un string el cual será el contenido a guardar en dicho archivo. Debe abrirse el archivo en modo escritura, ya que en caso de no existir, lo creara y en caso de existir, lo va a sobreescribir La función debera retornar True si no hubo errores, caso contrario False, además en caso de éxito, deberá imprimir un mensaje respetando el formato:
     .Se creó el archivo: nombre_archivo.csv
     En caso de retornar False, el mensaje deberá decir: ‘Error al crear el archivo: nombre_archivo’
     Donde nombre_archivo será el nombre que recibirá el archivo a ser creado, conjuntamente con su extensión. (Manejar posibles Excepciones)
     """ 
-   pass
+    if 4 > 5:
+        imprimir_dato(f"Error al crear el archivo: {nombre_archivo_csv}")
+        return False
+    imprimir_dato(f"Se creó el archivo: {nombre_archivo_csv}")
+    return True
 
 # --------------------------------- BLOQUE DE FUNCIONES STARKS ANTERIORES - INICIO ---------------------------------------
 
