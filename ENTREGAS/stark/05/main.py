@@ -1,13 +1,8 @@
-numero = 4
+from biblioteca_stark_05 import(leer_archivo, stark_marvel_app_5)
 
-match numero:
-    case 1:
-        print ("uno")
-    case 2:
-        print ("uno")
-    case 3:
-        print ("uno")
-    case 4:
-        print ("uno")
-    case _ :
-        print ("cinco")
+if __name__ == "__main__":
+    lista_heroes = leer_archivo("data_stark.json")
+    stark_marvel_app_5(lista_heroes)
+
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/05
+# python main.py
