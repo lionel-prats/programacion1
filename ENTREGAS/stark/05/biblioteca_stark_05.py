@@ -1,12 +1,17 @@
+from inspect import currentframe as linea
+# imprimir_linea(linea().f_lineno)
+
 # 1.3
 def stark_marvel_app_5(lista_personajes):
     """
     """
     while True:
+       
         opcion_seleccionada = -1
         while opcion_seleccionada == -1:
             opcion_seleccionada = stark_menu_principal_desafio_5() 
-        limpiar_consola()
+            if opcion_seleccionada != "z":
+                limpiar_consola()
         match opcion_seleccionada:
             # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
             case "a" | "A":
@@ -80,7 +85,7 @@ def stark_marvel_app_5(lista_personajes):
                 stark_listar_heroes_por_dato(lista_personajes, "inteligencia")
             # salir del programa
             case "z":
-                print("Hasta la próxima\n")
+                print("\nHasta la próxima\n")
                 break
 
 # 1.2
@@ -411,11 +416,21 @@ def limpiar_consola():
     else: # linux o mac
       os.system("clear")
 
+def imprimir_linea(linea):
+   # imprimir_linea(linea().f_lineno)
+   print(f"Linea {linea}")
+
 # -----------------------------
 
 if __name__ == "__main__":
     lista_heroes = leer_archivo("data_stark.json")
     stark_marvel_app_5(lista_heroes)
+
+
+
+
+   
+    
 
 
 # cd C:\Users\User\Desktop\utn\cuatrimestre1\programacion_1\ENTREGAS\stark\05
