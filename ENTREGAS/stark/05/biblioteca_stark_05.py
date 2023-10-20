@@ -5,6 +5,7 @@ from inspect import currentframe as linea
 def stark_marvel_app_5(lista_personajes):
     """
     """
+    limpiar_consola()
     while True:
        
         opcion_seleccionada = -1
@@ -425,6 +426,7 @@ def imprimir_linea(linea):
 if __name__ == "__main__":
     lista_heroes = leer_archivo("data_stark.json")
     stark_marvel_app_5(lista_heroes)
+    # stark_menu_principal_desafio_5("Z")
 
 
 
