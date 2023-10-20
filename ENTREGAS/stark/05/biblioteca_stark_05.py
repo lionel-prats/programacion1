@@ -16,27 +16,27 @@ def stark_marvel_app_5(lista_personajes):
         match opcion_seleccionada:
             # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
             case "a" | "A":
-                imprimir_dato("a- Listado superhéroes de género masculino(M)")
+                imprimir_dato("a- Listado superhéroes de género masculino(M):\n")
                 stark_imprimir_heroe_genero(lista_personajes, "m")
             # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
             case "b" | "B":
-                imprimir_dato("b- Listado superhéroes de género femenino(F)")
+                imprimir_dato("b- Listado superhéroes de género femenino(F):\n")
                 stark_imprimir_heroe_genero(lista_personajes, "f")
             # c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
             case "c" | "C":
-                imprimir_dato("c- Superhéroe más alto género masculino(M)")
+                imprimir_dato("c- Superhéroe más alto género masculino(M):\n")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M", True)
             # e - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
             case "d" | "D":
-                imprimir_dato("d- Superhéroe más alto género femenino(F)")
+                imprimir_dato("d- Superhéroe más alto género femenino(F):\n")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F", True)
             # e - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género M
             case "e" | "E":
-                imprimir_dato("e- Superhéroe más bajo género masculino(M)")
+                imprimir_dato("e- Superhéroe más bajo género masculino(M):\n")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M", True)
             # f - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género F
             case "f" | "F":
-                imprimir_dato("f- Superhéroe más bajo género femenino(F)")
+                imprimir_dato("f- Superhéroe más bajo género femenino(F):\n")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F", True)
             # g - Recorrer la lista y determinar la altura promedio de los superhéroes de género M
             case "g" | "G":
@@ -48,17 +48,17 @@ def stark_marvel_app_5(lista_personajes):
                 stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "f")
             # i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
             case "i" | "I":
-                imprimir_dato("i- Informe:\n\n")
-                imprimir_dato("c- Superhéroe más alto género masculino(M)")
+                imprimir_dato("i- Informe:")
+                imprimir_dato("\nc- Superhéroe más alto género masculino(M)")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M")
 
-                imprimir_dato("d- Superhéroe más alto género femenino(F)")
+                imprimir_dato("\nd- Superhéroe más alto género femenino(F)")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F")
 
-                imprimir_dato("e- Superhéroe más bajo género masculino(M)")
+                imprimir_dato("\ne- Superhéroe más bajo género masculino(M)")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M")
 
-                imprimir_dato("f- Superhéroe más bajo género femenino(F)")
+                imprimir_dato("\nf- Superhéroe más bajo género femenino(F)")
                 stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F")
             # j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
             case "j" | "J":
@@ -209,12 +209,12 @@ def stark_calcular_imprimir_heroe_genero(lista_heroes: list[dict], valor_buscado
   """
   if not lista_heroes:
     return -1
-  if margin_top:
-    print("\n")
+    # if margin_top:
+    # print("\n")
   lista_final = calcular_max_min_dato_genero(lista_heroes, valor_buscado, clave, str_genero)
   for heroe in lista_final:
     imprimir_dato(obtener_nombre_y_dato(heroe, clave))
-  print("\n")
+    # print("\n")
 
 def sumar_dato_heroe_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
   """  
@@ -292,10 +292,8 @@ def stark_imprimir_heroe_genero(lista_heroes: list[dict], str_genero: str) -> No
   return None
   """
   heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
-  print("\n")
   for heroe in heroes_genero:
     imprimir_dato(obtener_nombre(heroe))
-  print("\n")
 
 def calcular_cantidad_tipo(lista_heroes: list[dict], clave: str) -> dict:
   """  
