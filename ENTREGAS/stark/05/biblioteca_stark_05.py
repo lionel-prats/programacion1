@@ -11,7 +11,7 @@ def stark_marvel_app_5(lista_personajes):
         opcion_seleccionada = -1
         while opcion_seleccionada == -1:
             opcion_seleccionada = stark_menu_principal_desafio_5() 
-            if opcion_seleccionada != "z":
+            if opcion_seleccionada not in ("z", "Z"):
                 limpiar_consola()
         match opcion_seleccionada:
             # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
@@ -85,7 +85,7 @@ def stark_marvel_app_5(lista_personajes):
                 imprimir_dato("o- Inteligencia (agrupados por tipo):")
                 stark_listar_heroes_por_dato(lista_personajes, "inteligencia")
             # salir del programa
-            case "z":
+            case "z" | "Z":
                 print("\nHasta la próxima\n")
                 break
 
@@ -426,7 +426,7 @@ def imprimir_linea(linea):
 if __name__ == "__main__":
     lista_heroes = leer_archivo("data_stark.json")
     stark_marvel_app_5(lista_heroes)
-    # stark_menu_principal_desafio_5("Z")
+    # print(stark_menu_principal_desafio_5())
 
 
 
