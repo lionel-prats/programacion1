@@ -6,3 +6,9 @@ if __name__ == "__main__":
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/05
 # python main.py
+
+"""  
+Windods + H dictado automatico
+Windods + Alt + R grabacion automatico
+Windods + G para ver las grabaciones
+"""

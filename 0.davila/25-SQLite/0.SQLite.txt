@@ -1,0 +1,51 @@
+- SQLite es un gestor de base de datos relacionales.
+- Va a estar en el medio entre nosotros y el archivo fisico. 
+- Es open source y esta instalado por defecto con Python, es decir que forma parte de la biblioteca estandar
+- este gestor de base de datos tiene por objetivo ser parte de la misma aplicacion con la que colabora,
+  es decir que no cumple con los conceptos de cliente y servidor.
+
+- SQLite es una biblioteca que termina siendo un modulo de Python que ya lo tenenmos instalado por default
+
+- Si una aplicacion necesita almacenar infromacion local con cierta estructura, SQLite es una excelente opcion
+  (Firefox utiliza SQLite para almacenar los favoritos, el historial, las cookies, etc.)
+
+- Las bases de datos relacionales utilizan el lenguaje SQL (Structured Query Language), formado por
+  - DDL -> Lenguaje de definicion de datos (se usa solo en la etapa de construccion de la base de datos) 
+  - DML -> Lenguaje de manipulacion de datos
+
+  DDL:
+  - CREATE (Crear)
+  - ALTER (Alterar)
+  - DROP  (Eliminar)
+  - TRUNCATE (Truncar)
+
+  DML:
+  - SELECT (Seleccionar)
+  - INSERT (Insert)
+  - UPDATE  (Actualizar)
+  - DELETE (Borrar)
+
+----- 
+
+Tipos de dato en SQLite:
+
+NULL     |   Es un valor nulo
+INTEGER  |   Entero con signo
+REAL     |   Valor de coma flotante
+TEXT     |   Cadena de texto
+BLOB     |   Son bytes almacenados exactamente como se ingresaron
+
+----- 
+
+Conectar con SQLite 
+
+- Primero debemos importar el modulo "sqlite3", luego conectar con la base de datos, despues operar
+  y por ultimo no olvidar de cerrar la conexion.
+
+----- 
+
+DB Browser for SQLite 
+
+- es una herramienta la cual permite crear. diseñar y editar archivos 
+  de bases de datos compatibles con SQLite
+- https://sqlitebrowser.org/dl/

@@ -132,7 +132,7 @@ def leer_archivo(nombre_archivo_json):
         contenido_json = json.load(archivo)
     return contenido_json["lista_personajes"]
 
-1.5
+# 1.5
 def guardar_archivo(nombre_archivo_csv, contenido):
     """
     Crear la función 'guardar_archivo' la cual recibirá por parámetro un string que indicará el nombre con el cual se guardará el archivo junto con su extensión (ejemplo: 'archivo.csv') y como segundo parámetro tendrá un string el cual será el contenido a guardar en dicho archivo. Debe abrirse el archivo en modo escritura, ya que en caso de no existir, lo creara y en caso de existir, lo va a sobreescribir La función debera retornar True si no hubo errores, caso contrario False, además en caso de éxito, deberá imprimir un mensaje respetando el formato:
@@ -145,6 +145,43 @@ def guardar_archivo(nombre_archivo_csv, contenido):
         return False
     imprimir_dato(f"Se creó el archivo: {nombre_archivo_csv}")
     return True
+
+# 1.6
+def capitalizar_palabras(string: str):
+  """ 
+  """
+  lista_string = string.split(" ")
+  lista_string = " ".join(list(map(str.capitalize, lista_string)))
+  return lista_string
+
+# 1.7
+def obtener_nombre_capitalizado(diccionario_heroe: dict):
+  return f"Nombre: {capitalizar_palabras(diccionario_heroe.get('nombre', ''))}"
+
+# 1.8
+def obtener_nombre_y_dato_stark05(diccionario: dict, key: str) -> str:
+  """  
+  de un diccionario dado, retorna una leyenda (str) con los valores de las claves "nombre" y la especificada por parametro\n 
+  [diccionario: dict] datos de un superheroe en formato dict\n
+  [key: str] clave que se busca retornar junto a "nombre"\n
+  return str "Nombre: xxx | [key]: xxx"
+  """
+  valor_dinamico = diccionario.get(key, 'sin datos')
+  return f"{obtener_nombre_capitalizado(diccionario)} | {capitalizar_palabras(key)}: {valor_dinamico}"
+
+# 2.1
+def es_genero_stark05(diccionario:dict, str_genero:str)-> bool:
+  """  
+  determina si el genero de un personaje recibido por parametro coincide con el genero recibido por parametro\n 
+  [diccionario : dict] -> diccionario con la info de un heroe, incluida la clave "genero"\n
+  [str_genero : str] -> string para realizar la verificacion ("F", "M" o "NB")\n
+  return bool -> True si hay coincidencia, False caso contrario
+  """
+  if isinstance(diccionario, dict) and diccionario and "genero" in diccionario and diccionario.get("genero").lower() == str_genero.lower():
+    return True 
+  return False
+
+
 
 # --------------------------------- BLOQUE DE FUNCIONES STARKS ANTERIORES - INICIO ---------------------------------------
 
@@ -419,11 +456,11 @@ def imprimir_linea(linea):
 # -----------------------------
 
 if __name__ == "__main__":
-    lista_heroes = leer_archivo("data_stark.json")
-    stark_marvel_app_5(lista_heroes)
-    
-   
-
+  limpiar_consola()
+  lista_heroes = leer_archivo("data_stark.json")
+  #stark_marvel_app_5(lista_heroes)
+  resultado2 = es_genero_stark05(lista_heroes[3], "f")
+  print(resultado2)
 
 
    
