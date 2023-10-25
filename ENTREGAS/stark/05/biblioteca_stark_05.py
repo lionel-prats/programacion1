@@ -181,8 +181,6 @@ def es_genero_stark05(diccionario:dict, str_genero:str)-> bool:
     return True 
   return False
 
-
-
 # --------------------------------- BLOQUE DE FUNCIONES STARKS ANTERIORES - INICIO ---------------------------------------
 
 def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:

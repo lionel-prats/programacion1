@@ -961,3 +961,11 @@ simil __LINE__
 
 from inspect import currentframe as linea
 print(linea().f_lineno)
+
+----- 
+
+compresion de listas (comprenhension list) (ver clase 15 de programacion I para mas ejemplos)
+
+numeros = [1, 2, 3, 4, 5] 
+lista_dobles_comprension = [numero * 2 for numero in numeros]
+print(lista_dobles_comprension)

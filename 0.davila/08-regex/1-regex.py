@@ -25,3 +25,9 @@ regex_nro = "[-][0-9]{4}"
 
 # nros entre 2 y 4 digitos
 regex_nro = "[-][0-9]{2,4}" 
+
+dni = "[0-9]{7,9}" 
+if(re.match(dni, "a31367577a")):
+    print("es DNI")
+else:
+    print("dato invalido")

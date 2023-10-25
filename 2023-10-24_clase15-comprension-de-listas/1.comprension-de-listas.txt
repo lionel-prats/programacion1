@@ -1,0 +1,7 @@
+Extension
+vocales = {A, E, I, O, U}
+
+Comprension
+vocales = {x / x E vocales}
+
+- hasta ahora veniamos definiendo listas pr extension
