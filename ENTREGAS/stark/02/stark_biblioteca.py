@@ -118,7 +118,7 @@ def calcular_max(lista: list[dict], clave: str):
 
 def calcular_min(lista: list[dict], clave: str):
   """ 
-  ACCION: recibe una lista de diccionarios y una key para la que se buscará el mínimo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor mínimoximo hallado \n 
+  ACCION: recibe una lista de diccionarios y una key para la que se buscará el mínimo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor mínimo hallado \n 
   PARAMETROS:\n
   [lista] -> lista de diccionarios\n
   [key] -> clave a evaluar\n

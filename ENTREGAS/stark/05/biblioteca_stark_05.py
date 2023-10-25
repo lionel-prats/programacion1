@@ -1,6 +1,21 @@
 from inspect import currentframe as linea
 # imprimir_linea(linea().f_lineno)
 
+def limpiar_consola():
+    import os
+    """  
+    limpia la consola
+    """
+    # os.system('cls' if os.name == 'nt' else 'clear')
+    if os.name in ["ce", "nt", "dos"]: # windows
+      os.system("cls")
+    else: # linux o mac
+      os.system("clear")
+
+def imprimir_linea(linea):
+   # imprimir_linea(linea().f_lineno)
+   print(f"Linea {linea}")
+
 # 1.3
 def stark_marvel_app_5(lista_personajes):
     """
@@ -133,18 +148,23 @@ def leer_archivo(nombre_archivo_json):
     return contenido_json["lista_personajes"]
 
 # 1.5
-def guardar_archivo(nombre_archivo_csv, contenido):
+def guardar_archivo(nombre_archivo_csv: str, contenido_csv:str):
     """
-    Crear la función 'guardar_archivo' la cual recibirá por parámetro un string que indicará el nombre con el cual se guardará el archivo junto con su extensión (ejemplo: 'archivo.csv') y como segundo parámetro tendrá un string el cual será el contenido a guardar en dicho archivo. Debe abrirse el archivo en modo escritura, ya que en caso de no existir, lo creara y en caso de existir, lo va a sobreescribir La función debera retornar True si no hubo errores, caso contrario False, además en caso de éxito, deberá imprimir un mensaje respetando el formato:
-    .Se creó el archivo: nombre_archivo.csv
-    En caso de retornar False, el mensaje deberá decir: ‘Error al crear el archivo: nombre_archivo’
-    Donde nombre_archivo será el nombre que recibirá el archivo a ser creado, conjuntamente con su extensión. (Manejar posibles Excepciones)
+    genera o reescribe un .csv con el nombre y el contenido especificados por el usuario\n
+    nombre_archivo_csv: str -> nombre del archivo a crear\n
+    contenido_csv: str -> contenido del archivo a crear\n
+    return bool -> True si el archivo se pudo crear, False caso contrario
     """ 
-    if 4 > 5:
-        imprimir_dato(f"Error al crear el archivo: {nombre_archivo_csv}")
-        return False
-    imprimir_dato(f"Se creó el archivo: {nombre_archivo_csv}")
-    return True
+    # nombre_archivo_csv = "nombre_archivo.csv"
+    # contenido_csv = "nombre;altura;fuerza\nHoward;78;4\nSantos;134,1"
+    try:
+      with open(f"csv/{nombre_archivo_csv}", "w", encoding="utf-8") as csv_nuevo:
+        csv_nuevo.write(f"{contenido_csv}")
+      print(f"Se creó el archivo: {nombre_archivo_csv}")
+      return True
+    except:  
+      print(f"Error al crear el archivo: {nombre_archivo_csv}")
+      return False
 
 # 1.6
 def capitalizar_palabras(string: str):
@@ -181,7 +201,143 @@ def es_genero_stark05(diccionario:dict, str_genero:str)-> bool:
     return True 
   return False
 
+# 2.2 
+def stark_guardar_heroe_genero(lista_heroes: list[dict], genero: str):
+  """  
+  genera o reescribe un .csv con la info de la lista de heroes del genero recibido por parametro\n
+  lista_heroes: list[dict] -> lista de heroes\n
+  genero: str -> genero a buscar en la lista ("f", "m" o "nb")\n
+  return bool -> True si el archivo se pudo crear, False caso contrario
+  """
+  contenido_csv = ",".join(lista_heroes[0].keys())
+  contenido_csv += "\n"
+  for heroe in lista_heroes:
+    if(es_genero_stark05(heroe, genero)):
+      contenido_csv += ",".join(heroe.values())
+      contenido_csv += "\n"
+      imprimir_dato(obtener_nombre_capitalizado(heroe))
+  match genero.lower():
+    case "f":
+      nombre_archivo = "heroes_F.csv"
+    case "m":
+      nombre_archivo = "heroes_M.csv"
+    case _:
+      nombre_archivo = "heroes_NB.csv"
+  if guardar_archivo(nombre_archivo, contenido_csv):
+     return True
+  else:
+     return False
+
+# 3.1
+def calcular_min_genero_stark05(lista: list[dict], clave: str, genero: str):
+  """ 
+  dado un genero y una clave hallara el valor minimo de esa clave para los heroes de ese genero en la lista de heroes\n 
+  lista: list[dict] -> lista de diccionarios\n
+  key: str -> clave a evaluar\n
+  genero: str -> genero("f" o "m")\n
+  list[dict] -> retorna una lista con los heroes del genero dado, cuyos valores para la clave dada coincida con el minimo hallado
+  """
+  listado_heroes_segun_genero = [heroe for heroe in lista if heroe.get("genero").lower() == genero.lower()]
+  stark_normalizar_datos(listado_heroes_segun_genero)
+  valor_minimo = min(listado_heroes_segun_genero, key = lambda diccionario: diccionario[clave])[clave]
+  listado_heroes_valor_minimo = [heroe for heroe in listado_heroes_segun_genero if heroe.get(clave) == valor_minimo]
+  return list(listado_heroes_valor_minimo)
+
+# 3.2
+def calcular_max_genero_stark05(lista: list[dict], clave: str, genero: str):
+  """ 
+  dado un genero y una clave hallara el valor maximo de esa clave para los heroes de ese genero en la lista de heroes\n 
+  lista: list[dict] -> lista de diccionarios\n
+  key: str -> clave a evaluar\n
+  genero: str -> genero("f" o "m")\n
+  list[dict] -> retorna una lista con los heroes del genero dado, cuyos valores para la clave dada coincida con el maximo hallado
+  """
+  listado_heroes_segun_genero = [heroe for heroe in lista if heroe.get("genero").lower() == genero.lower()]
+  stark_normalizar_datos(listado_heroes_segun_genero)
+  valor_minimo = max(listado_heroes_segun_genero, key = lambda diccionario: diccionario[clave])[clave]
+  listado_heroes_valor_minimo = [heroe for heroe in listado_heroes_segun_genero if heroe.get(clave) == valor_minimo]
+  return list(listado_heroes_valor_minimo)
+
 # --------------------------------- BLOQUE DE FUNCIONES STARKS ANTERIORES - INICIO ---------------------------------------
+
+def stark_normalizar_datos(lista: list[dict]) -> list[dict]:
+  """  
+  ACCION: recorre una lista de diccionarios y castea a float toda propiedad compatible con ese formato\n
+  PARAMETROS:\n 
+  [lista] -> lista de diccionarios a formatear\n
+  RETURN: la lista recibida con las propiedades factibles de ser casteada a float, casteadas
+  """
+  if not len(lista):
+    return "Error: Lista de héroes vacía"
+  respuesta = None
+  for diccionario in lista:
+    for k, v in diccionario.items():
+      if type(v) == str:
+        resultado_casteo = convertir_string_en_float(v)
+        if resultado_casteo:
+          diccionario[k] = resultado_casteo
+          if not respuesta:
+            respuesta = "Datos normalizados"
+        else:
+          diccionario[k] = v
+      else:
+        diccionario[k] = v
+  return respuesta
+
+def convertir_string_en_float(string):
+  """ 
+  ACCION: recibe una string, y de ser compatible es casteado a float:\n 
+  PARAMETROS:\n 
+  [string] -> string a formatear\n
+  RETURN: el string recibido casteado a float si el tipo de dato original es compatible, False en caso contrario
+  """
+  if type(string) == str:
+    try:
+      return float(string)
+    except ValueError:
+      return False
+  return False
+
+def calcular_max(lista: list[dict], clave: str):
+  """ 
+  ACCION: recibe una lista de diccionarios y una key para la que se buscará el máximo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor máximo hallado \n 
+  PARAMETROS:\n
+  [lista] -> lista de diccionarios\n
+  [key] -> clave a evaluar\n
+  RETURN: retorna un iterable de diccionarios
+  """
+  stark_normalizar_datos(lista)
+  valor_maximo = max(lista, key = lambda diccionario: diccionario[clave])[clave]
+  listado_heroes_valor_maximo = filter(lambda elemento: elemento[clave] == valor_maximo, lista)
+  return listado_heroes_valor_maximo
+
+def calcular_min(lista: list[dict], clave: str):
+  """ 
+  ACCION: recibe una lista de diccionarios y una key para la que se buscará el mínimo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor mínimoximo hallado \n 
+  PARAMETROS:\n
+  [lista] -> lista de diccionarios\n
+  [key] -> clave a evaluar\n
+  RETURN: retorna un iterable de diccionarios
+  """
+  stark_normalizar_datos(lista)
+  valor_minimo = min(lista, key = lambda diccionario: diccionario[clave])[clave]
+  listado_heroes_valor_minimo = filter(lambda elemento: elemento[clave] == valor_minimo, lista)
+  return listado_heroes_valor_minimo
+
+def calcular_max_min_dato(lista: list[dict], tipo_calculo: str, clave: str):
+  """ 
+  ACCION: recibe una lista de diccionarios [lista], un string "maximo" o "minimo" [tipo_calculo] y una key a evaluar. Dependiendo de [tipo_calculo] hallará el valor correspondiente para [clave] y retornara un iterable con todos los superheroes cuyo valor para [clave] coincida con el hallado\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  [tipo_calculo] -> "maximo" o "minimo"\n
+  [clave] -> clave a evaluar\n
+  RETURN: retorna un iterable de diccionarios
+  """
+  if tipo_calculo == "minimo": 
+    return calcular_min(lista, clave)
+  elif tipo_calculo == "maximo": 
+    return calcular_max(lista, clave)
+  return -1
 
 def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
   """  
@@ -194,6 +350,26 @@ def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)->
   heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
   valor_maximo_hallado = max(heroes_genero, key = lambda heroe: castear_dato_a_float(heroe[clave]))[clave]
   return valor_maximo_hallado
+
+def stark_calcular_imprimir_heroe(lista: list[dict], tipo_calculo: str, clave: str):
+  """  
+  ACCION: recibe la lista de heroes [lista] e imprime por consola los heroes cuyo valor de clave [clave] coincida con el maximo o minimo [tipo_calculo] hallado para esa clave en toda la lista\n
+  PARAMETROS:\n
+  [lista] -> lista de heroes\n
+  [tipo_calculo] -> "maximo" o "minimo"\n
+  [clave] -> clave a evaluar\n
+  RETURN: si len([]) == 0, retorna -1, caso contrario None  
+  """
+  if not len(lista):
+    return -1
+  heroes_valor_buscado = calcular_max_min_dato(lista, tipo_calculo, clave)
+  if tipo_calculo == "minimo":
+    inicio = "Menor"
+  else:
+    inicio = "Mayor"
+  for heroe in heroes_valor_buscado:
+    imprimir_dato(f"{inicio} {clave}: {obtener_nombre_y_dato(heroe, clave)}")
+  imprimir_dato("\n")
 
 def calcular_min_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
   """  
@@ -436,29 +612,64 @@ def imprimir_dato(string: str):
   """
   print(string)
 
-def limpiar_consola():
-    import os
-    """  
-    limpia la consola
-    """
-    # os.system('cls' if os.name == 'nt' else 'clear')
-    if os.name in ["ce", "nt", "dos"]: # windows
-      os.system("cls")
-    else: # linux o mac
-      os.system("clear")
-
-def imprimir_linea(linea):
-   # imprimir_linea(linea().f_lineno)
-   print(f"Linea {linea}")
-
 # -----------------------------
 
 if __name__ == "__main__":
   limpiar_consola()
+  hombre ={
+      "nombre": "Wolverine",
+      "identidad": "Logan",
+      "empresa": "Marvel Comics",
+      "altura": "160.69999999999999",
+      "peso": "135.21000000000001",
+      "genero": "M",
+      "color_ojos": "Blue",
+      "color_pelo": "Black",
+      "fuerza": "35",
+      "inteligencia": "good"
+  }
+  mujer = {
+      "nombre": "Black Widow",
+      "identidad": "Natasha Romanoff",
+      "empresa": "Marvel Comics",
+      "altura": "170.78999999999999",
+      "peso": "59.340000000000003",
+      "genero": "F",
+      "color_ojos": "Green",
+      "color_pelo": "Auburn",
+      "fuerza": "15",
+      "inteligencia": "good"
+  }
   lista_heroes = leer_archivo("data_stark.json")
-  #stark_marvel_app_5(lista_heroes)
-  resultado2 = es_genero_stark05(lista_heroes[3], "f")
-  print(resultado2)
+  limpiar_consola()
+  hombre = {
+    "nombre": "Wolverine",
+    "identidad": "Logan",
+    "empresa": "Marvel Comics",
+    "altura": "160.69999999999999",
+    "peso": "135.21000000000001",
+    "genero": "M",
+    "color_ojos": "Blue",
+    "color_pelo": "Black",
+    "fuerza": "35",
+    "inteligencia": "good"
+  }
+  mujer = {
+    "nombre": "Black Widow",
+    "identidad": "Natasha Romanoff",
+    "empresa": "Marvel Comics",
+    "altura": "170.78999999999999",
+    "peso": "59.340000000000003",
+    "genero": "F",
+    "color_ojos": "Green",
+    "color_pelo": "Auburn",
+    "fuerza": "15",
+    "inteligencia": "good"
+  }
+  # print(es_genero_stark05(hombre, "F"))
+  # print(es_genero_stark05(mujer, "M"))
+  print(calcular_min_genero_stark05(lista_heroes, "altura", "F"))
+  print(calcular_max_genero_stark05(lista_heroes, "altura", "F"))
 
 
    
