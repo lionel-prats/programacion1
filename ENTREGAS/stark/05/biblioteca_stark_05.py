@@ -258,6 +258,135 @@ def calcular_max_genero_stark05(lista: list[dict], clave: str, genero: str):
   listado_heroes_valor_minimo = [heroe for heroe in listado_heroes_segun_genero if heroe.get(clave) == valor_minimo]
   return list(listado_heroes_valor_minimo)
 
+# 3.3 
+def calcular_max_min_dato_genero_stark05(lista: list[dict], tipo_filtro: str, clave: str, genero: str):
+  """ 
+  recibe la lista de heroes, un tipo_filtro (minimo o maximo), un campo por el cual buscar y un genero ("f" o "m"); segun los parametros recibidos retornara una lista con los heroes del genero dado, cuyos valores para la clave dada coincidan con el minimo o maximo hallado en la lista (segun indique esl usuario)\n
+  lista: list[dict] -> lista de heroes\n
+  tipo_filtro: str -> "maximo" o "minimo"\n
+  clave: str -> clave a evaluar\n
+  genero: str -> genero a evaluar\n
+  RETURN: retorna una nueva lista de heroes segun lo indicado anteriormente
+  """
+  if tipo_filtro == "minimo":
+    return calcular_min_genero_stark05(lista, clave, genero)
+  if tipo_filtro == "maximo":
+    return calcular_max_genero_stark05(lista, clave, genero)
+  else:
+    return False
+
+# 3.4
+def stark_calcular_imprimir_guardar_heroe_genero(lista: list[dict], calculo: str, key: str, genero: str):
+  """  
+  lista -> lista de heroes
+  calculo -> "minimo o maximo"
+  key -> clave a evaluar
+  genero -> genero a evaluar
+  """
+  resultado_busqueda = calcular_max_min_dato_genero_stark05(lista, calculo, key, genero)
+  inicio = "Mayor" if calculo == "maximo" else "Menor"
+  for heroe in resultado_busqueda:
+    imprimir_dato(f"{inicio} {capitalizar_palabras(key)}: {obtener_nombre_y_dato(heroe, key)}")
+  nombre_archivo_csv = f"heroes_{calculo}_{key}_{capitalizar_palabras(genero)}.csv"
+  contenido_archivo_csv = generar_contenido_csv_lista_diccionarios(resultado_busqueda)
+  if guardar_archivo(nombre_archivo_csv, contenido_archivo_csv):
+    return True
+  else:
+    return False
+  
+# 4.1
+def sumar_dato_heroe_genero_stark05(lista: list[dict], key: str, genero: str) -> float:
+  """  
+  dada una clave y un genero, retorna la suma total de esa clave para los heroes de ese genero\n
+  """
+  stark_normalizar_datos(lista)
+  total = 0
+  for diccionario in lista:
+    if (isinstance(diccionario, dict) and diccionario 
+        and diccionario.get("genero").lower() == genero.lower()):
+      total += diccionario[key]
+  return total
+
+# 4.2
+def cantidad_heroes_genero(lista_heroes: list[dict], str_genero: str)-> int:
+  """  
+  dada la lista de diccionarios de superheroes y un genero ("F", "M" o "NB"), retorna la cantidad de superheres cuyo genero coincide con el recibido por parametro\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [str_genero: str] genero a relevar\n
+  return: int -> cantidad hallada 
+  """
+  heroes_genero = list(filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes))
+  return len(heroes_genero)
+
+# 4.3 
+def calcular_promedio_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
+  """  
+  dada la lista de diccionarios de superheroes, un genero ("F", "M" o "NB") y un campo numerico especificado (altura, fuerza o peso), retorna el promedio resultante del total de los valores del campo numerico hallado en todos los diccionarios con el campo genero especificado\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] clave numrica a sumar\n
+  [str_genero: str] genero a relevar\n
+  return: float -> promedio hallado 
+  """
+  total_clave_especificada = sumar_dato_heroe_genero(lista_heroes, clave, str_genero)
+  cantidad_heroes = cantidad_heroes_genero(lista_heroes, str_genero)
+  return dividir(total_clave_especificada, cantidad_heroes)
+
+#4.4
+def stark_calcular_imprimir_guardar_promedio_altura_genero(lista_heroes: list[dict], genero: str):
+  """  
+  """
+  if not lista_heroes:
+    imprimir_dato("Error: Lista de héroes vacía.")
+    return False
+  else:
+    altura_promedio_genero = calcular_promedio_genero(lista_heroes, "altura", genero) 
+    dato = f"Altura promedio género {capitalizar_palabras(genero)}: {altura_promedio_genero}"
+    imprimir_dato(dato)
+  nombre_archivo_csv = f"heroes_promedio_altura_{capitalizar_palabras(genero)}.csv"
+  if guardar_archivo(nombre_archivo_csv, dato):
+    return True
+  else:
+    return False
+
+# 5.1
+def calcular_cantidad_tipo(lista_heroes: list[dict], clave: str) -> dict:
+  """  
+  retorna un diccionario con los distintos valores del tipo de dato recibido por parámetro y la cantidad de cada uno\n 
+  [lista_heroes: list[dict]] listado de heroes\n
+  [clave: str] campo a procesar\n
+  return bool|dict -> False si la lista de heroes recibida esta vacia|diccionario resultante
+  """
+  if not lista_heroes:
+    return {
+            "Error": "La lista se encuentra vacía"
+           }
+  diccionario_resultante = {}
+  for heroe in lista_heroes:
+      nueva_clave = capitalizar_palabras(heroe.get(clave, "No Tiene"))
+      if not nueva_clave:
+        nueva_clave = "No Tiene"
+      diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
+  claves_ordenadas = sorted(diccionario_resultante.keys())
+  diccionario_resultante = {key: diccionario_resultante[key] for key in claves_ordenadas}
+  return diccionario_resultante
+
+# 5.2
+def guardar_cantidad_heroes_tipo():
+  pass
+
+# 5.3
+def stark_calcular_cantidad_por_tipo():
+  pass
+
+# extra
+def generar_contenido_csv_lista_diccionarios(lista: list[dict]):
+  contenido_csv = ",".join(lista[0].keys())
+  contenido_csv += "\n"
+  for diccionario in lista:
+    contenido_csv += ",".join([str(value) for value in diccionario.values()])
+    contenido_csv += "\n"
+  return contenido_csv
+
 # --------------------------------- BLOQUE DE FUNCIONES STARKS ANTERIORES - INICIO ---------------------------------------
 
 def stark_normalizar_datos(lista: list[dict]) -> list[dict]:
@@ -442,27 +571,17 @@ def sumar_dato_heroe_genero(lista_heroes: list[dict], clave: str, str_genero: st
   # * las validaciones solicitadas requerimiento 3.1 se encuentran en la funcion es_genero y son aplicadas en la linea anterior
   return sum(castear_dato_a_float(heroe[clave]) for heroe in heroes_genero if clave in heroe and isinstance(castear_dato_a_float(heroe[clave]), (int, float)))
 
-def cantidad_heroes_genero(lista_heroes: list[dict], str_genero: str)-> int:
+def dividir(dividendo: float, divisor: float) -> float:
   """  
-  dada la lista de diccionarios de superheroes y un genero ("F", "M" o "NB"), retorna la cantidad de superheres cuyo genero coincide con el recibido por parametro\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [str_genero: str] genero a relevar\n
-  return: int -> cantidad hallada 
+  ACCION: calcula el resultado de la division entre dos numeros\n
+  PARAMETROS:\n
+  [divisor] -> divisor\n
+  [dividendo] -> dividendo\n
+  RETURN: el resultado de la division 
   """
-  heroes_genero = list(filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes))
-  return len(heroes_genero)
-
-def calcular_promedio_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
-  """  
-  dada la lista de diccionarios de superheroes, un genero ("F", "M" o "NB") y un campo numerico especificado (altura, fuerza o peso), retorna el promedio resultante del total de los valores del campo numerico hallado en todos los diccionarios con el campo genero especificado\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] clave numrica a sumar\n
-  [str_genero: str] genero a relevar\n
-  return: float -> promedio hallado 
-  """
-  total_clave_especificada = sumar_dato_heroe_genero(lista_heroes, clave, str_genero)
-  cantidad_heroes = cantidad_heroes_genero(lista_heroes, str_genero)
-  return total_clave_especificada / cantidad_heroes
+  if divisor:
+    return dividendo / divisor
+  return divisor
 
 def stark_calcular_imprimir_promedio_altura_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
   """  
@@ -506,25 +625,6 @@ def stark_imprimir_heroe_genero(lista_heroes: list[dict], str_genero: str) -> No
   heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
   for heroe in heroes_genero:
     imprimir_dato(obtener_nombre(heroe))
-
-def calcular_cantidad_tipo(lista_heroes: list[dict], clave: str) -> dict:
-  """  
-  retorna un diccionario con los distintos valores del tipo de dato recibido por parámetro y la cantidad de cada uno\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] campo a procesar\n
-  return bool|dict -> False si la lista de heroes recibida esta vacia|diccionario resultante
-  """
-  if not lista_heroes:
-    return "Error: Lista de héroes vacía"
-  diccionario_resultante = {}
-  for heroe in lista_heroes:
-      nueva_clave = heroe.get(clave, "No tiene") 
-      if not nueva_clave:
-        nueva_clave = "No tiene"
-      diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
-  claves_ordenadas = sorted(diccionario_resultante.keys())
-  diccionario_resultante = {key: diccionario_resultante[key] for key in claves_ordenadas}
-  return diccionario_resultante
 
 def imprimir_cantidad_heroes_tipo(diccionario: dict, clave: str) -> None:
   """  
@@ -666,15 +766,8 @@ if __name__ == "__main__":
     "fuerza": "15",
     "inteligencia": "good"
   }
-  # print(es_genero_stark05(hombre, "F"))
-  # print(es_genero_stark05(mujer, "M"))
-  print(calcular_min_genero_stark05(lista_heroes, "altura", "F"))
-  print(calcular_max_genero_stark05(lista_heroes, "altura", "F"))
-
-
-   
-    
-
+  resultado = calcular_cantidad_tipo(lista_heroes, "color_pelo")
+  print(resultado)
 
 # cd C:\Users\User\Desktop\utn\cuatrimestre1\programacion_1\ENTREGAS\stark\05
 # python biblioteca_stark_05.py
