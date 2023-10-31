@@ -33,107 +33,100 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
 
         opcion = input("Seleccione una opción entre 1 y 7: ")
 
-        if opcion == "1":
-            limpiar_consola()
-            print(f"\n{opcion}) Lista jugadores Dream Team:\n")
-            for i, jugador in enumerate(equipo.get_lista_jugadores(), start=1):
-                print(f"{i}- {jugador.get_nombre()} - {jugador.get_posicion()}")
-            separador()
-
-        elif opcion == "2":
-            limpiar_consola()
-            regex = r"^\d{1,2}$" # 1 o mas digitos
-            cantidad_jugadores = len(equipo.get_lista_jugadores())
-            indice_jugador = input(f"\n{opcion}) Ingrese el índice de un jugador para ver sus estadísticas (0-{cantidad_jugadores - 1}): ")
-            indice_valido = validar_dato(regex, indice_jugador)
-            if indice_valido:
-                if int(indice_jugador) in range(cantidad_jugadores):
-                    jugador_seleccionado = equipo.get_lista_jugadores()[int(indice_jugador)]
-                    estadisticas_jugador_seleccionado = jugador_seleccionado.get_estadistica()
-                    print(f"\nEstadísticas de {jugador_seleccionado.get_nombre()}:")
-                    for k, v in estadisticas_jugador_seleccionado.get_estadistas_dict().items():
-                        print(f"{k.replace('_', ' ').capitalize()}: {v}")
-                    guardar_csv = input("\n\"d\"+\"Enter\" para descargar la información, o cualquier otra tecla para volver al menú principal: ")
-                    if guardar_csv.lower() == "d":
-                        archivo_creado = equipo.guardar_estadisticas_jugador(indice_jugador) 
-                        if archivo_creado:
-                            print(f"\n{archivo_creado}")
-                        else:
-                            print("\nError")
+        match opcion:
+            case "1":
+                limpiar_consola()
+                print(f"\n{opcion}) Lista jugadores Dream Team:\n")
+                for i, jugador in enumerate(equipo.get_lista_jugadores(), start=1):
+                    print(f"{i}- {jugador.get_nombre()} - {jugador.get_posicion()}")
+                separador()
+            case "2":
+                limpiar_consola()
+                regex = r"^\d{1,2}$" # 1 o mas digitos
+                cantidad_jugadores = len(equipo.get_lista_jugadores())
+                indice_jugador = input(f"\n{opcion}) Ingrese el índice de un jugador para ver sus estadísticas (0-{cantidad_jugadores - 1}): ")
+                indice_valido = validar_dato(regex, indice_jugador)
+                if indice_valido:
+                    if int(indice_jugador) in range(cantidad_jugadores):
+                        jugador_seleccionado = equipo.get_lista_jugadores()[int(indice_jugador)]
+                        estadisticas_jugador_seleccionado = jugador_seleccionado.get_estadistica()
+                        print(f"\nEstadísticas de {jugador_seleccionado.get_nombre()}:")
+                        for k, v in estadisticas_jugador_seleccionado.get_estadistas_dict().items():
+                            print(f"{k.replace('_', ' ').capitalize()}: {v}")
+                        guardar_csv = input("\n\"d\"+\"Enter\" para descargar la información, o cualquier otra tecla para volver al menú principal: ")
+                        if guardar_csv.lower() == "d":
+                            archivo_creado = equipo.guardar_estadisticas_jugador(indice_jugador) 
+                            if archivo_creado:
+                                print(f"\n{archivo_creado}")
+                            else:
+                                print("\nError")
+                    else:
+                        print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
                 else:
                     print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
-            else:
-                print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
-            separador()
-
-        elif opcion == "3":
-            limpiar_consola()
-            string_a_buscar = input(f"\n{opcion}) Ingrese el nombre de un jugador para ver sus logros: ")
-            if(len(string_a_buscar) < 3):
-                print_de_salida = "\nDebe ingresar al menos 3 caracteres."
-            else:
-                print_de_salida = f"\nLogros de jugadores encontrados con \"{string_a_buscar}\":\n\n"
-                coincidencia = False
-                for jugador in equipo.get_lista_jugadores():
-                    hay_coincidencia = validar_dato(string_a_buscar, jugador.get_nombre(), True)
-                    if hay_coincidencia:
-                        coincidencia = True
-                        print_de_salida += f"{jugador.get_nombre()}:\n"
-                        for logro in jugador.get_logros(): 
-                            print_de_salida += f"- {logro}\n"
-                        print_de_salida += "\n"
-                print_de_salida = print_de_salida[:-2]
-                if not coincidencia:
-                    print_de_salida = f"\nNo hay coincidencias con \"{string_a_buscar}\"."            
-            print(print_de_salida)
-            separador()
-
-        elif opcion == "4":
-            limpiar_consola()
-            total_puntos_dream_team = 0
-            lista_jugadores_ordenada_alfabeticamente = equipo.get_lista_jugadores_ordenada_alfabeticamente(equipo.get_lista_jugadores())
-            print(f"\n{opcion}) Promedio de puntos por partido de todo el equipo del Dream Team, ordenado por nombre de manera ascendente:\n")
-            print(f"Individuales:\n")
-            for jugador in lista_jugadores_ordenada_alfabeticamente:
-                print(f"{jugador.get_nombre()}: {jugador.get_estadistica().get_promedio_puntos_por_partido()}")
-            
-            print(f"\nPromedio puntos general: {equipo.get_promedio_puntos_equipo():.2f}")
-
-            separador()
-
-        elif opcion == "5":
-            limpiar_consola()
-            string = input(f"\n{opcion}) Ingrese el nombre de un jugador para saber si es miembro del salón de la fama: ")
-            if(len(string) < 3):
-                print("\nDebe ingresar al menos 3 caracteres.")
-            elif string.lower() not in equipo.get_lista_nombres_jugadores():
-                print(f"\n{string} no coincide con nuestros registros.")          
-            elif string.lower() in equipo.get_miembros_salon_de_la_fama():
-                print(f"\n{string} es miembro del salón de la fama.")          
-            else:
-                print(f"\n{string} NO es miembro del salón de la fama.")          
-            separador()
-            
-        elif opcion == "6":
-            limpiar_consola()
-            clave = "rebotes_totales"
-            lista_jugadores_destacados = equipo.get_jugadores_destacados(clave)
-            if lista_jugadores_destacados:
-                print(f"\n{opcion}) Jugador con mayor cantidad de {clave.replace('_',' ' )}:\n")
-                for jugador in equipo.get_jugadores_destacados(clave):
-                    print(f"- {jugador.get('nombre')} ({jugador.get(clave)})") 
-            else:
-                print("\nError")
-            separador()
-            
-        elif opcion == "7":
-            limpiar_consola()
-            print("\nHasta la próxima!")
-            break
-        else:
-            limpiar_consola()
-            print("\nOpción no válida. Debe seleccionar una opción entre 1 y 7.")
-            separador()
+                separador()
+            case "3":
+                limpiar_consola()
+                string_a_buscar = input(f"\n{opcion}) Ingrese el nombre de un jugador para ver sus logros: ")
+                if(len(string_a_buscar) < 3):
+                    print_de_salida = "\nDebe ingresar al menos 3 caracteres."
+                else:
+                    print_de_salida = f"\nLogros de jugadores encontrados con \"{string_a_buscar}\":\n\n"
+                    coincidencia = False
+                    for jugador in equipo.get_lista_jugadores():
+                        hay_coincidencia = validar_dato(string_a_buscar, jugador.get_nombre(), True)
+                        if hay_coincidencia:
+                            coincidencia = True
+                            print_de_salida += f"{jugador.get_nombre()}:\n"
+                            for logro in jugador.get_logros(): 
+                                print_de_salida += f"- {logro}\n"
+                            print_de_salida += "\n"
+                    print_de_salida = print_de_salida[:-2]
+                    if not coincidencia:
+                        print_de_salida = f"\nNo hay coincidencias con \"{string_a_buscar}\"."            
+                print(print_de_salida)
+                separador()
+            case "4":
+                limpiar_consola()
+                total_puntos_dream_team = 0
+                lista_jugadores_ordenada_alfabeticamente = equipo.get_lista_jugadores_ordenada_alfabeticamente(equipo.get_lista_jugadores())
+                print(f"\n{opcion}) Promedio de puntos por partido de todo el equipo del Dream Team, ordenado por nombre de manera ascendente:\n")
+                print(f"Individuales:\n")
+                for jugador in lista_jugadores_ordenada_alfabeticamente:
+                    print(f"{jugador.get_nombre()}: {jugador.get_estadistica().get_promedio_puntos_por_partido()}")
+                print(f"\nPromedio puntos general: {equipo.get_promedio_puntos_equipo():.2f}")
+                separador()
+            case "5":
+                limpiar_consola()
+                string = input(f"\n{opcion}) Ingrese el nombre de un jugador para saber si es miembro del salón de la fama: ")
+                if(len(string) < 3):
+                    print("\nDebe ingresar al menos 3 caracteres.")
+                elif string.lower() not in equipo.get_lista_nombres_jugadores():
+                    print(f"\n{string} no coincide con nuestros registros.")          
+                elif string.lower() in equipo.get_miembros_salon_de_la_fama():
+                    print(f"\n{string} es miembro del salón de la fama.")          
+                else:
+                    print(f"\n{string} NO es miembro del salón de la fama.")          
+                separador()
+            case "6":
+                limpiar_consola()
+                clave = "rebotes_totales"
+                lista_jugadores_destacados = equipo.get_jugadores_destacados(clave)
+                if lista_jugadores_destacados:
+                    print(f"\n{opcion}) Jugador con mayor cantidad de {clave.replace('_',' ' )}:\n")
+                    for jugador in equipo.get_jugadores_destacados(clave):
+                        print(f"- {jugador.get('nombre')} ({jugador.get(clave)})") 
+                else:
+                    print("\nError")
+                separador()
+            case "7":
+                limpiar_consola()
+                print("\nHasta la próxima!")
+                break
+            case _:
+                limpiar_consola()
+                print("\nOpción no válida. Debe seleccionar una opción entre 1 y 7.")
+                separador()
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial-v2
 # python main.py
