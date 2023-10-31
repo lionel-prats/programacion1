@@ -34,19 +34,19 @@ if __name__ == "__main__":
         print("""2. Permitir al usuario seleccionar un jugador por su índice (validar con regex) y mostrar sus estadísticas completas, 
 incluyendo temporadas jugadas, puntos totales, promedio de puntos por partido, rebotes totales, promedio de rebotes por partido, 
 asistencias totales, promedio de asistencias por partido, robos totales, bloqueos totales, porcentaje de tiros de campo, 
-porcentaje de tiros libres y porcentaje de tiros triples.\n""")
-        print("""3. Después de mostrar las estadísticas de un jugador seleccionado por el usuario, permite al usuario guardar las estadísticas 
+porcentaje de tiros libres y porcentaje de tiros triples.
+Después de mostrar las estadísticas de un jugador seleccionado por el usuario, permite al usuario guardar las estadísticas 
 de ese jugador en un archivo CSV. El archivo CSV debe contener los siguientes campos: nombre, posición, temporadas, puntos totales, 
 promedio de puntos por partido, rebotes totales, promedio de rebotes por partido, asistencias totales, promedio de asistencias por partido, 
 robos totales, bloqueos totales, porcentaje de tiros de campo, porcentaje de tiros libres y porcentaje de tiros triples.\n""")
-        print("""4. Permitir al usuario buscar un jugador por su nombre (validar con regex) y mostrar sus logros, como campeonatos de la NBA, 
+        print("""3. Permitir al usuario buscar un jugador por su nombre (validar con regex) y mostrar sus logros, como campeonatos de la NBA, 
 participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto, etc.\n""")
-        print("5. Calcular y mostrar el promedio de puntos por partido de todo el equipo del Dream Team, ordenado por nombre de manera ascendente.\n")
-        print("6. Permitir al usuario ingresar el nombre de un jugador (validar con regex) y mostrar si ese jugador es miembro del Salón de la Fama del Baloncesto.\n")
-        print("7. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales.\n")
-        print("8. Salir\n")
+        print("4. Calcular y mostrar el promedio de puntos por partido de todo el equipo del Dream Team, ordenado por nombre de manera ascendente.\n")
+        print("5. Permitir al usuario ingresar el nombre de un jugador (validar con regex) y mostrar si ese jugador es miembro del Salón de la Fama del Baloncesto.\n")
+        print("6. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales.\n")
+        print("7. Salir\n")
 
-        opcion = input("Seleccione una opción entre 1 y 8: ")
+        opcion = input("Seleccione una opción entre 1 y 7: ")
 
         if opcion == "1":
             limpiar_consola()
@@ -68,28 +68,35 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
                     print(f"\nEstadísticas de {jugador_seleccionado.get_nombre()}:")
                     for k, v in estadisticas_jugador_seleccionado.get_estadistas_dict().items():
                         print(f"{k.replace('_', ' ').capitalize()}: {v}")
+                    guardar_csv = input("\n\"d\"+\"Enter\" para descargar la información, o cualquier otra tecla para volver al menú principal: ")
+                    if guardar_csv.lower() == "d":
+                        archivo_creado = equipo.guardar_estadisticas_jugador(indice_jugador) 
+                        if archivo_creado:
+                            print(f"\n{archivo_creado}")
+                        else:
+                            print("\nError")
                 else:
                     print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
             else:
                 print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
             separador()
+
+        # elif opcion == "3":
+        #     limpiar_consola()
+        #     regex = r"^\d{1,2}$" # 1 o mas digitos
+        #     cantidad_jugadores = len(equipo.get_lista_jugadores())
+        #     indice_jugador = input(f"\n{opcion}) Ingrese el índice de un jugador para crear un archivo .csv con sus estadísticas (0-{cantidad_jugadores - 1}): ")
+        #     indice_valido = validar_dato(regex, indice_jugador)
+        #     if indice_valido:
+        #         if int(indice_jugador) in range(cantidad_jugadores):
+        #             print("\nel archivo michael_jordan231354.csv ha sido creado correctamente")
+        #         else:
+        #             print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
+        #     else:
+        #         print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
+        #     separador()
 
         elif opcion == "3":
-            limpiar_consola()
-            regex = r"^\d{1,2}$" # 1 o mas digitos
-            cantidad_jugadores = len(equipo.get_lista_jugadores())
-            indice_jugador = input(f"\n{opcion}) Ingrese el índice de un jugador para crear un archivo .csv con sus estadísticas (0-{cantidad_jugadores - 1}): ")
-            indice_valido = validar_dato(regex, indice_jugador)
-            if indice_valido:
-                if int(indice_jugador) in range(cantidad_jugadores):
-                    print("\nel archivo michael_jordan231354.csv ha sido creado correctamente")
-                else:
-                    print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
-            else:
-                print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
-            separador()
-
-        elif opcion == "4":
             limpiar_consola()
             string_a_buscar = input(f"\n{opcion}) Ingrese el nombre de un jugador para ver sus logros: ")
             if(len(string_a_buscar) < 3):
@@ -111,7 +118,7 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
             print(print_de_salida)
             separador()
 
-        elif opcion == "5":
+        elif opcion == "4":
             limpiar_consola()
             total_puntos_dream_team = 0
             lista_jugadores_ordenada_alfabeticamente = equipo.get_lista_jugadores_ordenada_alfabeticamente(equipo.get_lista_jugadores())
@@ -124,7 +131,7 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
 
             separador()
 
-        elif opcion == "6":
+        elif opcion == "5":
             limpiar_consola()
             string = input(f"\n{opcion}) Ingrese el nombre de un jugador para saber si es miembro del salón de la fama: ")
             if(len(string) < 3):
@@ -137,23 +144,25 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
                 print(f"\n{string} NO es miembro del salón de la fama.")          
             separador()
             
-        elif opcion == "7":
+        elif opcion == "6":
             limpiar_consola()
-            clave = "temporadas"
-            print(f"\n{opcion}) Jugador con mayor cantidad de {clave.replace('_',' ' )}:\n")
-            for jugador in equipo.get_jugadores_destacados(clave):
-                print(f"- {jugador.get('nombre')} ({jugador.get(clave)})") 
-                # print(f"{clave.replace('_',' ' ).capitalize()}: {jugador.get(clave)}")
-            # print(equipo.get_jugadores_destacados("rebotes_totales"))
+            clave = "rebotes_totales"
+            lista_jugadores_destacados = equipo.get_jugadores_destacados(clave)
+            if lista_jugadores_destacados:
+                print(f"\n{opcion}) Jugador con mayor cantidad de {clave.replace('_',' ' )}:\n")
+                for jugador in equipo.get_jugadores_destacados(clave):
+                    print(f"- {jugador.get('nombre')} ({jugador.get(clave)})") 
+            else:
+                print("\nError")
             separador()
             
-        elif opcion == "8":
+        elif opcion == "7":
             limpiar_consola()
             print("\nHasta la próxima!")
             break
         else:
             limpiar_consola()
-            print("\nOpción no válida. Debe seleccionar una opción entre 1 y 8.")
+            print("\nOpción no válida. Debe seleccionar una opción entre 1 y 7.")
             separador()
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial-v2

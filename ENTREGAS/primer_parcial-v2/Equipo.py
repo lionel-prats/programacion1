@@ -1,4 +1,6 @@
 import json
+import time
+import uuid
 from Jugador import Jugador
 from Estadistica import Estadistica
 
@@ -113,33 +115,51 @@ class Equipo:
         else:
             return None
 
+    def guardar_estadisticas_jugador(self, id_jugador:int):
+        """
+        genera o reescribe un .csv con el nombre y el contenido especificados por el usuario\n
+        nombre_archivo_csv: str -> nombre del archivo a crear\n
+        contenido_csv: str -> contenido del archivo a crear\n
+        return bool -> True si el archivo se pudo crear, False caso contrario
+        """ 
+        jugador = self.__lista_jugadores[int(id_jugador)]
+        nombre_jugador = jugador.get_nombre() 
+        estadisticas_jugador_dict = jugador.get_estadistica().get_estadistas_dict()
+        
+        nombre_archivo = self.generar_nombre_unico_archivo(nombre_jugador)
+        
+        contenido = "nombre;posicion;"
+        contenido += ";".join(estadisticas_jugador_dict.keys())
+        contenido += "\n"
+        contenido += f"{nombre_jugador};"
+        contenido += f"{jugador.get_posicion()};"
+        contenido += ";".join([str(valor) for valor in estadisticas_jugador_dict.values()])
+        # print(nombre_archivo)
+        try:
+            with open(f"estadisticas_jugadores/{nombre_archivo}", "w", encoding="utf-8") as nuevo_archivo:
+                nuevo_archivo.write(f"{contenido}")
+            return f"el archivo \"{nombre_archivo}\" ha sido creado correctamente"
+        except:  
+            return None
 
+    def generar_nombre_unico_archivo(self, nombre_generico):
+        nombre_generico = nombre_generico.replace(" ","_").lower()
+        timestamp = int(time.time() * 1000) # timestamp en milisegundos
 
+        # uuid -> modulo de Python
+        # uuid4() -> metodo de uuid que genera un identificador único universal (UUID-Universally Unique Identifier) de forma aleatoria
+        # genera un id del tipo 550e8400-e29b-41d4-a716-446655440000, por lo que reemplazo los "-" por ""
+        unique_id = str(uuid.uuid4()).replace("-", "")
 
+        nombre_archivo = f"{nombre_generico}__{timestamp}_{unique_id}.csv"
+        return nombre_archivo
 
-    """  
-    La Clase Equipo será la encargada de levantar el archivo JSON y realizar todas las
-    tareas relacionadas a archivos. También se encargará de crear a cada jugador al leer el
-    JSON y agregarlos a una lista de jugadores la cual deberá ser atributo de la clase
-    Equipo.
-
-    Cada jugador tendrá como atributos una lista de logros, un nombre, posición y un
-    objeto de clase Estadistica.
-
-    Cada estadística tendrá 12 atributos los cuales deberán tener sus respectivos getters &
-    setters / properties.
-    Cada clase deberá tener sus respectivos Getters & Setters o properties.
-
-    """
-
-# import os
-# def limpiar_consola():
-#     if os.name in ["ce", "nt", "dos"]: # windows
-#         os.system("cls")
-#     else: # linux o mac
-#         os.system("clear")
-# limpiar_consola()
-
-# equipo = Equipo("dream_team.json")
-# print(equipo.get_jugadores_destacados("rebotes_totalesx"))
-# print(equipo.get_jugadores_destacados("rebotes_totales"))
+if __name__ == "__main__":
+    pass
+    # import os
+    # def limpiar_consola():
+    #     if os.name in ["ce", "nt", "dos"]: # windows
+    #         os.system("cls")
+    #     else: # linux o mac
+    #         os.system("clear")
+    # limpiar_consola()
