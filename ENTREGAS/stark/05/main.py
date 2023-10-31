@@ -4,7 +4,7 @@ if __name__ == "__main__":
     lista_heroes = leer_archivo("data_stark.json")
     stark_marvel_app_5(lista_heroes)
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/stark/05
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial/
 # python main.py
 
 """  

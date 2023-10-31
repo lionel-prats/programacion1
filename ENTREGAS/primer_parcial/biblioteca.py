@@ -12,7 +12,6 @@ class Menu:
     def loop(self, menu: str):
         """
         """
-        inicio = True
         limpiar_consola()
         while True:
             opcion_seleccionada = -1
@@ -77,6 +76,9 @@ class Menu:
         """
         self.imprimir_menu(lista_jugadores, lista_jugadores_destacados, menu)
         opcion_ingresada = input("Opción: ")
+
+        print(opcion_ingresada)
+
         # validacion = re.search(r"^[a-cA-C]{1}$", opcion_ingresada)
         validacion = re.search(self.menus[menu]["regex"], opcion_ingresada)
         if not validacion:
@@ -94,6 +96,8 @@ class Menu:
         print(listado_jugadores_destacados_formateado)
         self.separador()
         print("Menú de opciones:")
+        if menu == "menu_2":
+            print("\nIngrese \"I\" para crear un archivo .csv con las estadísticas del jugador seleccionado.")
         print(self.menus[menu]["menu"])
 
     def separador(self):
@@ -151,11 +155,7 @@ C Salir
             "opciones_menu": ("a","A","b","B","c","C")
         },
         "menu_2": {
-            "menu": """
-Ingresa "V" para volver al menú anterior,
-ingresa "C" para salir
-o igresa el nro. de orden de un jugador para ver todas sus estadísticas
-                    """, 
+            "menu": "Ingresa \"V\" para volver al menú anterior,\ningresa \"C\" para salir\no igresa el nro. de orden de un jugador para ver todas sus estadísticas\n", 
             "regex": r"^[CcVv]{1}$",
             "regex": r".*",
             "opciones_menu": ("C","c","V","v")
@@ -180,4 +180,6 @@ o ingresa el nombre y/o apellido de un jugador para ver todos sus logros (al men
     menu = Menu(lista_jugadores, lista_jugadores_destacados_rebotes_totales, menus)
 
     menu.loop("menu_1")
-    
+
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial
+# python biblioteca.py

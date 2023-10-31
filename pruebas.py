@@ -200,3 +200,7 @@ diccionario = dict(zip(claves, valores))
 print(type(diccionario), diccionario)
 for k, v in diccionario.items():
   print(k, v)
+
+
+
+
