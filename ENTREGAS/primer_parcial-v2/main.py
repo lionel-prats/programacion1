@@ -1,24 +1,9 @@
 import os
 import re
+from utils import *
 from Equipo import Equipo
 
 if __name__ == "__main__":
-
-    def limpiar_consola():
-        if os.name in ["ce", "nt", "dos"]: # windows
-            os.system("cls")
-        else: # linux o mac
-            os.system("clear")
-
-    def separador():
-        print("\n---------------\n")
-    
-    def validar_dato(regex, dato, search = False):
-        if search and re.search(regex, dato, re.IGNORECASE):
-            return True
-        elif re.match(regex, dato):
-            return True
-        return False 
     
     equipo = Equipo("dream_team.json")
 
@@ -80,21 +65,6 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
             else:
                 print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
             separador()
-
-        # elif opcion == "3":
-        #     limpiar_consola()
-        #     regex = r"^\d{1,2}$" # 1 o mas digitos
-        #     cantidad_jugadores = len(equipo.get_lista_jugadores())
-        #     indice_jugador = input(f"\n{opcion}) Ingrese el índice de un jugador para crear un archivo .csv con sus estadísticas (0-{cantidad_jugadores - 1}): ")
-        #     indice_valido = validar_dato(regex, indice_jugador)
-        #     if indice_valido:
-        #         if int(indice_jugador) in range(cantidad_jugadores):
-        #             print("\nel archivo michael_jordan231354.csv ha sido creado correctamente")
-        #         else:
-        #             print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
-        #     else:
-        #         print(f"\nEl índice ingresado no es válido. Debe ingresar un número entre 0 y {cantidad_jugadores - 1}.")
-        #     separador()
 
         elif opcion == "3":
             limpiar_consola()
