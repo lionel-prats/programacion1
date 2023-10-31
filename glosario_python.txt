@@ -969,3 +969,52 @@ compresion de listas (comprenhension list) (ver clase 15 de programacion I para 
 numeros = [1, 2, 3, 4, 5] 
 lista_dobles_comprension = [numero * 2 for numero in numeros]
 print(lista_dobles_comprension)
+
+----- 
+
+TECNICA PARA LLAMAR DINAMICAMENTE AL GETTER DE UNA CLASE vvv 
+
+class Mono:
+    def __init__(self, valor):
+        self.valor = valor
+
+    def get_valor_por_2(self):
+        return self.valor * 2
+
+    def get_valor_por_3(self):
+        return self.valor * 3
+
+    def get_valor_por_4(self):
+        return self.valor * 4
+
+    def get_valor_por_5(self):
+        return self.valor * 5
+
+    def get_valor_por_6(self):
+        return self.valor * 6
+
+def ejecutar_getter(instancia_de_clase_a_evaluar, nombre_getter):
+    # Utiliza getattr para obtener el método según el nombre proporcionado.
+    metodo = getattr(instancia_de_clase_a_evaluar, nombre_getter, None)
+    
+    if metodo is not None and callable(metodo):
+        # Si el método existe y es callable, ejecútalo.
+        return metodo()
+    else:
+        return None
+
+# Parámetro dinámico que especifica qué getter ejecutar.
+getter_a_ejecutar = "get_valor_por_4"
+
+# Crear una instancia de Mono
+instancia_clase_mono = Mono(10)
+
+# Ejecutar el getter según el parámetro dinámico.
+resultado = ejecutar_getter(instancia_clase_mono, getter_a_ejecutar)
+
+if resultado is not None:
+    print(f"Resultado: {resultado}")
+else:
+    print("El getter especificado no existe o no es callable.")
+
+-----

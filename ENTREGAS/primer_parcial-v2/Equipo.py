@@ -70,10 +70,48 @@ class Equipo:
         cantidad_jugadores = len(self.__lista_jugadores)
         return total_puntos_equipo / cantidad_jugadores
 
+    def get_lista_nombres_jugadores(self):
+        return [jugador.get_nombre().lower() for jugador in self.__lista_jugadores]
+    
     def get_miembros_salon_de_la_fama(self):
         string = "Miembro del Salon de la Fama del Baloncesto"
         return [jugador.get_nombre().lower() for jugador in self.__lista_jugadores if string in jugador.get_logros()]
 
+    def get_jugadores_destacados(self, clave):
+        # armo el nombre del metodo de Estadistica a validar
+        getter = f"get_{clave}"
+        
+        # Guardo el metodo (si existe) o None, si no
+        existe_metodo = getattr(Estadistica, getter, None) 
+        
+        if existe_metodo: # el metodo existe en Estadistica
+
+            lista_valores_buscados = [] # lista de los valores a comparar de cada jugador
+            
+            lista_jugadores_destacados = [] # lista de los jugadores cuyo valor coincida con el maximo hallado
+            
+            for jugador in self.get_lista_jugadores():
+
+                get_valor_buscado_jugador = getattr(jugador.get_estadistica(), getter) # almaceno en memoria (?) el getter deseado para el jugador iterado
+                
+                lista_valores_buscados.append(get_valor_buscado_jugador()) # guardo en la lista el valor del jugador iterado
+
+            valor_maximo = max(lista_valores_buscados, key = lambda valor: valor) # hallo el valor maximo del valor buscado
+
+            for jugador in self.get_lista_jugadores():
+
+                valor_jugador = getattr(jugador.get_estadistica(), getter)() # guardo el valor del jugador iterado para validar si coincide con el valor maximo hallado
+                
+                if valor_jugador == valor_maximo: # coincide
+
+                    # como coincide, apendeo a la lista final un diccionario con el nombre y el valor del jugador iterado
+                    lista_jugadores_destacados.append({
+                        "nombre": jugador.get_nombre(),
+                        clave: valor_jugador
+                    })
+            return lista_jugadores_destacados
+        else:
+            return None
 
 
 
@@ -103,52 +141,5 @@ class Equipo:
 # limpiar_consola()
 
 # equipo = Equipo("dream_team.json")
-# print(equipo.get_promedio_puntos_equipo())
-
-# jugadores_ordenados = equipo.get_lista_jugadores_ordenada_por_clave_asc(equipo.get_lista_jugadores(), "promedio_puntos_por_partido")
-# for jugador in jugadores_ordenados:
-#     print(f"{jugador.get_nombre()}")
-
-# print("------------")
-
-# jugadores_ordenados = equipo.get_lista_jugadores_ordenada_alfabeticamente(equipo.get_lista_jugadores())
-# for jugador in jugadores_ordenados:
-#     print(f"{jugador.get_nombre()}")
-
-
-# print(equipo.get_lista_jugad
-# 
-# ores()[7].get_logros())
-
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial-v2
-# python Equipo.py
-
-# def ordenar_jugadores_por_nombre(self, lista: list[dict], key):
-#     if len(lista) < 2:
-#         return lista
-#     else:
-#         lista_copia = lista.copy()
-#         pivot = lista_copia.pop()
-#         mas_grandes = []
-#         mas_chicos = []
-#         for jugador in lista_copia:
-#             if jugador[key] > pivot[key]:
-#                 mas_grandes.append(jugador)
-#             elif jugador[key] <= pivot[key]:
-#                 mas_chicos.append(jugador)
-#         return self.ordenar_jugadores_por_nombre(mas_chicos, key) + [pivot] + self.ordenar_jugadores_por_nombre(mas_grandes, key)
-
-# def get_jugadores_destacados(self, key):
-#     lista_jugadores = self.get_lista_jugadores()
-#     valor_maximo = max(lista_jugadores, key = lambda jugador: jugador["estadisticas"][key])["estadisticas"][key]
-#     listado_jugadores_destacados = filter(lambda jugador: jugador["estadisticas"][key] == valor_maximo, lista_jugadores)
-#     return list(listado_jugadores_destacados)
-
-# def imprimir_jugadores_destacados(self, key):
-#     lista_jugadores = self.get_jugadores_destacados(key)
-#     texto = f"Jugador/es con la mayor cantidad de {key.replace('_', ' ')}:\n"
-#     for jugador in lista_jugadores:
-#         nombre = jugador.get("nombre")
-#         dato = jugador.get("estadisticas").get(key)
-#         texto += f"{lista_jugadores.index(jugador) + 1}. {nombre}: {dato}\n"
-#     print(texto)
+# print(equipo.get_jugadores_destacados("rebotes_totalesx"))
+# print(equipo.get_jugadores_destacados("rebotes_totales"))

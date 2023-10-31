@@ -23,9 +23,12 @@ if __name__ == "__main__":
     equipo = Equipo("dream_team.json")
 
     limpiar_consola()
-
+    
+    inicio = True
     while True:
-
+        if inicio:
+            print("")
+        inicio = False
         print("Menú de opciones:\n")
         print("1. Mostrar la lista de todos los jugadores del Dream Team.\n")
         print("""2. Permitir al usuario seleccionar un jugador por su índice (validar con regex) y mostrar sus estadísticas completas, 
@@ -43,13 +46,13 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
         print("7. Calcular y mostrar el jugador con la mayor cantidad de rebotes totales.\n")
         print("8. Salir\n")
 
-        opcion = input("Selecciona una opción (1-8): ")
+        opcion = input("Seleccione una opción entre 1 y 8: ")
 
         if opcion == "1":
             limpiar_consola()
             print(f"\n{opcion}) Lista jugadores Dream Team:\n")
-            for jugador in equipo.get_lista_jugadores():
-                print(f"{jugador.get_nombre()} - {jugador.get_posicion()}")
+            for i, jugador in enumerate(equipo.get_lista_jugadores(), start=1):
+                print(f"{i}- {jugador.get_nombre()} - {jugador.get_posicion()}")
             separador()
 
         elif opcion == "2":
@@ -126,20 +129,32 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
             string = input(f"\n{opcion}) Ingrese el nombre de un jugador para saber si es miembro del salón de la fama: ")
             if(len(string) < 3):
                 print("\nDebe ingresar al menos 3 caracteres.")
+            elif string.lower() not in equipo.get_lista_nombres_jugadores():
+                print(f"\n{string} no coincide con nuestros registros.")          
             elif string.lower() in equipo.get_miembros_salon_de_la_fama():
-                print(f"\n{string} es miembro del salón de la fama")          
+                print(f"\n{string} es miembro del salón de la fama.")          
             else:
-                print(f"\n{string} NO es miembro del salón de la fama")          
+                print(f"\n{string} NO es miembro del salón de la fama.")          
             separador()
             
         elif opcion == "7":
             limpiar_consola()
-            pass
-            # equipo.jugador_con_mas_rebotes()
+            clave = "temporadas"
+            print(f"\n{opcion}) Jugador con mayor cantidad de {clave.replace('_',' ' )}:\n")
+            for jugador in equipo.get_jugadores_destacados(clave):
+                print(f"- {jugador.get('nombre')} ({jugador.get(clave)})") 
+                # print(f"{clave.replace('_',' ' ).capitalize()}: {jugador.get(clave)}")
+            # print(equipo.get_jugadores_destacados("rebotes_totales"))
+            separador()
+            
         elif opcion == "8":
+            limpiar_consola()
+            print("\nHasta la próxima!")
             break
         else:
-            print("Opción inválida. Por favor, selecciona una opción válida.")
+            limpiar_consola()
+            print("\nOpción no válida. Debe seleccionar una opción entre 1 y 8.")
+            separador()
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial-v2
 # python main.py
