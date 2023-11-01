@@ -1,0 +1,22 @@
+1 pep 
+2 verdadero 
+3 las 2?
+
+ojo 48 importa que se va a mostrar en el ultimo print
+
+------------------------------------------------------------
+
+TAREA PARA EL JUEVES
+
+8bis) tabla "jugadores" en SQLite
+nombre
+posicion
+rebotes
+etc
+
+INSERT del punto 8
+
+id   nombre robos_totales fecha
+1    pepe   15            timestamp (con moodulo time de python)
+2    lio    11            timestamp (con moodulo time de python)
+3    mono   10            timestamp (con moodulo time de python)
