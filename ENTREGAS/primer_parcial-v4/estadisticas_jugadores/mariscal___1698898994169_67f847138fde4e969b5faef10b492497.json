@@ -1,0 +1,52 @@
+{
+    "jugadores": [
+        {
+            "nombre": "John Stockton",
+            "robos_totales": 3265
+        },
+        {
+            "nombre": "Michael Jordan",
+            "robos_totales": 2514
+        },
+        {
+            "nombre": "Scottie Pippen",
+            "robos_totales": 2307
+        },
+        {
+            "nombre": "Clyde Drexler",
+            "robos_totales": 2207
+        },
+        {
+            "nombre": "Karl Malone",
+            "robos_totales": 2085
+        },
+        {
+            "nombre": "Magic Johnson",
+            "robos_totales": 1724
+        },
+        {
+            "nombre": "Charles Barkley",
+            "robos_totales": 1645
+        },
+        {
+            "nombre": "Larry Bird",
+            "robos_totales": 1556
+        },
+        {
+            "nombre": "Chris Mullin",
+            "robos_totales": 1532
+        },
+        {
+            "nombre": "David Robinson",
+            "robos_totales": 1388
+        },
+        {
+            "nombre": "Patrick Ewing",
+            "robos_totales": 1136
+        },
+        {
+            "nombre": "Christian Laettner",
+            "robos_totales": 253
+        }
+    ]
+}

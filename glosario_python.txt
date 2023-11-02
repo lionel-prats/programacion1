@@ -1018,3 +1018,20 @@ else:
     print("El getter especificado no existe o no es callable.")
 
 -----
+
+VERIFICAR SI UN METODO EXISTE EN UNA CLASE vvv 
+
+class MiClase:
+  def metodo_existente(self):
+      return "Este método existe en la clase."
+
+# Verificar si el método existe en la clase sin instanciarla
+if hasattr(MiClase, 'metodo_existente'):
+    print("El método 'metodo_existente' existe en la clase MiClase.")
+else:
+    print("El método 'metodo_existente' no existe en la clase MiClase.")
+
+if hasattr(MiClase, 'metodo_inexistente'):
+    print("El método 'metodo_inexistente' existe en la clase MiClase.")
+else:
+    print("El método 'metodo_inexistente' no existe en la clase MiClase.")
