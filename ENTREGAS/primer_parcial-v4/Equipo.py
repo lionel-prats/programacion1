@@ -9,6 +9,7 @@ Parcial nro. 1
 
 # IMPORTANTE: para la creacion de archivos funcione hay que crear la carpeta /estadisticas_jugadores en la raiz del proyecto
 
+import sqlite3
 import json
 import time
 import uuid
@@ -337,6 +338,100 @@ class Equipo:
                     
             return self.get_lista_diccionarios_ordenada_por_clave_desc(anteriores, key, order) + [jugador_pivot] + self.get_lista_diccionarios_ordenada_por_clave_desc(posteriores, key, order)
 
+    def get_tablas_db(self):
+        """ 
+        retorna un diccionario con la informacion de la db\n
+        cada propiedad representa una tabla en la base de datos
+        siendo la clave el nombre de la tabla y el valor una tupla con los nombres de los campos de esa tabla
+        """
+        return  {
+                    "jugadores":(
+                                    "nombre",
+                                    "posicion",
+                                    "temporadas",
+                                    "puntos_totales",
+                                    "promedio_puntos_por_partido",
+                                    "rebotes_totales",
+                                    "promedio_rebotes_por_partido",
+                                    "asistencias_totales",
+                                    "promedio_asistencias_por_partido",
+                                    "robos_totales",
+                                    "bloqueos_totales",
+                                    "porcentaje_tiros_de_campo",
+                                    "porcentaje_tiros_libres",
+                                    "porcentaje_tiros_triples",
+                                    "logros"
+                                )
+                } 
+    
+    def create_table(self, nombre_tabla):
+        """  
+        crea la tabla recibida por parametro en la db dream_team.db\n
+        recibe el nombre de la tabla
+        """
+        db = self.get_tablas_db()
+        if nombre_tabla not in db.keys():
+            return False 
+        else:
+            # si el archivo .db no existe, automaticamente se crea en el path especificado
+            with sqlite3.connect("db/dream_team.db") as conexion:
+                try:
+                    query = f""" 
+                        create table {nombre_tabla}(
+                            id integer primary key autoincrement,
+                            nombre text,
+                            posicion text,
+                            temporadas integer,
+                            puntos_totales integer,
+                            promedio_puntos_por_partido real,
+                            rebotes_totales integer,
+                            promedio_rebotes_por_partido real,
+                            asistencias_totales integer,
+                            promedio_asistencias_por_partido real,
+                            robos_totales integer,
+                            bloqueos_totales integer,
+                            porcentaje_tiros_de_campo real,
+                            porcentaje_tiros_libres real,
+                            porcentaje_tiros_triples real,
+                            logros text,
+                            created_at text,
+                            updated_at text
+                        )
+                    """
+                    conexion.execute(query)
+                    return f"La tabla \"{nombre_tabla}\" se ha creado correctamente"
+                except sqlite3.OperationalError:
+                    return f"La tabla \"{nombre_tabla}\" ya existe"
+
+    def insert_db(self, nombre_tabla: str, data_insert):
+        tabla_existe = self.create_table(nombre_tabla)
+        if not tabla_existe:
+            print(f"\nError: la tabla \"{nombre_tabla}\" no existe en la DB.")
+            return
+        
+        query = f"INSERT INTO {nombre_tabla} ("
+        query += ",".join(data_insert[0].keys())
+        query += ") values ("
+        for i in range (0, len(data_insert[0].keys())):
+            query += "?,"
+        query = query[:-1]
+        query += ")"
+
+        lista_values_inserts = []
+        for jugador in data_insert:
+            lista_aux = []
+            for v in jugador.values():
+                lista_aux.append(v) 
+            lista_values_inserts.append(tuple(lista_aux))
+
+        with sqlite3.connect("db/dream_team.db") as conexion:
+            try:
+                for values in lista_values_inserts:
+                    conexion.execute(query, values)
+                conexion.commit() # hace el insert en la tabla
+                return True
+            except:
+                return False
 
 if __name__ == "__main__":
     pass

@@ -155,8 +155,9 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
                 
                 print(f"\n{opcion}b) Permitir guardar este listado ordenado en un archivo CSV con su apellido.csv")
                 print(f"\n{opcion}c) Permitir guardar este listado ordenado en un archivo JSON y permitir al usuario ingresar el nombre del archivo a guardar (validar con regex)")
+                print(f"\n{opcion}d) Guardar la información en base de datos")
 
-                opcion_usuario = input("\nSeleccione \"b\" o \"c\" para generar un archivo, o cualquier otra tecla para volver al menú anterior: ")
+                opcion_usuario = input("\nSeleccione \"b\" o \"c\" para guardar la informacion en un archivo, \"d\" para guardar la informacion en base de datos, o cualquier otra tecla para volver al menú anterior: ")
 
                 if opcion_usuario.lower() == "b":
                     regex = r"^[a-zA-Z_]{1,10}$"
@@ -173,6 +174,16 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
                         print(f"\n{equipo.crear_json(nombre_archivo, contenido_json)}")
                     else:
                         print("\nError")
+                
+                elif opcion_usuario.lower() == "d":
+                    
+                    resultado = equipo.insert_db("jugadores", contenido_json.get("jugadores"))
+                    
+                    if resultado:
+                        print("\nLa información se ha guardado exitosamente en la tabla \"jugadores\" de la base de datos \"dream_team\"")
+                    else:
+                        print("\nError")
+
                 separador()
 
             case "8":
@@ -181,8 +192,6 @@ participaciones en el All-Star y pertenencia al Salón de la Fama del Baloncesto
                 datos = ("get_robos_totales", "get_bloqueos_totales")
                 
                 lista_jugadores = equipo.get_lista_jugadores_ordenada_suma_estadisticas(datos)
-                
-                # print(lista_jugadores)
 
                 regex = r"^[0-9]{1,2}$"
 

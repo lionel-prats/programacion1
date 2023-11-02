@@ -20,3 +20,9 @@ id   nombre robos_totales fecha
 1    pepe   15            timestamp (con moodulo time de python)
 2    lio    11            timestamp (con moodulo time de python)
 3    mono   10            timestamp (con moodulo time de python)
+
+
+"""
+8)(bis)(solo para los que lograron entregar en clase )
+Además de lo anterior ,los datos ordenados se deben guardar en la base de datos.
+"""
