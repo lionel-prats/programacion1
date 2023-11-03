@@ -340,72 +340,84 @@ class Equipo:
             return self.get_lista_diccionarios_ordenada_por_clave_desc(anteriores, key, order) + [jugador_pivot] + self.get_lista_diccionarios_ordenada_por_clave_desc(posteriores, key, order)
 
     def get_tablas_db(self):
-        """ 
-        retorna un diccionario con la informacion de la db\n
-        cada propiedad representa una tabla en la base de datos
-        siendo la clave el nombre de la tabla y el valor una tupla con los nombres de los campos de esa tabla
+        """
+        La función `get_tablas_db_2` devuelve un diccionario con información sobre la base de datos,
+        donde cada clave representa un nombre de tabla y el valor es una tupla de nombres de campos para
+        esa tabla.
+        :return: un diccionario con información sobre la base de datos. Cada clave del diccionario
+        representa una tabla en la base de datos y el valor es una tupla que contiene los nombres de los
+        campos de esa tabla.
         """
         return  {
-                    "jugadores":(
-                                    "nombre",
-                                    "posicion",
-                                    "temporadas",
-                                    "puntos_totales",
-                                    "promedio_puntos_por_partido",
-                                    "rebotes_totales",
-                                    "promedio_rebotes_por_partido",
-                                    "asistencias_totales",
-                                    "promedio_asistencias_por_partido",
-                                    "robos_totales",
-                                    "bloqueos_totales",
-                                    "porcentaje_tiros_de_campo",
-                                    "porcentaje_tiros_libres",
-                                    "porcentaje_tiros_triples",
-                                    "logros"
-                                )
+                    "jugadores": {
+                                    "id": "integer primary key autoincrement",
+                                    "nombre": "text",
+                                    "posicion": "text",
+                                    "temporadas": "integer",
+                                    "puntos_totales": "integer",
+                                    "promedio_puntos_por_partido": "real",
+                                    "rebotes_totales": "integer",
+                                    "promedio_rebotes_por_partido": "real",
+                                    "asistencias_totales": "integer",
+                                    "promedio_asistencias_por_partido": "real",
+                                    "robos_totales": "integer",
+                                    "bloqueos_totales": "integer",
+                                    "porcentaje_tiros_de_campo": "real",
+                                    "porcentaje_tiros_libres": "real",
+                                    "porcentaje_tiros_triples": "real",
+                                    "logros": "text",
+                                    "created_at": "text",
+                                    "updated_at": "text"
+                                },
+                    "posiciones": {
+                                    "id": "integer primary key autoincrement",
+                                    "posicion": "text",
+                                    "created_at": "text",
+                                    "updated_at": "text"
+                    }
                 } 
     
     def create_table(self, nombre_tabla):
-        """  
-        crea la tabla recibida por parametro en la db dream_team.db\n
-        recibe el nombre de la tabla
+        """
+        La función crea una tabla en una base de datos SQLite basada en el nombre de la tabla\n 
+        y el esquema de la tabla proporcionados.\n
+        :param nombre_tabla: El parámetro "nombre_tabla" representa el nombre de la tabla que\n 
+        deseas crear en la base de datos\n
+        :return: un valor booleano. Si la tabla con el nombre de pila existe en la base de datos,\n 
+        devuelve Verdadero. De lo contrario, devuelve Falso.
         """
         db = self.get_tablas_db()
         if nombre_tabla not in db.keys():
             return False 
         else:
+            # bloque que arma la sentencia SQL "CREATE TABLE"
+            data_table = db.get(nombre_tabla)
+            query = f"create table if not exists {nombre_tabla}("
+            for k, v in data_table.items():
+                query += f"{k} {v},"
+            query = query[:-2]
+            query += ")"
 
-            # si el archivo .db no existe, automaticamente se crea en el path especificado
             with sqlite3.connect("db/dream_team.db") as conexion:
                 try:
-                    query = f""" 
-                        create table if not exists {nombre_tabla}(
-                            id integer primary key autoincrement,
-                            nombre text,
-                            posicion text,
-                            temporadas integer,
-                            puntos_totales integer,
-                            promedio_puntos_por_partido real,
-                            rebotes_totales integer,
-                            promedio_rebotes_por_partido real,
-                            asistencias_totales integer,
-                            promedio_asistencias_por_partido real,
-                            robos_totales integer,
-                            bloqueos_totales integer,
-                            porcentaje_tiros_de_campo real,
-                            porcentaje_tiros_libres real,
-                            porcentaje_tiros_triples real,
-                            logros text,
-                            created_at text,
-                            updated_at text
-                        )
-                    """
                     conexion.execute(query)
-                    return f"La tabla \"{nombre_tabla}\" se ha creado correctamente"
+                    return True
                 except sqlite3.OperationalError:
-                    return f"La tabla \"{nombre_tabla}\" ya existe"
-
+                    return False
+                
     def insert_db(self, nombre_tabla: str, data_insert):
+        """
+        La función `insert_db` inserta datos en una tabla especificada en una base de datos SQLite.\n
+        :param nombre_tabla: El parámetro `nombre_tabla` es una cadena que representa el\n 
+        nombre de la tabla en la base de datos donde se insertarán los datos\n
+        :type nombre_tabla: str\n
+        :param data_insert: El parámetro `data_insert` es una lista de diccionarios. Cada\n 
+        diccionario representa una fila de datos que se insertarán en la tabla de la base de datos.\n 
+        Las claves de los diccionarios representan los nombres de las columnas y los valores\n 
+        representan los valores correspondientes que se insertarán en esas columnas\n
+        :return: un valor booleano. Si la inserción de datos es exitosa, devuelve Verdadero.\n 
+        Si hay un error durante la inserción, devuelve False.
+        """
         tabla_existe = self.create_table(nombre_tabla)
         if not tabla_existe:
             print(f"\nError: la tabla \"{nombre_tabla}\" no existe en la DB.")
@@ -430,15 +442,18 @@ class Equipo:
             try:
                 for values in lista_values_inserts:
                     conexion.execute(query, values)
-                conexion.commit() # hace el insert en la tabla
+                conexion.commit()
                 return True
             except:
                 return False
     
     def crear_tabla_posiciones(self):
-        """ 
-        si ya existe la tabla posiciones, la borra\n
-        luego crea la tabla posiciones y hace 5 inserts para las cinco posiciones del basketball
+        """
+        La función crea una tabla llamada "posiciones" en una base de datos SQLite\n 
+        e inserta posiciones predefinidas en la tabla.\n
+        :return: un valor booleano. Si la tabla "posiciones" se crea exitosamente y\n
+        se insertan los datos en ella, la función devolverá True.\n 
+        Si hay un error durante la ejecución de las consultas SQL devolverá False.\n
         """
         with sqlite3.connect("db/dream_team.db") as conexion:
             try:
@@ -469,9 +484,19 @@ class Equipo:
 
 
 if __name__ == "__main__":
-    pass
-    # equipo = Equipo("dream_team.json")
-    # print(equipo.crear_tabla_posiciones())
+    import os
+    def limpiar_consola():
+            """  
+            limpia la consola
+            """
+            if os.name in ["ce", "nt", "dos"]: # windows
+                os.system("cls")
+            else: # linux o mac
+                os.system("clear")
+    limpiar_consola()
+    
+    equipo = Equipo("dream_team.json")
+    print(equipo.create_table("jugadores"))
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/ENTREGAS/primer_parcial-v4
 # python main.py
