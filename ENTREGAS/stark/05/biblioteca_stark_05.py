@@ -1,4 +1,14 @@
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Stark 05
+"""
+# IMPORTANTE: para que la creacion de archivos funcione correctamente hay que crear la carpeta /csv en la raiz del proyecto
+
 from inspect import currentframe as linea
+import re
 # imprimir_linea(linea().f_lineno)
 
 def limpiar_consola():
@@ -15,105 +25,6 @@ def limpiar_consola():
 def imprimir_linea(linea):
    # imprimir_linea(linea().f_lineno)
    print(f"Linea {linea}")
-
-# 1.3
-def stark_marvel_app_5(lista_personajes):
-    """
-    """
-    limpiar_consola()
-    while True:
-        opcion_seleccionada = -1
-        while opcion_seleccionada == -1:
-            opcion_seleccionada = stark_menu_principal_desafio_5() 
-            if opcion_seleccionada not in ("z", "Z"):
-                limpiar_consola()
-        match opcion_seleccionada:
-            # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
-            case "a" | "A":
-                imprimir_dato("a- Listado superhéroes de género masculino(M):\n")
-                stark_imprimir_heroe_genero(lista_personajes, "m")
-            # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
-            case "b" | "B":
-                imprimir_dato("b- Listado superhéroes de género femenino(F):\n")
-                stark_imprimir_heroe_genero(lista_personajes, "f")
-            # c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
-            case "c" | "C":
-                imprimir_dato("c- Superhéroe más alto género masculino(M):\n")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M", True)
-            # e - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
-            case "d" | "D":
-                imprimir_dato("d- Superhéroe más alto género femenino(F):\n")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F", True)
-            # e - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género M
-            case "e" | "E":
-                imprimir_dato("e- Superhéroe más bajo género masculino(M):\n")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M", True)
-            # f - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género F
-            case "f" | "F":
-                imprimir_dato("f- Superhéroe más bajo género femenino(F):\n")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F", True)
-            # g - Recorrer la lista y determinar la altura promedio de los superhéroes de género M
-            case "g" | "G":
-                imprimir_dato("g- Altura promedio superhéroes género masculino(M):\n")
-                stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "m")
-            # h - Recorrer la lista y determinar la altura promedio de los  superhéroes de género F
-            case "h" | "H":
-                imprimir_dato("h- Altura promedio superhéroes género femenino(M):\n")
-                stark_calcular_imprimir_promedio_altura_genero(lista_personajes, "altura", "f")
-            # i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
-            case "i" | "I":
-                imprimir_dato("i- Informe:")
-                imprimir_dato("\nc- Superhéroe más alto género masculino(M)")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "M")
-
-                imprimir_dato("\nd- Superhéroe más alto género femenino(F)")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "maximo", "altura", "F")
-
-                imprimir_dato("\ne- Superhéroe más bajo género masculino(M)")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "M")
-
-                imprimir_dato("\nf- Superhéroe más bajo género femenino(F)")
-                stark_calcular_imprimir_heroe_genero(lista_personajes, "minimo", "altura", "F")
-            # j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
-            case "j" | "J":
-                imprimir_dato("j- Color de ojos (cantidad según tipo):\n")
-                stark_calcular_cantidad_por_tipo(lista_personajes, "color_ojos")
-            # k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
-            case "k" | "K":
-                imprimir_dato("k- Color de pelo (cantidad según tipo):\n")
-                stark_calcular_cantidad_por_tipo(lista_personajes, "color_pelo")
-            # l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
-            case "l" | "L":
-                imprimir_dato("l- Inteligencia (cantidad según tipo):\n")
-                stark_calcular_cantidad_por_tipo(lista_personajes, "inteligencia")
-            # m - Listar todos los superhéroes agrupados por color de ojos.
-            case "m" | "M":
-                imprimir_dato("m- Color de ojos (agrupados por tipo):\n")
-                stark_listar_heroes_por_dato(lista_personajes, "color_ojos")
-            # n - Listar todos los superhéroes agrupados por color de pelo.
-            case "n" | "N":
-                imprimir_dato("n- Color de pelo (agrupados por tipo):\n")
-                stark_listar_heroes_por_dato(lista_personajes, "color_pelo")
-            # o - Listar todos los superhéroes agrupados por tipo de inteligencia
-            case "o" | "O":
-                imprimir_dato("o- Inteligencia (agrupados por tipo):\n")
-                stark_listar_heroes_por_dato(lista_personajes, "inteligencia")
-            # salir del programa
-            case "z" | "Z":
-                print("\nHasta la próxima\n")
-                break
-
-# 1.2
-def stark_menu_principal_desafio_5():
-    """ 
-    """
-    import re 
-    imprimir_menu_desafio_5()
-    opcion_ingresada = input("Elija una opción: ")
-    validacion = re.search(r"^[a-oA-OzZ]{1}$", opcion_ingresada)
-    if not validacion:
-        return -1 
-    return opcion_ingresada
 
 # 1.1
 def imprimir_menu_desafio_5():
@@ -137,6 +48,125 @@ o - Listar todos los superhéroes agrupados por tipo de inteligencia
 z - Salir\n"""
     imprimir_dato(menu)
 
+# 1.2
+def stark_menu_principal_desafio_5():
+    """ 
+    """
+    import re 
+    imprimir_menu_desafio_5()
+    opcion_ingresada = input("Elija una opción: ")
+    validacion = re.search(r"^[a-oA-OzZ]{1}$", opcion_ingresada)
+    if not validacion:
+        return -1 
+    return opcion_ingresada
+
+# 1.3
+def stark_marvel_app_5(lista_personajes):
+    """
+    Funcion principal del programa
+    """
+    limpiar_consola()
+    while True:
+        opcion_seleccionada = -1
+        while opcion_seleccionada == -1:
+            opcion_seleccionada = stark_menu_principal_desafio_5() 
+            if opcion_seleccionada not in ("z", "Z"):
+                limpiar_consola()
+        match opcion_seleccionada:
+            # a - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género M
+            case "a" | "A":
+                imprimir_dato("a- Listado superhéroes de género masculino(M):\n")
+                for heroe in lista_personajes:
+                  if es_genero_stark05(heroe, "M"):
+                    print(obtener_nombre_y_dato_stark05(heroe, "genero"))
+
+            # b - Recorrer la lista imprimiendo por consola el nombre de cada superhéroe de género F
+            case "b" | "B":
+                imprimir_dato("b- Listado superhéroes de género femenino(F):\n")
+                for heroe in lista_personajes:
+                  if es_genero_stark05(heroe, "F"):
+                    print(obtener_nombre_y_dato_stark05(heroe, "genero"))
+
+            # c - Recorrer la lista y determinar cuál es el superhéroe más alto de género M
+            case "c" | "C":
+                imprimir_dato("c- Superhéroe más alto género masculino(M):\n")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "maximo", "altura", "M")
+
+            # d - Recorrer la lista y determinar cuál es el superhéroe más alto de género F
+            case "d" | "D":
+                imprimir_dato("d- Superhéroe más alto género femenino(F):\n")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "maximo", "altura", "F")
+
+            # e - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género M
+            case "e" | "E":
+                imprimir_dato("e- Superhéroe más bajo género masculino(M):\n")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "minimo", "altura", "M")
+
+            # f - Recorrer la lista y determinar cuál es el superhéroe más bajo  de género F
+            case "f" | "F":
+                imprimir_dato("f- Superhéroe más bajo género femenino(F):\n")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "minimo", "altura", "F")
+                
+            # g - Recorrer la lista y determinar la altura promedio de los superhéroes de género M
+            case "g" | "G":
+                imprimir_dato("g- Altura promedio superhéroes género masculino(M):\n")
+                stark_calcular_imprimir_guardar_promedio_altura_genero(lista_personajes, "M")
+
+            # h - Recorrer la lista y determinar la altura promedio de los  superhéroes de género F
+            case "h" | "H":
+                imprimir_dato("h- Altura promedio superhéroes género femenino(M):\n")
+                stark_calcular_imprimir_guardar_promedio_altura_genero(lista_personajes, "F")
+
+            # i - Informar cual es el Nombre del superhéroe asociado a cada uno de los indicadores anteriores (ítems C a F)
+            case "i" | "I":
+                imprimir_dato("i- Informe:")
+                imprimir_dato("\nc- Superhéroe más alto género masculino(M)")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "maximo", "altura", "M")
+
+                imprimir_dato("\nd- Superhéroe más alto género femenino(F)")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "maximo", "altura", "F")
+
+                imprimir_dato("\ne- Superhéroe más bajo género masculino(M)")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "minimo", "altura", "M")
+
+                imprimir_dato("\nf- Superhéroe más bajo género femenino(F)")
+                stark_calcular_imprimir_guardar_heroe_genero(lista_personajes, "minimo", "altura", "F")
+
+            # j - Determinar cuántos superhéroes tienen cada tipo de color de ojos.
+            case "j" | "J":
+                imprimir_dato("j- Color de ojos (cantidad según tipo):\n")
+                stark_calcular_cantidad_por_tipo_stark05(lista_personajes, "color_ojos")
+
+            # k - Determinar cuántos superhéroes tienen cada tipo de color de pelo.
+            case "k" | "K":
+                imprimir_dato("k- Color de pelo (cantidad según tipo):\n")
+                stark_calcular_cantidad_por_tipo_stark05(lista_personajes, "color_pelo")
+
+            # l - Determinar cuántos superhéroes tienen cada tipo de inteligencia (En caso de no tener, Inicializarlo con "No Tiene")
+            case "l" | "L":
+                imprimir_dato("l- Inteligencia (cantidad según tipo):\n")
+                stark_calcular_cantidad_por_tipo_stark05(lista_personajes, "inteligencia")
+
+            # m - Listar todos los superhéroes agrupados por color de ojos.
+            case "m" | "M":
+                imprimir_dato("m- Color de ojos (agrupados por tipo):\n")
+                stark_listar_heroes_por_dato_stark05(lista_personajes, "color_ojos")
+
+            # n - Listar todos los superhéroes agrupados por color de pelo.
+            case "n" | "N":
+                imprimir_dato("n- Color de pelo (agrupados por tipo):\n")
+                stark_listar_heroes_por_dato_stark05(lista_personajes, "color_pelo")
+
+            # o - Listar todos los superhéroes agrupados por tipo de inteligencia
+            case "o" | "O":
+                imprimir_dato("o- Inteligencia (agrupados por tipo):\n")
+                stark_listar_heroes_por_dato_stark05(lista_personajes, "inteligencia")
+
+            # salir del programa
+            case "z" | "Z":
+                print("\nHasta la próxima\n")
+                break
+
 # 1.4
 def leer_archivo(nombre_archivo_json):
     """ 
@@ -148,23 +178,21 @@ def leer_archivo(nombre_archivo_json):
     return contenido_json["lista_personajes"]
 
 # 1.5
-def guardar_archivo(nombre_archivo_csv: str, contenido_csv:str):
-    """
-    genera o reescribe un .csv con el nombre y el contenido especificados por el usuario\n
-    nombre_archivo_csv: str -> nombre del archivo a crear\n
-    contenido_csv: str -> contenido del archivo a crear\n
-    return bool -> True si el archivo se pudo crear, False caso contrario
-    """ 
-    # nombre_archivo_csv = "nombre_archivo.csv"
-    # contenido_csv = "nombre;altura;fuerza\nHoward;78;4\nSantos;134,1"
-    try:
-      with open(f"csv/{nombre_archivo_csv}", "w", encoding="utf-8") as csv_nuevo:
-        csv_nuevo.write(f"{contenido_csv}")
-      print(f"Se creó el archivo: {nombre_archivo_csv}")
-      return True
-    except:  
-      print(f"Error al crear el archivo: {nombre_archivo_csv}")
-      return False
+def guardar_archivo(nombre_archivo: str, contenido_archivo:str):
+  """
+  La función `guardar_archivo` crea o sobrescribe un archivo con el nombre, extension y contenido especificados.
+  :param nombre_archivo: El parámetro `nombre_archivo` es una cadena que representa el nombre y la extension del archivo que se creará o sobrescribirá
+  :param contenido_archivo: El parámetro `contenido_archivo` es una cadena que representa el contenido del archivo. 
+  :return: un valor booleano. Devuelve True si el archivo se creó correctamente o False si hubo un error al crear el archivo.
+  """
+  try:
+    with open(f"csv/{nombre_archivo}", "w", encoding="utf-8") as csv_nuevo:
+      csv_nuevo.write(f"{contenido_archivo}")
+    print(f"Se creó el archivo: {nombre_archivo}")
+    return True
+  except:  
+    print(f"Error al crear el archivo: {nombre_archivo}")
+    return False
 
 # 1.6
 def capitalizar_palabras(string: str):
@@ -357,26 +385,208 @@ def calcular_cantidad_tipo(lista_heroes: list[dict], clave: str) -> dict:
   return bool|dict -> False si la lista de heroes recibida esta vacia|diccionario resultante
   """
   if not lista_heroes:
-    return {
-            "Error": "La lista se encuentra vacía"
-           }
+    return {"Error": "La lista se encuentra vacía"}
   diccionario_resultante = {}
   for heroe in lista_heroes:
       nueva_clave = capitalizar_palabras(heroe.get(clave, "No Tiene"))
       if not nueva_clave:
         nueva_clave = "No Tiene"
       diccionario_resultante[nueva_clave] = diccionario_resultante.get(nueva_clave, 0) + 1
-  claves_ordenadas = sorted(diccionario_resultante.keys())
+  claves_ordenadas = sorted(diccionario_resultante.keys()) # lista de las claves del diccionario, ordenadas alfabeticamente
   diccionario_resultante = {key: diccionario_resultante[key] for key in claves_ordenadas}
   return diccionario_resultante
 
 # 5.2
-def guardar_cantidad_heroes_tipo():
-  pass
+def guardar_cantidad_heroes_tipo(diccionario: dict, dato_relevado: str):
+  """
+  La función "guardar_cantidad_heroes_tipo" toma como entrada un diccionario y un dato relevado, y
+  guarda la información en un archivo .txt con un nombre específico que incluye el dato relevado.
+  :param diccionario: Un diccionario que contiene las características de los héroes y sus cantidades
+  correspondientes
+  :param dato_relevado: El parámetro "dato_relevado" representa el dato relevado o característica de
+  los héroes presente en el diccionario. Podría ser algo como "fueza", "color_ojos", "color_pelo", etc
+  :return: True si el archivo se creo correctamente o False si fallo la creacion.
+  """
+  nombre_archivo = f"heroes_cantidad_{dato_relevado}.txt"
+  contenido_archivo = ""
+  for k, v in diccionario.items():
+    contenido_archivo += f"Caracteristica: {dato_relevado} {k} - Cantidad de heroes: {v}\n"
+
+  print(contenido_archivo)
+
+  archivo_guardado = guardar_archivo(nombre_archivo, contenido_archivo)  
+  if archivo_guardado:
+    return True
+  else:
+    return False
 
 # 5.3
-def stark_calcular_cantidad_por_tipo():
-  pass
+def stark_calcular_cantidad_por_tipo_stark05(lista_heroes: list[dict], clave_a_buscar: str):
+  """
+  La función "stark_calcular_cantidad_por_tipo_stark05" toma como entrada la lista de heroes y un dato a relevar 
+  (puede ser algo como "fueza", "color_ojos", "color_pelo", etc).
+  Calcula la cantidad de coincidencias para cada variante del dato a relevar y vuelca la informacion resultante
+  en un .txt que guarda en la carpeta /csv.
+  :param lista_heroes: lista de heroes
+  :param dato_relevado: El parámetro "clave_a_buscar" representa el dato a relevar en toda la lista de heroes.
+  :return: True si el archivo se creo correctamente o False si algo fallo durante la ejecucion.
+  """
+  diccionario_resultados = calcular_cantidad_tipo(lista_heroes, clave_a_buscar)
+  archivo_guardado = guardar_cantidad_heroes_tipo(diccionario_resultados, clave_a_buscar)
+  if archivo_guardado:
+    return True
+  else:
+    return False
+
+# 6.1
+def obtener_lista_de_tipos(lista_heroes: list[dict], clave_a_buscar: str):
+  """
+  La función "obtener_lista_de_tipos" toma una lista de diccionarios y una clave para buscar, y
+  devuelve un set de valores correspondientes a esa clave en los diccionarios y "N/A" para valores faltantes o vacíos.
+  :param lista_heroes: Una lista de diccionarios que representan héroes. Cada diccionario contiene
+  información sobre un héroe, como su nombre, edad y poderes
+  :param clave_a_buscar: El parámetro "clave_a_buscar" es una cadena que representa la clave a buscar
+  en los diccionarios dentro de la lista "lista_heroes"
+  :return: el set de valores obtenidos de la clave especificada en cada diccionario de la lista
+  dada.
+  """
+  lista_valores_segun_clave = [capitalizar_palabras(heroe[clave_a_buscar]) if (clave_a_buscar in heroe and heroe[clave_a_buscar]) else "N/A" for heroe in lista_heroes]
+  return set(lista_valores_segun_clave)
+    
+# 6.2
+def normalizar_dato(dato: str, dato_default: str):
+  """
+  La función normalizar_dato recibe los strings "dato" y "dato_default"
+  devuelve `dato` si no está vacío, de lo contrario devuelve `dato_default`.
+  :param dato: El parámetro `dato` es una cadena que representa los datos que deben normalizarse
+  :param dato_default: El parámetro dato_default es una cadena que representa el valor predeterminado
+  que se devolverá si el parámetro `dato` está vacío o Ninguno
+  :return: La función `normalizar_dato` devuelve el valor de `dato` si no está vacía, en caso
+  contrario devuelve el valor de `dato_default`.
+  """
+  if dato:
+    return dato
+  else:
+    return dato_default
+
+# 6.3
+def normalizar_heroe(heroe: dict, clave: str):
+  """
+  La función normalizar_heroe toma un diccionario que representa un héroe y una clave
+  normaliza el valor asociado con esa clave, capitaliza cada palabra de la clave nombre, 
+  castea a int o float segun corresponda el valor de cada clave factible de ser casteada 
+  y devuelve el diccionario del héroe actualizado.
+  :param heroe: El parámetro `heroe` es un diccionario que representa a un héroe. 
+  Contiene varios pares clave-valor donde las claves representan diferentes atributos del héroe (por ejemplo, "nombre" para el nombre, "fuerza" para la fuerza, etc.) 
+  y los valores representan los valores correspondientes de esos atributos
+  :param clave: El parámetro "clave" es una cadena que representa la clave en el diccionario "héroe"
+  que debe normalizarse
+  :return: un diccionario con los valores normalizados para la clave especificada.
+  """
+  regex_int = r'^\d+$'
+  regex_float = r'^\d+\.\d+$'
+
+  heroe_copy = heroe.copy()
+
+  dato_normalizado = normalizar_dato(capitalizar_palabras(heroe_copy.get(clave)), "N/A")
+
+  heroe_copy["nombre"] = capitalizar_palabras(heroe_copy.get("nombre"))
+  heroe_copy[clave] = dato_normalizado
+
+  for k, v in heroe_copy.items():
+    pass
+    if bool(re.match(regex_int, str(v))):
+      heroe_copy[k] = int(v)
+    elif bool(re.match(regex_float, str(v))):
+      heroe_copy[k] = float(v)
+  return heroe_copy
+
+# 6.4
+def obtener_heroes_por_tipo_stark05(lista_heroes: list[dict], set_variedades_segun_clave: set, clave_a_evaluar: str):
+  """
+  La función "obtener_heroes_por_tipo_stark05" toma una lista de diccionarios, un set de valores
+  y una clave para evaluar, y devuelve un diccionario donde las claves son los valores del set y
+  los valores son listas de nombres de héroes cuyo valor para la clave a evaluar coincide con la clave del diccionario a retornar.
+  :param lista_heroes: Una lista de diccionarios que representan diferentes héroes
+  :param set_variedades_segun_clave: El parámetro set_variedades_segun_clave es un set que
+  contiene diferentes variedades o tipos de héroes en función de una clave específica. Por ejemplo, si la clave es "inteligencia", el set_variedades_segun_clave podría contener valores como "high", "good", etc.
+  :param clave_a_evaluar: El parámetro "clave_a_evaluar" es una cadena que representa la clave en el
+  diccionario de cada héroe que será evaluado. Se utiliza para determinar el tipo o categoría del
+  héroe
+  :return: un diccionario donde las claves son las diferentes variedades obtenidas del set
+  `set_variedades_segun_clave`, y los valores son listas de nombres de héroes cuyo valor para la clave a evaluar coincide con la clave del diccionario a retornar.
+  """
+
+  diccionario_final = {}
+
+  for variedad in set_variedades_segun_clave:
+    if not variedad in diccionario_final:
+      diccionario_final[variedad] = []
+      for heroe in lista_heroes:
+        heroe = normalizar_heroe(heroe, clave_a_evaluar)
+        for k, v in heroe.items():
+          if k == clave_a_evaluar and v == variedad:
+            diccionario_final[variedad].append(capitalizar_palabras(heroe.get("nombre"))) 
+
+  return diccionario_final
+  
+# 6.5
+def guardar_heroes_por_tipo(diccionaro_heroes_segun_tipo: dict, dato_relevado: str):
+  """
+  La función "guardar_heroes_por_tipo" recibe un diccionario cuyas claves son las variedades de tipos para una
+  caracteristica en particular (fuerza, color_ojos, etc) y los valores son listas de nombres de heroes cuyo valor para esa clave coincide con la clave
+  tambien recibe dato_relevado, un string que representa la caracteristica a partir de la cual se estructura
+  el diccionario
+  la funcion guarda la informacion del diccionario en un archivo.csv en la carpeta /csv
+  :param diccionaro_heroes_segun_tipo: Un diccionario que contiene héroes categorizados por sus tipos.
+  Las claves del diccionario representan los tipos de héroes y los valores son listas de nombres de
+  héroes que pertenecen a cada tipo
+  :param dato_relevado: El parámetro "dato_relevado" es una cadena que representa los datos o
+  información relevante que se está guardando. Se utiliza para crear el nombre del archivo que se
+  guardará
+  :return: un valor booleano. Si el archivo se guarda correctamente, devuelve Verdadero. De lo
+  contrario, devuelve Falso.
+  """
+  nombre_archivo = f"heroes_segun_{dato_relevado}.csv"
+  
+  contenido_archivo = ""
+  
+  for tipo, nombres in diccionaro_heroes_segun_tipo.items():
+    contenido_archivo += f"{dato_relevado} {tipo}: "
+    for nombre_heroe in nombres:
+      contenido_archivo += f"{nombre_heroe} | "
+    contenido_archivo = contenido_archivo[:-3] 
+    contenido_archivo += f"\n"
+  
+  print(contenido_archivo)
+
+  archivo_guardado = guardar_archivo(nombre_archivo, contenido_archivo)  
+  if archivo_guardado:
+    return True
+  else:
+    return False
+
+# 6.6
+def stark_listar_heroes_por_dato_stark05(lista_heroes: list[dict], clave_a_evaluar: str):
+  """
+  La función `stark_listar_heroes_por_dato_stark05` recibe la lista de heroes y una clave para evaluar
+  a partir de la clave a evaluar, analiza la lista para calcular la variedad de tipos para esa clave
+  y que heroes coinciden con cada tipo
+  guarda la informacion en un archivo .csv en la carpeta /csv
+  :param lista_heroes: Una lista de diccionarios que representan diferentes héroes. Cada diccionario
+  contiene información sobre un héroe, como su nombre, fuerza, inteligencia, etc.
+  :param clave_a_evaluar: El parámetro "clave_a_evaluar" es un string que representa la clave o
+  atributo del diccionario de héroes por el que se va a evaluar o filtrar la lista de héroes
+  :return: un valor booleano. Si el archivo se guarda correctamente, devuelve True. De lo
+  contrario, devuelve False.
+  """
+  set_clave_a_evaluar = obtener_lista_de_tipos(lista_heroes, clave_a_evaluar)
+  heroes_por_tipo_segun_clave_a_evaluar = obtener_heroes_por_tipo_stark05(lista_heroes, set_clave_a_evaluar, clave_a_evaluar)
+  archivo_guardado = guardar_heroes_por_tipo(heroes_por_tipo_segun_clave_a_evaluar, clave_a_evaluar)
+  if archivo_guardado:
+    return True
+  else:
+    return False
 
 # extra
 def generar_contenido_csv_lista_diccionarios(lista: list[dict]):
@@ -427,91 +637,6 @@ def convertir_string_en_float(string):
       return False
   return False
 
-def calcular_max(lista: list[dict], clave: str):
-  """ 
-  ACCION: recibe una lista de diccionarios y una key para la que se buscará el máximo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor máximo hallado \n 
-  PARAMETROS:\n
-  [lista] -> lista de diccionarios\n
-  [key] -> clave a evaluar\n
-  RETURN: retorna un iterable de diccionarios
-  """
-  stark_normalizar_datos(lista)
-  valor_maximo = max(lista, key = lambda diccionario: diccionario[clave])[clave]
-  listado_heroes_valor_maximo = filter(lambda elemento: elemento[clave] == valor_maximo, lista)
-  return listado_heroes_valor_maximo
-
-def calcular_min(lista: list[dict], clave: str):
-  """ 
-  ACCION: recibe una lista de diccionarios y una key para la que se buscará el mínimo valor presente en la lista, y retorna una nueva lista de diccionarios de todos aquellos diccionarios cuyo valor para esta key coincida con el valor mínimoximo hallado \n 
-  PARAMETROS:\n
-  [lista] -> lista de diccionarios\n
-  [key] -> clave a evaluar\n
-  RETURN: retorna un iterable de diccionarios
-  """
-  stark_normalizar_datos(lista)
-  valor_minimo = min(lista, key = lambda diccionario: diccionario[clave])[clave]
-  listado_heroes_valor_minimo = filter(lambda elemento: elemento[clave] == valor_minimo, lista)
-  return listado_heroes_valor_minimo
-
-def calcular_max_min_dato(lista: list[dict], tipo_calculo: str, clave: str):
-  """ 
-  ACCION: recibe una lista de diccionarios [lista], un string "maximo" o "minimo" [tipo_calculo] y una key a evaluar. Dependiendo de [tipo_calculo] hallará el valor correspondiente para [clave] y retornara un iterable con todos los superheroes cuyo valor para [clave] coincida con el hallado\n
-  PARAMETROS:\n
-  [lista] -> lista de heroes\n
-  [tipo_calculo] -> "maximo" o "minimo"\n
-  [clave] -> clave a evaluar\n
-  RETURN: retorna un iterable de diccionarios
-  """
-  if tipo_calculo == "minimo": 
-    return calcular_min(lista, clave)
-  elif tipo_calculo == "maximo": 
-    return calcular_max(lista, clave)
-  return -1
-
-def calcular_max_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
-  """  
-  analiza la lista de heroes del genero especificado por parametro y retorna el valor maximo del campo numerico especificado (altura, fuerza o peso)\n 
-  [lista_heroes : list[dict]] -> listado de heroes\n
-  [clave] -> clave a analizar\n
-  [str_genero] -> genero a analizar\n
-  return -> (float) valor maximo hallado 
-  """
-  heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
-  valor_maximo_hallado = max(heroes_genero, key = lambda heroe: castear_dato_a_float(heroe[clave]))[clave]
-  return valor_maximo_hallado
-
-def stark_calcular_imprimir_heroe(lista: list[dict], tipo_calculo: str, clave: str):
-  """  
-  ACCION: recibe la lista de heroes [lista] e imprime por consola los heroes cuyo valor de clave [clave] coincida con el maximo o minimo [tipo_calculo] hallado para esa clave en toda la lista\n
-  PARAMETROS:\n
-  [lista] -> lista de heroes\n
-  [tipo_calculo] -> "maximo" o "minimo"\n
-  [clave] -> clave a evaluar\n
-  RETURN: si len([]) == 0, retorna -1, caso contrario None  
-  """
-  if not len(lista):
-    return -1
-  heroes_valor_buscado = calcular_max_min_dato(lista, tipo_calculo, clave)
-  if tipo_calculo == "minimo":
-    inicio = "Menor"
-  else:
-    inicio = "Mayor"
-  for heroe in heroes_valor_buscado:
-    imprimir_dato(f"{inicio} {clave}: {obtener_nombre_y_dato(heroe, clave)}")
-  imprimir_dato("\n")
-
-def calcular_min_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
-  """  
-  analiza la lista de heroes del genero especificado por parametro y retorna el valor minimo del campo numerico especificado (altura, fuerza o peso)\n 
-  [lista_heroes : list[dict]] -> listado de heroes\n
-  [clave] -> clave a analizar\n
-  [str_genero] -> genero a analizar\n
-  return -> (float) valor minimo hallado 
-  """
-  heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
-  valor_minimo_hallado = min(heroes_genero, key = lambda heroe: castear_dato_a_float(heroe[clave]))[clave]
-  return valor_minimo_hallado
-
 def obtener_nombre_y_dato(diccionario: dict, key: str) -> str:
   """  
   de un diccionario dado, retorna una leyenda (str) con los valores de las claves "nombre" y la especificada por parametro\n 
@@ -522,42 +647,6 @@ def obtener_nombre_y_dato(diccionario: dict, key: str) -> str:
   nombre = diccionario.get('nombre', 'sin datos')
   valor_dinamico = diccionario.get(key, 'sin datos')
   return f"Nombre: {nombre} | {key}: {valor_dinamico}"
-
-def calcular_max_min_dato_genero(lista_heroes: list[dict], valor_buscado: str, clave: str, str_genero: str)-> list:
-  """  
-  dadas la lista de heroes, un string "minimo" o "maximo", una clave a analizar y un genero, retorna el listado de superheroes que coincidan con dichos criterios\n 
-  [lista_heroes : list[dict]] -> listado de heroes\n
-  [valor_buscado : str] -> "minimo"|"maximo", criterio de seleccion\n
-  [clave : str] -> clave a analizar\n
-  [str_genero : str] -> genero a analizar\n
-  return -> (list) listado resultante 
-  """
-  if(valor_buscado.lower() == "minimo"):
-    valor_hallado = calcular_min_genero(lista_heroes, clave, str_genero)
-  elif(valor_buscado.lower() == "maximo"):
-    valor_hallado = calcular_max_genero(lista_heroes, clave, str_genero)
-  
-  heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
-  lista_final = list(filter(lambda heroe: heroe[clave] == valor_hallado, heroes_genero))
-  return lista_final
-
-def stark_calcular_imprimir_heroe_genero(lista_heroes: list[dict], valor_buscado: str, clave: str, str_genero: str, margin_top: bool = False)-> None:
-  """  
-  dadas la lista de heroes, un string "minimo" o "maximo", una clave a analizar y un genero, imprime el listado de superheroes que coincidan con dichos criterios\n 
-  [lista_heroes : list[dict]] -> listado de heroes\n
-  [valor_buscado : str] -> "minimo"|"maximo", criterio de seleccion\n
-  [clave : str] -> clave a evaluar\n
-  [str_genero : str] -> genero a evaluar\n
-  return None 
-  """
-  if not lista_heroes:
-    return -1
-    # if margin_top:
-    # print("\n")
-  lista_final = calcular_max_min_dato_genero(lista_heroes, valor_buscado, clave, str_genero)
-  for heroe in lista_final:
-    imprimir_dato(obtener_nombre_y_dato(heroe, clave))
-    # print("\n")
 
 def sumar_dato_heroe_genero(lista_heroes: list[dict], clave: str, str_genero: str)-> float:
   """  
@@ -583,27 +672,6 @@ def dividir(dividendo: float, divisor: float) -> float:
     return dividendo / divisor
   return divisor
 
-def stark_calcular_imprimir_promedio_altura_genero(lista_heroes: list[dict], clave: str, str_genero: str)->float:
-  """  
-  dada la lista de diccionarios de superheroes, un genero ("F", "M" o "NB") y un campo numerico especificado (altura, fuerza o peso), imprime una leyenda que incluye el promedio resultante del total de los valores del campo numerico hallado en todos los diccionarios con el campo genero especificado\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] campo numerico a sumar\n
-  [str_genero: str] genero a relevar\n
-  return: None -> imprime una leyenda (str) que incluye el promedio hallado 
-  """
-  if not lista_heroes:
-    return "Error: Lista de héroes vacía"
-  print(f"{clave.capitalize()} promedio genero {str_genero.upper()}: {calcular_promedio_genero(lista_heroes, clave, str_genero)}")
-
-def obtener_nombre(diccionario: dict) -> str:
-  """  
-  obtiene el valor de la propiedad "nombre" de un diccionario y lo retorna en una leyenda (str):\n 
-  PARAMETROS:\n
-  [diccionario : dict] -> diccionario del cual se obtendra la el valor de la clave "nombre"\n
-  return str
-  """
-  return f"Nombre: {diccionario.get('nombre', 'sin datos')}"
-
 def es_genero(diccionario:dict, str_genero:str)-> bool:
   """  
   determina si el genero de un personaje recibido por parametro coincide con el genero recibido por parametro\n 
@@ -614,81 +682,6 @@ def es_genero(diccionario:dict, str_genero:str)-> bool:
   if isinstance(diccionario, dict) and diccionario and "genero" in diccionario and diccionario["genero"].lower() == str_genero.lower():
     return True 
   return False
-
-def stark_imprimir_heroe_genero(lista_heroes: list[dict], str_genero: str) -> None:
-  """  
-  imprime los nombres de los heroes cuyo genero coincida con el recibido por parametro\n 
-  [lista_heroes : list[dict]] -> lista de heroes\n
-  [str_genero : str] -> string para realizar la verificacion ("F", "M" o "NB")\n
-  return None
-  """
-  heroes_genero = filter(lambda heroe: es_genero(heroe, str_genero), lista_heroes)
-  for heroe in heroes_genero:
-    imprimir_dato(obtener_nombre(heroe))
-
-def imprimir_cantidad_heroes_tipo(diccionario: dict, clave: str) -> None:
-  """  
-  recibe un diccionario con los datos procesados de una propiedad en particular de los heroes en la lista de superheroes, los formatea e imprime el resultado por consola\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] propiedad asociada a los datos procesados en el diccionario\n
-  return None -> imprime un informe por consola
-  """
-  string = ""
-  for k,v in diccionario.items():
-    string += f"Característica: {clave} {k} - Cantidad de héroes: {v}\n"
-  imprimir_dato(string[:-1]) 
-
-def stark_calcular_cantidad_por_tipo(lista_heroes: list[dict], clave: str) -> None:
-  """  
-  recibe la lista de superheroes y un campo en particular a partir del cual se imprimira por pantalla un informe con los distintos valores existentes para ese campo y la cantidad de veces que se repite cada uno en la lista\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] campo a relevar en los diccionarios\n
-  return None -> imprime un informe por consola
-  """
-  imprimir_cantidad_heroes_tipo(calcular_cantidad_tipo(lista_heroes, clave), clave)
-
-def obtener_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> None:
-  from collections import defaultdict
-  from collections import OrderedDict
-  """  
-  a partir de la lista de superheroes y un clave dada, genera un diccionario cuyas claves son las variedades encontradas de la clave recibida, y el valor de cada una de estas claves es la lista de los superheroes, agrupados segun cada variedad de la clave recibida\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] campo a relevar en los diccionarios\n
-  return dict -> diccionario de listas
-  """
-  diccionario = defaultdict(list)
-  for heroe in lista_heroes:
-    valor_clave = heroe.get(clave, "Sin datos")
-    valor_clave = "Sin datos" if not valor_clave else valor_clave
-    nombre = heroe["nombre"]
-    diccionario[valor_clave].append(nombre)
-  return OrderedDict(sorted(dict(diccionario).items()))
-
-def imprimir_heroes_por_tipo(lista_heroes: list[dict], clave: str) -> str:
-  """  
-  recibe la lista de heroes y una clave, detecta las variantes para esa clave e imprime por pantalla un informe agrupando a los superheroes cuyos valores para una determinada variedad de la clave recibida sean coincidentes\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] campo a relevar en los diccionarios\n
-  return None -> imprime un informe por pantalla
-  """
-  fila = ""
-  diccionario_variedad = obtener_heroes_por_tipo(lista_heroes, clave)
-  for variedad, lista_h in diccionario_variedad.items():
-    fila += f"{clave} \"{variedad}\": " 
-    for nombre in lista_h:
-      fila += f"{nombre} | "
-    fila = fila[:-2]
-    fila += "\n"
-  imprimir_dato(fila[:-1])
-
-def stark_listar_heroes_por_dato(lista_heroes: list[dict], clave: str) -> str:
-  """  
-  recibe la lista de heroes y una clave, detecta las variantes para esa clave e imprime por pantalla un informe agrupando a los superheroes cuyos valores para una determinada variedad de la clave recibida sean coincidentes\n 
-  [lista_heroes: list[dict]] listado de heroes\n
-  [clave: str] campo a relevar en los diccionarios\n
-  return None -> imprime un informe por pantalla
-  """
-  imprimir_heroes_por_tipo(lista_heroes, clave)
 
 # --------------------------------- BLOQUE DE FUNCIONES STARKS ANTERIORES - FIN ---------------------------------------
 
@@ -715,59 +708,8 @@ def imprimir_dato(string: str):
 # -----------------------------
 
 if __name__ == "__main__":
-  limpiar_consola()
-  hombre ={
-      "nombre": "Wolverine",
-      "identidad": "Logan",
-      "empresa": "Marvel Comics",
-      "altura": "160.69999999999999",
-      "peso": "135.21000000000001",
-      "genero": "M",
-      "color_ojos": "Blue",
-      "color_pelo": "Black",
-      "fuerza": "35",
-      "inteligencia": "good"
-  }
-  mujer = {
-      "nombre": "Black Widow",
-      "identidad": "Natasha Romanoff",
-      "empresa": "Marvel Comics",
-      "altura": "170.78999999999999",
-      "peso": "59.340000000000003",
-      "genero": "F",
-      "color_ojos": "Green",
-      "color_pelo": "Auburn",
-      "fuerza": "15",
-      "inteligencia": "good"
-  }
-  lista_heroes = leer_archivo("data_stark.json")
-  limpiar_consola()
-  hombre = {
-    "nombre": "Wolverine",
-    "identidad": "Logan",
-    "empresa": "Marvel Comics",
-    "altura": "160.69999999999999",
-    "peso": "135.21000000000001",
-    "genero": "M",
-    "color_ojos": "Blue",
-    "color_pelo": "Black",
-    "fuerza": "35",
-    "inteligencia": "good"
-  }
-  mujer = {
-    "nombre": "Black Widow",
-    "identidad": "Natasha Romanoff",
-    "empresa": "Marvel Comics",
-    "altura": "170.78999999999999",
-    "peso": "59.340000000000003",
-    "genero": "F",
-    "color_ojos": "Green",
-    "color_pelo": "Auburn",
-    "fuerza": "15",
-    "inteligencia": "good"
-  }
-  resultado = calcular_cantidad_tipo(lista_heroes, "color_pelo")
-  print(resultado)
+  pass
+  
 
 # cd C:\Users\User\Desktop\utn\cuatrimestre1\programacion_1\ENTREGAS\stark\05
 # python biblioteca_stark_05.py

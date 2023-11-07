@@ -1,3 +1,12 @@
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Stark 05
+"""
+# IMPORTANTE: para que la creacion de archivos funcione correctamente hay que crear la carpeta /csv en la raiz del proyecto
+
 from biblioteca_stark_05 import(leer_archivo, stark_marvel_app_5)
 
 if __name__ == "__main__":

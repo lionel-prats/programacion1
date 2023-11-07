@@ -196,11 +196,32 @@ valores = ["lionel", "prats", "38"]
 # for item in lista:
 #   print(type(item), item)
 
-diccionario = dict(zip(claves, valores))
-print(type(diccionario), diccionario)
-for k, v in diccionario.items():
-  print(k, v)
+# diccionario = dict(zip(claves, valores))
+# print(type(diccionario), diccionario)
+# for k, v in diccionario.items():
+#   print(k, v)
 
 
 
 
+import re
+# ^   -> empieza con
+# \d  -> digito (0-9)
+# +   -> 1 o mas
+# ()  -> grupo
+# \.  -> punto, lo escapo porque es un caracter especial
+# ?   -> 0 o 1 ocurrencia
+# $   -> termina con
+def es_int(texto):
+  return bool(re.match(r'^\d+$', texto))
+
+def es_float(texto):
+  return bool(re.match(r'^\d+\.\d+$', texto))
+
+def es_numero(texto):
+  return bool(re.match(r'^\d+(\.?\d+)?$', texto))
+
+input_usuario = input("Ingrese un numero: ")
+while(not es_numero(input_usuario)):
+  input_usuario = input("El valor ingresado no es valido. De nuevo: ")
+print(f"ingresaste el {input_usuario}")

@@ -1035,3 +1035,29 @@ if hasattr(MiClase, 'metodo_inexistente'):
     print("El método 'metodo_inexistente' existe en la clase MiClase.")
 else:
     print("El método 'metodo_inexistente' no existe en la clase MiClase.")
+
+----- 
+
+VALIDACION DEFINITIVA CON REGEX PARA SABER SI UN STRING PUEDE SER CASTEADO A INT O A FLOAT 
+
+import re
+# ^   -> empieza con
+# \d  -> digito (0-9)
+# +   -> 1 o mas
+# ()  -> grupo
+# \.  -> punto, lo escapo porque es un caracter especial
+# ?   -> 0 o 1 ocurrencia
+# $   -> termina con
+def es_int(texto):
+  return bool(re.match(r'^\d+$', texto))
+
+def es_float(texto):
+  return bool(re.match(r'^\d+\.\d+$', texto))
+
+def es_numero(texto):
+  return bool(re.match(r'^\d+(\.?\d+)?$', texto))
+
+input_usuario = input("Ingrese un numero: ")
+while(not es_numero(input_usuario)):
+  input_usuario = input("El valor ingresado no es valido. De nuevo: ")
+print(f"ingresaste el {input_usuario}")
