@@ -1,0 +1,58 @@
+import pygame as pg
+
+from models.constantes import (
+    ALTO_VENTANA, ANCHO_VENTANA, FPS
+)
+from models.player.main_player import Jugador
+
+screen = pg.display.set_mode((ANCHO_VENTANA, ALTO_VENTANA))
+pg.init()
+clock = pg.time.Clock()
+
+back_img = pg.image.load('./assets/img/background/goku_house.png')
+back_img = pg.transform.scale(back_img, (ANCHO_VENTANA, ALTO_VENTANA))
+
+
+juego_ejecutandose = True
+
+vegeta = Jugador(0, 0, frame_rate=70, speed_walk=20, speed_run=40)
+
+
+while juego_ejecutandose:
+
+    lista_eventos = pg.event.get()
+    for event in lista_eventos:
+        match event.type:
+            case pg.KEYDOWN:
+                if event.key == pg.K_SPACE:
+                    vegeta.jump(True)
+            case pg.QUIT:
+                juego_ejecutandose = False
+                break
+    
+    lista_teclas_presionadas = pg.key.get_pressed()
+
+
+    if lista_teclas_presionadas[pg.K_RIGHT] and not lista_teclas_presionadas[pg.K_LEFT]:
+        vegeta.caminar('Derecha')
+    if lista_teclas_presionadas[pg.K_LEFT] and not lista_teclas_presionadas[pg.K_RIGHT]:
+        vegeta.caminar('Izquierda')
+    if not lista_teclas_presionadas[pg.K_RIGHT] and not lista_teclas_presionadas[pg.K_LEFT]:
+        vegeta.stay()
+    
+    if lista_teclas_presionadas[pg.K_RIGHT] and lista_teclas_presionadas[pg.K_LSHIFT] and not lista_teclas_presionadas[pg.K_LEFT]:
+        vegeta.volar('Derecha')
+    if lista_teclas_presionadas[pg.K_LEFT] and lista_teclas_presionadas[pg.K_LSHIFT] and not lista_teclas_presionadas[pg.K_RIGHT]:
+        vegeta.volar('Izquierda')
+    
+    screen.blit(back_img, back_img.get_rect())
+    
+    delta_ms = clock.tick(FPS)
+    
+    vegeta.update(delta_ms)
+    
+    vegeta.dibujar_personaje_en_pantalla(screen)
+    
+    pg.display.update()
+
+pg.quit()

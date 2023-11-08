@@ -1,0 +1,29 @@
+investigar "efecto parallax + pygame"
+
+https://www.pygame.org/docs/ -> docu oficial de pygame
+
+
+SPRITES:
+
+ALUMNO
+es una hoja de sprites
+asi lo buscas
+hay miles de miles
+
+ALUMNO
+con fondo transparente no era el formato png?
+
+PROFERSOR
+Los 60 FPS es lo maximo que se va ejecutar el juego. Con el framerate del jugador lo que hacemos es reducir esa velocidad para que no se mueva tan rapido
+
+PROFERSOR
+Una analogia pueden ser los cuando pones un cambio liviano en la bici, el bucle principal (los pedales) da muchas vueltas  por segundos (los 60FPS) y la rueda (el jugador) se mueve poco (la rueda). Esa reduccion la hacemos con la demora
+
+"sprite sheet" para buscar sprites
+
+
+crear clase enemigo
+
+lograr que el enemigo se mueva de izquierda a derrecha automaticamente
+
+resolver lo del salto del personaje principal
