@@ -20,9 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+""" 
+Alumno: Lionel Prats 
+DNI: 31367577
+División: 1H
+Nro. legajo: 115678
+Practica Ordenamiento
+"""
+
 import os
 import json
 import re
+import time
+import uuid
 
 def limpiar_consola():
     """  
@@ -84,3 +94,63 @@ def imprimir_menu():
 7 - Salir
 '''
     print(menu)
+
+def get_diccionaros_segun_clave(lista: list[dict], key: str, value: str):
+    lista_comprimida = [diccionario for diccionario in lista if diccionario.get(key) == value]
+    return lista_comprimida
+
+def obtener_inteligencia_ingresada(dato: str):
+    diccionario_equivalencias = {
+        "a": "average",
+        "g": "good",
+        "h": "high"
+    }
+    return diccionario_equivalencias.get(dato) if dato in diccionario_equivalencias else False
+
+def obtener_claves_validas():
+    return ("altura", "fuerza", "identidad", "inteligencia", "nombre", "peso")
+
+def guardar_csv(lista: list[dict], nombre_archivo: str):
+    nombre_archivo = generar_nombre_unico_archivo(nombre_archivo)
+    contenido = formatear_a_csv_contenido_lista_diccionarios(lista)
+    try:
+        with open(f"{nombre_archivo}", "w", encoding="utf-8") as nuevo_archivo:
+            nuevo_archivo.write(f"{contenido}")
+        return f"el archivo \"{nombre_archivo}\" ha sido creado correctamente"
+    except:  
+        return False
+    
+def generar_nombre_unico_archivo(nombre_generico, es_json=False):
+    """ 
+    genera un nombre unico para nombrar un archivo
+    recibe un string que sera parte del nombre del archivo\n
+    recibe un parametro opcional, un boolean, para definir si la extension sera .csv o .json
+    retorna una cadena compuesta por dicho string + la fecha unix del momento de la ejecucion de la funcion + un hash aleatorio + la extension que corresponda\n
+    """
+    nombre_generico = nombre_generico.replace(" ","_").lower()
+    timestamp = int(time.time() * 1000) # timestamp en milisegundos
+
+    # uuid -> modulo de Python
+    # uuid4() -> metodo de uuid que genera un identificador único universal (UUID-Universally Unique Identifier) de forma aleatoria
+    # genera un id del tipo 550e8400-e29b-41d4-a716-446655440000, por lo que reemplazo los "-" por ""
+    unique_id = str(uuid.uuid4()).replace("-", "")
+
+    # nombre_archivo = f"{nombre_generico}__{timestamp}_{unique_id}.csv"
+    nombre_archivo = f"{nombre_generico}__{timestamp}_{unique_id}"
+    if es_json:
+        nombre_archivo += ".json"
+    else:
+        nombre_archivo += ".csv"
+    return nombre_archivo
+
+def formatear_a_csv_contenido_lista_diccionarios(lista: list[dict]):
+    nombres_campos = lista[0].keys()
+    contenido = f"{';'.join(nombres_campos)}\n"
+    for diccionario in lista:
+        for v in diccionario.values():
+            contenido += f"{str(v)};"
+        contenido = contenido[:-1]
+        contenido += "\n"
+    contenido = contenido[:-1]
+    
+    return contenido
