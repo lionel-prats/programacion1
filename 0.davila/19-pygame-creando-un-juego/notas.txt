@@ -1,0 +1,41 @@
+main.py vvv 
+
+imagen_fondo = pygame.image.load(PATH_IMAGE + "locations/forest/all.png") # creo un objeto surface
+
+# clock.tick(FPS) -> 1000 (milisegundos) / FPS (determina cuantas veces por segunDo itera el while)
+#  es un valor numerico que representa la cantidad de milisegundos que dura una iteracion del while
+delta_ms = clock.tick(FPS) 
+
+# pygame.display.flip() -> "que el mundo vea nuestra obra de arte"
+
+screen.blit(imagen_fondo, imagen_fondo.get_rect()) # fundo la imagen dentro del rectangulo de la imagen, en la ventana
+
+--------------------
+
+player.py vvv 
+
+def getSurfaceFromSpriteSheet(path, columnas, filas):
+    surface_imagen = pygame.image.load(path) # creo un objeto surface
+
+def __init__(self) -> None:
+
+    self.walk = [] # lista de fotogramas del personake caminando
+
+    self.stay = [] # lista de fotogramas del personake quieto
+
+    self.frame = 0 # indice de la lista renderizada (self.walk o self.stay segun si P esta quieto o caminando)
+
+    self.lives = 5
+
+    self.score = 0
+
+    self.animation = self.stay # va a cargarse la lista self.walk o self.stay segun corresponda, por cada iteracion del while en main.py
+
+    self.image = self.animation[self.frame] # frame a renderizar en cada iteracion del while en main.py
+
+    self.rect = self.image.get_rect() 
+    # rectangulo del frame a renderizar en cada iteracion del while en main.py
+    # <rect(0, 0, 82, 133)> == <rect(coord_x, coord_y, width, height)>
+
+def draw(self, screen):
+    screen.blit(self.image, self.rect) # fundo la imagen dentro del rectangulo de la imagen, en la ventana

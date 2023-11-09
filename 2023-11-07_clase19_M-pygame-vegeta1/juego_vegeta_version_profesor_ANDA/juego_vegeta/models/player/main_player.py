@@ -44,22 +44,22 @@ class Jugador:
         self.__initial_frame = 0
         self.__is_jumping = True
     
-    def caminar(self, direccion: str = 'Derecha'):
-        match direccion:
-            case 'Derecha':
+    def walk(self, direction: str = 'Right'):
+        match direction:
+            case 'Right':
                 look_right = True
                 self.__set_x_animations_preset(self.__speed_walk, self.__walk_r, look_r=look_right)
-            case 'Izquierda':
+            case 'Left':
                 look_right = False
                 self.__set_x_animations_preset(-self.__speed_walk, self.__walk_l, look_r=look_right)
     
-    def volar(self, direccion: str = 'Derecha'):
+    def run(self, direction: str = 'Right'):
         self.__initial_frame = 0
-        match direccion:
-            case 'Derecha':
+        match direction:
+            case 'Right':
                 look_right = True
                 self.__set_x_animations_preset(self.__speed_run, self.__run_r, look_r=look_right)
-            case 'Izquierda':
+            case 'Left':
                 look_right = False
                 self.__set_x_animations_preset(-self.__speed_run, self.__run_l, look_r=look_right)
     
@@ -112,7 +112,7 @@ class Jugador:
         self.do_movement(delta_ms)
         self.do_animation(delta_ms)
     
-    def dibujar_personaje_en_pantalla(self, screen: pg.surface.Surface):
+    def draw(self, screen: pg.surface.Surface):
         if DEBUG:
             pg.draw.rect(screen, 'red', self.__rect)
             #pg.draw.rect(screen, 'green', self.__rect.bottom)
