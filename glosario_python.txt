@@ -1088,3 +1088,19 @@ for fila in range(filas):
         y = fila * alto_fila
         print(f"Coordenada imagen {contador}: ({x},{y}) (ancho imagen = {ancho_columna}; alto imagen = {alto_fila})")
         contador += 1 
+
+----- 
+
+LIMPIAR CONSOLA vvv 
+
+
+def limpiar_consola():
+    import os
+    """  
+    limpia la consola
+    """
+    # os.system('cls' if os.name == 'nt' else 'clear')
+    if os.name in ["ce", "nt", "dos"]: # windows
+      os.system("cls")
+    else: # linux o mac
+      os.system("clear")

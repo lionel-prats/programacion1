@@ -1,51 +1,90 @@
-import pygame
+# import pygame
+from auxiliar import Auxiliar
 from constantes import *
 
-def getSurfaceFromSpriteSheet(path, columnas, filas):
-    lista = []
-    surface_imagen = pygame.image.load(path)
-    fotograma_ancho = int(surface_imagen.get_width() / columnas)
-    fotograma_alto = int(surface_imagen.get_height() / filas)
-
-    # contador = 0
-    for columna in range(columnas):
-        for fila in range(filas):
-            x = columna * fotograma_ancho
-            y = fila * fotograma_alto
-
-            # print(f"Coordenada imagen {contador}: ({x},{y}) (ancho imagen = {fotograma_ancho}; alto imagen = {fotograma_alto})")
-            # contador += 1
-
-            surface_fotograma = surface_imagen.subsurface(x, y, fotograma_ancho, fotograma_alto)
-            lista.append(surface_fotograma)
-    return lista
+Auxiliar.limpiar_consola()
 
 class Player:
-    def __init__(self) -> None:
-        self.walk = getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/walk.png", 15, 1)
-        self.stay = getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/idle.png", 16, 1)
+    def __init__(self, x, y, speed_walk, speed_run, gravity, jump) -> None:
+        self.walk_r = Auxiliar.getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/walk.png", 15, 1)[:12]
+        self.walk_l = Auxiliar.getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/walk.png", 15, 1, flip=True)[:12]
+        self.stay_r = Auxiliar.getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/idle.png", 16, 1)
+        self.stay_l = Auxiliar.getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/idle.png", 16, 1, flip=True)
+        self.jump_r = Auxiliar.getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/jump.png", 33, 1)
+        self.jump_l = Auxiliar.getSurfaceFromSpriteSheet(PATH_IMAGE + "caracters/stink/jump.png", 33, 1, flip=True)
         self.frame = 0
         self.lives = 5
         self.score = 0
-        self.move_x = 0
-        self.move_y = 0
-        self.animation = self.stay
+        self.move_x = x
+        self.move_y = y
+        self.speed_walk = speed_walk
+        self.speed_run = speed_run
+        self.gravity = gravity
+        self.jump = jump
+
+        self.animation = self.stay_r
         self.image = self.animation[self.frame]
         self.rect = self.image.get_rect()
 
-    def control(self, x=0, y=0):
-        self.move_x = x
+        self.is_jump = False
+
+    def control(self, accion, x=0, y=0):
         self.move_y = y
+        if accion == "walk_r":
+            self.animation = self.walk_r
+            self.move_x = self.speed_walk
+        elif accion == "walk_l":
+            # self.move_y = -self.jump
+            # self.animation = self.jump
+            self.animation = self.walk_l
+            self.move_x = -self.speed_walk
+        elif accion == "jump_r":
+            self.move_y = -self.jump
+            self.move_x = self.speed_run
+            self.animation = self.jump_r
+            self.is_jump = True
+        elif accion == "jump_l":
+            self.move_y = -self.jump
+            self.move_x = self.speed_run
+            self.animation = self.jump_l
+            self.is_jump = True
+        elif accion == "stay_r":
+            self.animation = self.stay_r
+            self.move_x = 0
+            self.is_jump = False
+        elif accion == "stay_l":
+            self.animation = self.stay_l
+            self.move_x = 0
+            self.is_jump = False
+        self.frame = 0
+
+        print(self.rect)
 
     def update(self):
-        self.frame += 1
-        if self.frame == (len(self.animation)):
+        # self.frame += 1
+        # if self.frame == (len(self.animation)):
+        #     self.frame = 0
+
+        if self.frame < (len(self.animation) - 1):
+            self.frame += 1
+        else:
             self.frame = 0
+            if self.is_jump == True:
+                self.is_jump = False
+                self.move_y = 0
+
         self.rect.x += self.move_x
         self.rect.y += self.move_y
+ 
+        # if self.rect.y < self.gravity:  
+        #     self.rect.y += self.gravity
+        
+        if self.rect.y < 500:  
+            self.rect.y += self.gravity
+
 
     def draw(self, screen):
-        print(self.rect)
+        # print(self.rect)
         self.image = self.animation[self.frame]
         # self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)

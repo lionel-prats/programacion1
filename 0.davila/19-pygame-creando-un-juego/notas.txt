@@ -39,3 +39,14 @@ def __init__(self) -> None:
 
 def draw(self, screen):
     screen.blit(self.image, self.rect) # fundo la imagen dentro del rectangulo de la imagen, en la ventana
+
+
+--------------------------------------------------------
+
+Lo basico de un elemento del juego es:
+- Dibujarse
+- Actualizarse
+- Controlarse
+- El contructor
+
+el control en el enemigo

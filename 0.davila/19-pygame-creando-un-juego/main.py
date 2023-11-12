@@ -13,7 +13,8 @@ clock = pygame.time.Clock()
 imagen_fondo = pygame.image.load(PATH_IMAGE + "locations/forest/all.png")
 imagen_fondo = pygame.transform.scale(imagen_fondo,(ANCHO_VENTANA, ALTO_VENTANA) )
 
-player1 = Player()
+# player1 = Player(x=0, y=0, speed_walk=4, speed_run=8, gravity=460, jump=5)
+player1 = Player(x=0, y=0, speed_walk=4, speed_run=8, gravity=8, jump=16)
 
 while True:
     for event in pygame.event.get():
@@ -22,15 +23,23 @@ while True:
             sys.exit()
         
         if event.type == pygame.KEYDOWN: 
-            if event.key == pygame.K_LEFT:
-                player1.control(x=-5)
             if event.key == pygame.K_RIGHT:
-                player1.control(x=5)
+                player1.control("walk_r", x=5, y=0)
+            if event.key == pygame.K_LEFT:
+                player1.control("walk_l", x=-5, y=0)
+            if event.key == pygame.K_SPACE:
+                player1.control("jump_r")
+
         
         if event.type == pygame.KEYUP: 
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                player1.control(x=0)
+            if event.key == pygame.K_RIGHT:
+                player1.control("stay_r", x=0, y=0)
+            if event.key == pygame.K_LEFT:
+                player1.control("stay_l", x=0, y=0)
+            if event.key == pygame.K_SPACE:
+                player1.control("stay_r", x=0, y=0)
 
+    screen.blit(imagen_fondo, imagen_fondo.get_rect())
 
     player1.update()
     player1.draw(screen)
@@ -41,8 +50,7 @@ while True:
     
     pygame.display.flip()
 
-    screen.blit(imagen_fondo, imagen_fondo.get_rect())
-
+    
     delta_ms = clock.tick(FPS) 
 
 
