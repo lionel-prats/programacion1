@@ -49,9 +49,6 @@ class Target(pygame.sprite.Sprite):
     
     def change_direction_to(direction):
         pass
-
-    
-        
         # x = random.randrange(-100, 100)
         # y = random.randrange(-100, 100)
 
@@ -92,8 +89,8 @@ for target in range(10):
         pos_x=random.randrange(64, screen_width - 64), 
         pos_y=random.randrange(64, screen_height - 64)
     )
-    target_group.add(new_target)  
-
+    target_group.add(new_target)   
+    
 target_demo = Target(
     picture_path='target.png', 
     pos_x=0, 
@@ -108,8 +105,6 @@ finalY = 0
 
 while True:
 
-
-    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit() 
@@ -121,7 +116,7 @@ while True:
 
     crosshair_group.update()
 
-    # target_group.draw(screen)
+    target_group.draw(screen)
     crosshair_group.draw(screen) 
 
     # list(target_group)[random.randrange(0, len(target_group))].mover_target()
@@ -133,18 +128,18 @@ while True:
     # list(target_group)[8].mover_target(direction="top-left")
 
 
-    if bornX == 0 and bornY == 672:
-        finalX = 672
-        finalY = 0
-        if target_demoX < 672:
-            target_demoX += 2
-            target_demoY -= 2
-        else:
-            target_demoX -= 2
-            target_demoY += 2
+    # if bornX == 0 and bornY == 672:
+    #     finalX = 672
+    #     finalY = 0
+    #     if target_demoX < 672:
+    #         target_demoX += 2
+    #         target_demoY -= 2
+    #     else:
+    #         target_demoX -= 2
+    #         target_demoY += 2
 
-    screen.blit(target_demo.image, (target_demoX, target_demoY))
-    print(target_demoX, target_demoY)
+    # screen.blit(target_demo.image, (target_demoX, target_demoY))
+    # print(target_demoX, target_demoY)
 
     # target_demo.target_control()
 
