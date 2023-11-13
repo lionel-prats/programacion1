@@ -16,9 +16,9 @@ pos_cuadradoX, pos_cuadradoY = random.randint(0, 700), random.randint(0, 700)
 
 direccion_eje_x, direccion_eje_y = 10, -10
 
-direccion = "br"
 
 def blitear_figura(figura, posicion_en_x, posicion_en_y, direccion):
+    mover_hacia(direccion)
     pantalla.blit(figura, (posicion_en_x, posicion_en_y))
 
 
@@ -44,13 +44,14 @@ def mover_hacia(direccion):
         pos_cuadradoX -= direccion_eje_x
         pos_cuadradoY += direccion_eje_y
     
+direccion = "bl"
 while True:
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    mover_hacia(direccion=direccion)
+    # mover_hacia(direccion=direccion)
 
     if pos_cuadradoX + ancho_cuadrado >= ancho_pantalla or pos_cuadradoX <= 0:
         direccion_eje_x *= -1     
