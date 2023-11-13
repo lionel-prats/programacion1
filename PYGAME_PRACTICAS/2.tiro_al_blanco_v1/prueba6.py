@@ -16,14 +16,18 @@ pos_cuadradoX, pos_cuadradoY = random.randint(0, 700), random.randint(0, 700)
 
 direccion_eje_x, direccion_eje_y = 10, -10
 
-direccion = "tl"
+direccion = "br"
 
-def blitear_figura(figura, posicion_en_x, posicion_en_y):
+def blitear_figura(figura, posicion_en_x, posicion_en_y, direccion):
     pantalla.blit(figura, (posicion_en_x, posicion_en_y))
 
 
 def actualizar_direcciones():
-    pass
+    if pos_cuadradoX + ancho_cuadrado >= ancho_pantalla or pos_cuadradoX <= 0:
+        direccion_eje_x *= -1     
+
+    if pos_cuadradoY + alto_cuadrado >= alto_pantalla or pos_cuadradoY <= 0:
+        direccion_eje_y *= -1
 
 def mover_hacia(direccion):
     global pos_cuadradoX, pos_cuadradoY
@@ -57,7 +61,7 @@ while True:
 
     pantalla.fill((0, 0, 0))
 
-    blitear_figura(cuadrado, pos_cuadradoX, pos_cuadradoY)
+    blitear_figura(cuadrado, pos_cuadradoX, pos_cuadradoY, direccion)
 
     pygame.display.flip()
 
