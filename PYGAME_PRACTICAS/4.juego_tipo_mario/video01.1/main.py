@@ -56,11 +56,11 @@ class World():
              screen.blit(tile[0], tile[1])
 
 world_data = [
-[1, 1, 1, 1, 1],
-[1, 0, 0, 0, 1],
-[1, 0, 0, 0, 1],
-[1, 0, 0, 0, 1],
-[1, 2, 2, 2, 1]
+    [1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 2, 2, 2, 1]
 ]
 
 world = World(world_data)
@@ -72,7 +72,7 @@ while run:
     screen.blit(bg_img, (0,0))
     screen.blit(sun_img, (100,100))
     
-    world.draw()
+    # world.draw()
     draw_grid()
 
     for event in pygame.event.get():
@@ -85,5 +85,5 @@ while run:
 pygame.quit()
 
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario/video01.1
 # python main.py
