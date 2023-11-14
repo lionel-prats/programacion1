@@ -40,11 +40,9 @@ for i in range(cantidad_cuadrados):
     pos_cuadradoY.append(random.randint(0, 700))
     direccion_eje_x.append(random.choice(multiplos_de_5_positivos))
     direccion_eje_y.append(random.choice(multiplos_de_5_negativos))
-    # direccion_eje_x.append(random.randint(5, 15))
-    # direccion_eje_y.append(random.randint(-15, -5))
     direccion.append(direcciones_iniciales_posibles[random.randint(0, 3)])
 
-def blitear_figura(figura, posicion_en_x, posicion_en_y, direccion, direccion_eje_x, direccion_eje_y, alto_cuadrado, ancho_cuadrado, i):
+def blitear_figura(figura, posicion_en_x, posicion_en_y, direccion, i):
     mover_hacia(direccion, i)
     actualizar_direcciones(i)
     pantalla.blit(figura, (posicion_en_x, posicion_en_y))
@@ -69,6 +67,11 @@ def mover_hacia(direccion, i):
         pos_cuadradoX[i] -= direccion_eje_x[i]
         pos_cuadradoY[i] += direccion_eje_y[i]
 
+def draw_grid():
+	for line in range(0, 13):
+		pygame.draw.line(surface=pantalla, color=(255, 255, 255), start_pos=(0, line * 100), end_pos=(ancho_pantalla, line * 100), width=1) # lineas paralelas al eje x
+		pygame.draw.line(surface=pantalla, color=(255, 255, 255), start_pos=(line * 100, 0), end_pos=(line * 100, alto_pantalla), width=1) # lineas paralelas al eje y
+
 while True:
 
     for evento in pygame.event.get():
@@ -77,9 +80,9 @@ while True:
             sys.exit()
 
     pantalla.fill((0, 0, 0))
-
+    draw_grid()
     for i in range(cantidad_cuadrados):
-        blitear_figura(cuadrado[i], pos_cuadradoX[i], pos_cuadradoY[i], direccion[i], direccion_eje_x[i], direccion_eje_y[i], alto_cuadrado[i], ancho_cuadrado[i], i)
+        blitear_figura(cuadrado[i], pos_cuadradoX[i], pos_cuadradoY[i], direccion[i], i)
 
     pygame.display.flip()
 
