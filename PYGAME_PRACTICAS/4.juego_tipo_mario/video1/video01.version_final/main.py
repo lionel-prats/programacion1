@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import * 
 from auxiliar import *
 from variables import *
-from classes.world import World
+from modulos.world import World
 
 limpiar_consola()
 
