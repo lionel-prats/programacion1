@@ -1,0 +1,51 @@
+Clase 21 - Martes 14/11/23 
+
+pygame.Surface.convert_alpha
+https://www.pygame.org/docs/ref/surface.html#pygame.Surface.convert_alpha
+
+Modificador de fondo de imagen
+https://www.photoroom.com/tools/background-remover
+
+Borrador de fondos para fotos
+https://photoaid.com/es/tools/remove-background
+
+Tiled
+https://www.mapeditor.org/
+
+"How do you start Pixel Art?" ...Here's what I did!
+https://www.youtube.com/watch?v=WUlgvNe4BLU
+
+Recursos de audio
+https://kenney.nl/assets/interface-sounds
+
+Para la UI
+https://kenney.nl/assets/tag:interface
+
+Inspiracion
+https://www.pygameawards.fun/nominados
+
+?
+https://kenney.nl/assets/top-down-shooter
+
+Metal Slug Survival
+https://www.youtube.com/watch?v=cEATm-2cTYs
+
+Github para implementar videos (aparanetemente)
+https://github.com/ree1261/pyvidplayer2
+
+Truco para evitar la publicidad en YouTube sin garpar
+/ ************************************************ \ 
+1.) Deshabilitar la ventana emergente de anuncios de YouTube 
+2.) Descargue e instale uBlock Origin 
+3.)Elimine todas las extensiones de adblock existentes en su navegador. 
+4.) Seleccione "uBlock Origin" en la pestaña de extensiones y haga clic en el icono de configuración. 
+5.) Haga clic en la pestaña “Mis filtros”. 
+6.) Copia y pega el siguiente código:
+youtube.com##+js(conjunto, yt.config_.openPopupConfig.supportedPopups.adBlockMessageViewModel, falso) youtube.com##+js(conjunto, Object.prototype.adBlocksFound, 0) youtube.com##+js(conjunto, ytplayer.config.args.raw_player_response.adPlacements, []) youtube.com##+js(conjunto, Object.prototype.hasAllowedInstreamAd, verdadero) 
+7.) Haga clic en "Aplicar cambios" e intente ver algunos videos de YouTube. 
+8.) Hecho! La ventana emergente de bloqueo de anuncios de YouTube y los anuncios deberían desaparecer ahora
+/ ************************************************ \ 
+
+--------------------------------------------------------------------------------
+
+Clase 22 - Jueves 16/11/23 

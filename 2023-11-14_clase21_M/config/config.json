@@ -1,0 +1,8 @@
+{
+    "enemy_img": "./graphics/{0}.png",
+    "max_amounut_enemies": 5,
+    "max_enemy_speed": 20,
+    "min_enemy_speed": 4,
+    "percentage_shoot": 10,
+    "player_img": "./graphics/player.png"
+}
