@@ -1,9 +1,5 @@
 import os
 import pygame 
-import json
-from variables import CONFIG_FILE_PATH
-
-
 
 def draw_grid(screen, screen_width, screen_height, tile_size):
 	for line in range(0, int(screen_width/tile_size)):
@@ -19,7 +15,3 @@ def limpiar_consola():
     os.system("cls")
   else: # linux o mac
     os.system("clear")
-
-def open_configs() -> dict:
-    with open(CONFIG_FILE_PATH, 'r', encoding='utf-8') as config:
-        return json.load(config)

@@ -1,23 +1,21 @@
 import pygame 
 
 class Player():
-    def __init__(self, player_configs: dict):
-        self.player_configs = player_configs
-        print()
+    def __init__(self, x, y):
         self.images_right = []
         self.images_left = []
         self.index = 0
         self.counter = 0
         for num in range(1,5):
             img_right = pygame.image.load(f"img/guy{num}.png")
-            img_right = pygame.transform.scale(img_right, (self.player_configs.get("rect_width"), self.player_configs.get("rect_height")))
+            img_right = pygame.transform.scale(img_right, (40,80))
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
             self.images_left.append(img_left)
         self.image = self.images_right[self.index]     
         self.rect = self.image.get_rect()
-        self.rect.x = player_configs.get("coord_x")
-        self.rect.y = player_configs.get("coord_x")
+        self.rect.x = x
+        self.rect.y = y
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
@@ -25,21 +23,21 @@ class Player():
     def update(self, screen, screen_height):
         dx = 0
         dy = 0
-        walk_cooldown = self.player_configs.get("animation").get("walk_cooldown")
+        walk_cooldown = 5
         
         key = pygame.key.get_pressed() # get kypresses
 
         if key[pygame.K_SPACE] and self.jumped == False:
-            self.vel_y = self.player_configs.get("animation").get("vel_y")
+            self.vel_y = -15 
             self.jumped = True
         if key[pygame.K_SPACE] == False:
             self.jumped = False
         if key[pygame.K_LEFT]:
-            dx -= self.player_configs.get("animation").get("dx")
+            dx -= 5
             self.counter += 1
             self.direction = -1
         if key[pygame.K_RIGHT]:
-            dx += self.player_configs.get("animation").get("dx")
+            dx += 5
             self.counter += 1
             self.direction = 1
         if not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
