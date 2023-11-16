@@ -3,13 +3,6 @@ import pygame
 import json
 from variables import CONFIG_FILE_PATH
 
-
-
-def draw_grid(screen, screen_width, screen_height, tile_size):
-	for line in range(0, int(screen_width/tile_size)):
-		pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(0, line * tile_size), end_pos=(screen_width, line * tile_size), width=1)
-		pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(line * tile_size, 0), end_pos=(line * tile_size, screen_height), width=1)
-
 def limpiar_consola():
   """  
   limpia la consola

@@ -41,6 +41,8 @@ class Player():
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
         self.direction = 0
@@ -91,10 +93,25 @@ class Player():
         self.vel_y += 1
         if self.vel_y > 10:
             self.vel_y = 10
-
         dy += self.vel_y
-        # check for collision
+        
+        if world.tile_list[54][1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height): 
+            print(True)
+        else:
+            print(False)
 
+        # check for collision
+        for tile in world.tile_list: 
+            # check for collision in y direction tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>) self.rect ==  <rect(100, 920, 40, 80)>
+            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height): 
+                pass
+                # check if below the ground i.e jumping | self.vel_y toma valores entre -14 (en subida o en bajada de un salto) y 10
+                if self.vel_y < 0: 
+                    dy = tile[1].bottom - self.rect.top
+                # check if above the ground i.e falling
+                if self.vel_y >= 0:
+                    dy = tile[1].top - self.rect.bottom
+            
         # update player coordinates
         self.rect.x += dx 
         self.rect.y += dy 
@@ -104,6 +121,7 @@ class Player():
             dy = 0
 
         screen.blit(self.image, self.rect) # draw player onto screen
+        pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
 class World():
     def __init__(self, data):
@@ -138,7 +156,8 @@ class World():
 
     def draw(self):
         for tile in self.tile_list:
-             screen.blit(tile[0], tile[1])
+            screen.blit(tile[0], tile[1])
+            pygame.draw.rect(screen, (255,255,255), tile[1], 2)
 
 world_data = [
 [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 
@@ -163,21 +182,23 @@ world_data = [
 [1, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 ]
 
-player = Player(100, screen_height - 130)
+player = Player(100, screen_height - 50)
+# player = Player(350, 50)
+
 world = World(world_data)
 
 run = True
 while run:
+    # print(player.rect)
 
     clock.tick(fps)
 
     screen.blit(bg_img, (0,0))
     screen.blit(sun_img, (100,100))
     
-
     world.draw()
     player.update()
-    draw_grid()
+    # draw_grid()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -190,5 +211,5 @@ while run:
 pygame.quit()
 
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario/video3/video03.1
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario/video4/video04.1
 # python main.py

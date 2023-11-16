@@ -9,22 +9,26 @@ limpiar_consola()
 
 pygame.init()
 
+configs = open_configs()
+
 clock = pygame.time.Clock()
 
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("screen").get("screen_height"))
+screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("Platformer")
 
 # load images 
+# sun_img = pygame.image.load(configs.get("screen").get("images").get("sky"))
 sun_img = pygame.image.load("img/sun.png")
 bg_img = pygame.image.load("img/sky.png")
 
-player = Player(100, screen_height - 130)
-world = World(world_data, tile_size)
+player = Player(configs.get("player1"))
+world = World(configs.get("screen"))
 
 run = True
 while run:
 
-    clock.tick(fps)
+    clock.tick(configs.get("fps"))
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -32,10 +36,13 @@ while run:
 
     screen.blit(bg_img, (0,0))
     screen.blit(sun_img, (100,100))
+    # world.draw_backgroung()
     
     world.draw(screen)
-    player.update(screen, screen_height)
-    draw_grid(screen, screen_width, screen_height, tile_size)
+
+    player.update(screen, configs.get("screen").get("screen_height"))
+
+    world.draw_grid(screen)
 
     pygame.display.update()
 

@@ -17,7 +17,7 @@ class Player():
         self.image = self.images_right[self.index]     
         self.rect = self.image.get_rect()
         self.rect.x = player_configs.get("coord_x")
-        self.rect.y = player_configs.get("coord_x")
+        self.rect.y = player_configs.get("coord_y")
         self.vel_y = 0
         self.jumped = False
         self.direction = 0

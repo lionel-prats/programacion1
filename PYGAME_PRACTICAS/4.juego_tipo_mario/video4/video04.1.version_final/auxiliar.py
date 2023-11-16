@@ -1,10 +1,7 @@
 import os
 import pygame 
-
-def draw_grid(screen, screen_width, screen_height, tile_size):
-	for line in range(0, int(screen_width/tile_size)):
-		pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(0, line * tile_size), end_pos=(screen_width, line * tile_size), width=1)
-		pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(line * tile_size, 0), end_pos=(line * tile_size, screen_height), width=1)
+import json
+from variables import CONFIG_FILE_PATH
 
 def limpiar_consola():
   """  
@@ -15,3 +12,7 @@ def limpiar_consola():
     os.system("cls")
   else: # linux o mac
     os.system("clear")
+
+def open_configs() -> dict:
+    with open(CONFIG_FILE_PATH, 'r', encoding='utf-8') as config:
+        return json.load(config)
