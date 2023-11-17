@@ -1,2 +1,5 @@
 MODULO DRAW
 https://www.pygame.org/docs/ref/draw.html
+
+MODULO TIME
+https://www.pygame.org/docs/ref/time.html

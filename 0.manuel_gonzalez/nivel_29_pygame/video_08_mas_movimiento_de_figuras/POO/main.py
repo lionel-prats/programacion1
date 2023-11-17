@@ -1,5 +1,6 @@
 import pygame 
-from enemy import Enemy
+from modules.screen import Screen
+from modules.enemy import Enemy
 
 pygame.init()
 
@@ -14,7 +15,9 @@ BLUE = (0,0,255)
 
 # screen
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
-print(screen.get_rect())
+# print(screen.get_rect())
+
+screen = Screen(WIDTH, HEIGHT, BLACK)
 
 square_1 = Enemy((0, 100, 50, 50), RED)
 square_2 = Enemy((400, 500, 50, 50), BLUE)
@@ -33,11 +36,12 @@ while run:
                 run = False
 
     # dibujos
-    screen.fill((BLACK))
+    # screen.fill((BLACK))
     square_1.update(screen, "from_right_to_left")
     square_2.update(screen, "to_left")
     square_3.update(screen, "diagonal")
-    
+    # print(square_3.__getstate__())
+
     # actualizar
     pygame.display.update()
 
