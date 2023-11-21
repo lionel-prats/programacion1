@@ -13,6 +13,7 @@ class Player():
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
             self.images_left.append(img_left)
+        self.dead_image = pygame.image.load(self.player_configs.get("dead_image"))
         self.image = self.images_right[self.index]     
         self.rect = self.image.get_rect()
         self.rect.x = player_configs.get("coord_x") # 100
@@ -30,76 +31,82 @@ class Player():
 
         walk_cooldown = self.player_configs.get("animation").get("walk_cooldown") # 5
         
-        key = pygame.key.get_pressed() # get kypresses
+        if game_over == 0:
+            key = pygame.key.get_pressed() # get kypresses
 
-        if key[pygame.K_SPACE] and self.jumped == False:
-            self.vel_y = self.player_configs.get("animation").get("vel_y") # -15
-            self.jumped = True
-        if key[pygame.K_SPACE] == False:
-            self.jumped = False
-        if key[pygame.K_LEFT]:
-            dx -= self.player_configs.get("animation").get("dx") # 5
-            self.counter += 1
-            self.direction = -1
-        if key[pygame.K_RIGHT]:
-            dx += self.player_configs.get("animation").get("dx") # 5
-            self.counter += 1
-            self.direction = 1
-        if not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
-            self.counter = 0
-            self.index = 0
-            if self.direction == 1: # player moving to the right
-                self.image = self.images_right[self.index]
-            if self.direction == -1: # player moving to the right
-                self.image = self.images_left[self.index]
-
-        # handle animation
-        if self.counter > walk_cooldown:
-            self.counter = 0
-            self.index += 1
-            if self.index >= len(self.images_right) - 1:
+            if key[pygame.K_SPACE] and self.jumped == False:
+                self.vel_y = self.player_configs.get("animation").get("vel_y") # -15
+                self.jumped = True
+            if key[pygame.K_SPACE] == False:
+                self.jumped = False
+            if key[pygame.K_LEFT]:
+                dx -= self.player_configs.get("animation").get("dx") # 5
+                self.counter += 1
+                self.direction = -1
+            if key[pygame.K_RIGHT]:
+                dx += self.player_configs.get("animation").get("dx") # 5
+                self.counter += 1
+                self.direction = 1
+            if not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
+                self.counter = 0
                 self.index = 0
-            if self.direction == 1: # player moving to the right
-                self.image = self.images_right[self.index]
-            if self.direction == -1: # player moving to the right
-                self.image = self.images_left[self.index]
-            # self.image = self.images_right[self.index]
+                if self.direction == 1: # player moving to the right
+                    self.image = self.images_right[self.index]
+                if self.direction == -1: # player moving to the right
+                    self.image = self.images_left[self.index]
+
+            # handle animation
+            if self.counter > walk_cooldown:
+                self.counter = 0
+                self.index += 1
+                if self.index >= len(self.images_right) - 1:
+                    self.index = 0
+                if self.direction == 1: # player moving to the right
+                    self.image = self.images_right[self.index]
+                if self.direction == -1: # player moving to the right
+                    self.image = self.images_left[self.index]
+                # self.image = self.images_right[self.index]
+                
+            # add gravity 
+            self.vel_y += 1 # -14|-13|-12...9|10|10|10
+            if self.vel_y > 10:
+                self.vel_y = 10
+
+            dy += self.vel_y
             
-        # add gravity 
-        self.vel_y += 1 # -14|-13|-12...9|10|10|10
-        if self.vel_y > 10:
-            self.vel_y = 10
+            # check for collision
+            for tile in tile_list: 
 
-        dy += self.vel_y
-        
-        # check for collision
-        for tile in tile_list: 
+                # check for collision in x direction 
+                if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height): # dx = +/-5 or 0
+                    dx = 0
 
-            # check for collision in x direction 
-            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height): # dx = +/-5 or 0
-                dx = 0
+                # if tile[1].colliderect(self.rect): 
+                # tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>)
+                # check for collision in y direction 
+                if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height): 
+                    # check if below the ground i.e jumping 
+                    # self.vel_y toma valores entre de entr -14 y 1 (durante la curva de un salto), y de entre 0 y 10 con  el player en reposo
+                    if self.vel_y < 0: # el player esta durante la curva de un salto, entonces la colision es entre rl bottom del tile y el top del player
+                        dy = tile[1].bottom - self.rect.top # 0
+                        self.vel_y = 0
+                    # check if above the ground i.e falling
+                    elif self.vel_y >= 0: # el player esta en reposo, entonces la colision es entre el bottom del player y el top del tile
+                        dy = tile[1].top - self.rect.bottom # 0
+                        self.vel_y = 0
 
-            # if tile[1].colliderect(self.rect): 
-            # tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>)
-            # check for collision in y direction 
-            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height): 
-                # check if below the ground i.e jumping 
-                # self.vel_y toma valores entre de entr -14 y 1 (durante la curva de un salto), y de entre 0 y 10 con  el player en reposo
-                if self.vel_y < 0: # el player esta durante la curva de un salto, entonces la colision es entre rl bottom del tile y el top del player
-                    dy = tile[1].bottom - self.rect.top # 0
-                    self.vel_y = 0
-                # check if above the ground i.e falling
-                elif self.vel_y >= 0: # el player esta en reposo, entonces la colision es entre el bottom del player y el top del tile
-                    dy = tile[1].top - self.rect.bottom # 0
-                    self.vel_y = 0
+            # update rect player coordinates
+            self.rect.x += dx # +/-5 or 0
+            self.rect.y += dy 
 
-        # update rect player coordinates
-        self.rect.x += dx # +/-5 or 0
-        self.rect.y += dy 
-        
-        if self.rect.bottom > screen_height:
-            self.rect.bottom = screen_height
-            # dy = 0    
+        # el player perdio la vida, animacion del fantasma subiendo
+        if game_over == -1:
+            self.image = self.dead_image
+            if self.rect.y > 200:
+                self.rect.y -= 3
+
+        screen.blit(self.image, self.rect) # draw player onto screen    
+        pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
         # print(self.vel_y, self.rect.y)
         # self.rect.y when start the game vvv
@@ -146,5 +153,4 @@ class Player():
         # self.vel_y=10 self.rect.y=910 DOWN
         # self.vel_y=10 self.rect.y=920...
 
-        screen.blit(self.image, self.rect) # draw player onto screen    
-        pygame.draw.rect(screen, (255,0,0), self.rect, 2)
+        

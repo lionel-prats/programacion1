@@ -35,6 +35,7 @@
     },
     "player1": {
         "path_image": "img/guy{num}.png",
+        "dead_image": "img/ghost.png",
         "rect_width": 40,
         "rect_height": 80,
         "coord_x": 100,

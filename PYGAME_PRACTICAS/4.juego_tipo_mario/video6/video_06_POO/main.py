@@ -34,6 +34,8 @@ world = World(configs.get("screen"),
               configs.get("enemies"), 
               enemy_sprite_group=enemies_group)
 
+print(enemies_group)
+
 run = True
 while run:
 
@@ -50,12 +52,18 @@ while run:
     
     world.draw(screen)
 
+    if game_over == 0:
+        enemies_group.update()
+        
     # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
-    # .update -> metodo de la clase Group que busca y ejecuta el metodo update() de los sprites que tenga dentro
-    enemies_group.update()
     enemies_group.draw(screen)
 
+    # check for collision with enemies
+    if pygame.sprite.spritecollide(player, enemies_group, False):
+        game_over = -1
+
     player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list, game_over=game_over)
+
 
     world.draw_grid(screen)
 
