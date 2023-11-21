@@ -36,13 +36,17 @@ class World():
                     enemy_path_image = enemy_configs.get("blob").get("path_image")
                     enemy_height_image = enemy_configs.get("blob").get("height_image")
                     compensation_y = self.screen_configs.get("tile_size") - enemy_height_image
-                    enemy = Enemy(enemy_path_image, 
-                                 col_count * self.screen_configs.get("tile_size"), 
-                                 row_count * self.screen_configs.get("tile_size") + compensation_y)
-                    # enemy = Blob(enemy_path_image, 
+                    # enemy = Enemy(enemy_path_image, 
                     #              col_count * self.screen_configs.get("tile_size"), 
                     #              row_count * self.screen_configs.get("tile_size") + compensation_y)
+                    
+                    enemy = Blob(enemy_path_image, 
+                                 col_count * self.screen_configs.get("tile_size"), 
+                                 row_count * self.screen_configs.get("tile_size") + compensation_y)
+
                     enemy_sprite_group.add(enemy)
+                if tile == "bomb":
+                    pass
                     
                 col_count += 1
             row_count += 1

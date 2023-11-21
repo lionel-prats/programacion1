@@ -47,8 +47,12 @@
     },
     "enemies": {
         "blob": {
-            "tile": 3,
             "path_image": "img/blob.png",
+            "width_image": 46,
+            "height_image": 35
+        },
+        "bomb": {
+            "path_image": "img/bomb.png",
             "width_image": 46,
             "height_image": 35
         }

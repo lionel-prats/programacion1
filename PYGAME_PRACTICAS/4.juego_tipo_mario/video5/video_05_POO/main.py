@@ -26,20 +26,11 @@ bg_img = pygame.image.load("img/sky.png")
 
 player = Player(configs.get("player1"))
 
-blob_group = pygame.sprite.Group()
+enemies_group = pygame.sprite.Group()
 
-world = World(configs.get("screen"), configs.get("enemies"), enemy_sprite_group=blob_group)
-
-
-# class Prueba_video_5(pygame.sprite.Sprite):
-# 	def __init__(self, x, y):
-#             pygame.sprite.Sprite.__init__(self)
-#             self.image = pygame.image.load('img/start_btn.png')
-#             self.image = pygame.transform.scale(self.image, (100,100))
-#             self.rect = self.image.get_rect()
-#             self.rect.x = x
-#             self.rect.y = y
-# blob_group.add(Prueba_video_5(50,50))
+world = World(configs.get("screen"), 
+              configs.get("enemies"), 
+              enemy_sprite_group=enemies_group)
 
 run = True
 while run:
@@ -59,8 +50,8 @@ while run:
 
     # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
     # .update -> metodo de la clase Group que busca y ejecuta el metodo update() de los sprites que tenga dentro
-    blob_group.update()
-    blob_group.draw(screen)
+    enemies_group.update()
+    enemies_group.draw(screen)
 
     player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list)
 

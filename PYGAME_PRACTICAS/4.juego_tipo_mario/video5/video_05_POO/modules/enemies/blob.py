@@ -3,7 +3,7 @@ from modules.enemies.enemy import Enemy
 
 class Blob(Enemy):
     def __init__(self, image, x, y):
-        Enemy.__init__(self)
+        Enemy.__init__(self, image, x, y)
         self.image = pygame.image.load(image)
         self.rect = self.image.get_rect()
         self.rect.x = x
