@@ -19,6 +19,8 @@ screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("scr
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("VIDEO 6 - POO")
 
+game_over = 0
+
 # load images 
 # sun_img = pygame.image.load(configs.get("screen").get("images").get("sky"))
 sun_img = pygame.image.load("img/sun.png")
@@ -53,7 +55,7 @@ while run:
     enemies_group.update()
     enemies_group.draw(screen)
 
-    player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list)
+    player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list, game_over=game_over)
 
     world.draw_grid(screen)
 

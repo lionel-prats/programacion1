@@ -23,7 +23,7 @@ class Player():
         self.jumped = False
         self.direction = 0 
 
-    def update(self, screen, screen_height, tile_list: list[tuple]):
+    def update(self, screen, screen_height, tile_list: list[tuple], game_over):
         
         dx = 0
         dy = 0

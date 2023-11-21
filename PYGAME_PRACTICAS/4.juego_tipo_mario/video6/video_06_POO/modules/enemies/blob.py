@@ -1,13 +1,8 @@
-import pygame 
 from modules.enemies.enemy import Enemy
 
 class Blob(Enemy):
     def __init__(self, image, x, y):
         Enemy.__init__(self, image, x, y)
-        self.image = pygame.image.load(image)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
         self.move_direction = 1
         self.move_counter = 0
 
