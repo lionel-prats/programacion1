@@ -15,7 +15,7 @@ clock = pygame.time.Clock()
 
 screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("screen").get("screen_height"))
 screen = pygame.display.set_mode(screen_dimentions)
-pygame.display.set_caption("Platformer")
+pygame.display.set_caption("VIDEO 3 - POO")
 
 # load images 
 # sun_img = pygame.image.load(configs.get("screen").get("images").get("sky"))
@@ -31,12 +31,13 @@ while run:
     clock.tick(configs.get("fps"))
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or (event.type == \
+            pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             run = False
 
     screen.blit(bg_img, (0,0))
     screen.blit(sun_img, (100,100))
-    # world.draw_backgroung()
+    # world.draw_backgroung(screen)
     
     world.draw(screen)
 

@@ -478,6 +478,26 @@ print(lista_remove)
 
 # -----------------------------------------------------------------------------------------------
 
+TIP AL SUSAR remove() 
+- en este ejemplo, quiero remover elementos de una lista si sus valores coinciden con 4 o 6
+- itero la lista con el for y valido para remover
+- si itero la lista original (la lista de la que busco remover elementos), como se ve, puede generar errores
+- la solucion esta en iterar una copia de la lista -> for numero in list(lista_original): vvv
+
+lista_1 = [2,4,6,8]
+for numero in lista_1:
+    if numero == 4 or numero == 6:
+        lista_1.remove(numero)   
+print(lista_1) # [2, 6, 8]
+# --------------------------------------
+lista_2 = [2,4,6,8]
+for numero in list(lista_2):
+    if numero == 4 or numero == 6:
+        lista_2.remove(numero)   
+print(lista_2) # [2, 8]
+
+# -----------------------------------------------------------------------------------------------
+
 # index()
 
 # el metodo index() recibe como parametro un objeto y devuelve el indice de su primera aparicion

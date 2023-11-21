@@ -93,5 +93,5 @@ while jugando:
 # Salir
 pygame.quit()
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/0.manuel_gonzalez/nivel_29_pygame/video_12_moviendo_personaje_en_pygame
-# python 1000.final.py
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/0.manuel_gonzalez/nivel_29_pygame/video_14_animacion_de_figuras
+# python 1.clase.py

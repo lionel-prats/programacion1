@@ -1,0 +1,11 @@
+dir(Rect|objeto Rect) -> proporciona una lista con los atributos y metodos de la clase vvv
+
+from pygame import Rect
+mi_rectangulo = Rect(400, 300, 50, 50)
+print(dir(Rect))
+print(dir(mi_rectangulo))
+
+
+
+----------------------------------------
+

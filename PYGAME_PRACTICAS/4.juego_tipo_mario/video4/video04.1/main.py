@@ -5,13 +5,12 @@ pygame.init()
 
 clock = pygame.time.Clock()
 fps = 60
-print(clock)
 
 screen_width = 1000
 screen_height  = 1000
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Platformer")
+pygame.display.set_caption("VIDEO 4 - PROFESOR")
 
 # define game variables 
 tile_size = 50
@@ -48,7 +47,7 @@ class Player():
         self.direction = 0
         
     def update(self):
-
+        
         dx = 0
         dy = 0
         walk_cooldown = 5
@@ -93,25 +92,33 @@ class Player():
         self.vel_y += 1
         if self.vel_y > 10:
             self.vel_y = 10
-        dy += self.vel_y
-        
-        if world.tile_list[54][1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height): 
-            print(True)
-        else:
-            print(False)
+        dy += self.vel_y # -14|-13|-12...9|10|10|10
 
+        # print(world.tile_list[54][1].colliderect(self.rect))
+       
         # check for collision
         for tile in world.tile_list: 
-            # check for collision in y direction tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>) self.rect ==  <rect(100, 920, 40, 80)>
+
+            # check for collision in x direction 
+            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height): # dx = +/-5 or 0
+                dx = 0
+
+            # if tile[1].colliderect(self.rect): 
+            # tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>)
+            # check for collision in y direction 
             if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height): 
-                pass
-                # check if below the ground i.e jumping | self.vel_y toma valores entre -14 (en subida o en bajada de un salto) y 10
-                if self.vel_y < 0: 
-                    dy = tile[1].bottom - self.rect.top
+                
+                # hay colision entre el player y alguno de los tiles
+                # check if below the ground i.e jumping 
+                # self.vel_y toma valores entre de entr -14 y 1 (durante la curva de un salto), y de entre 0 y 10 con  el player en reposo
+                if self.vel_y < 0: # el player esta durante la curva de un salto, entonces la colision es entre rl bottom del tile y el top del player
+                    dy = tile[1].bottom - self.rect.top # 0
+                    self.vel_y = 0
                 # check if above the ground i.e falling
-                if self.vel_y >= 0:
-                    dy = tile[1].top - self.rect.bottom
-            
+                elif self.vel_y >= 0: # el player esta en reposo, entonces la colision es entre el bottom del player y el top del tile
+                    dy = tile[1].top - self.rect.bottom # 0
+                    self.vel_y = 0
+
         # update player coordinates
         self.rect.x += dx 
         self.rect.y += dy 
@@ -201,7 +208,8 @@ while run:
     # draw_grid()
 
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if event.type == pygame.QUIT or (event.type == \
+            pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             run = False
 
     

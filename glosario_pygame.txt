@@ -30,7 +30,7 @@ https://kenney.nl/assets/top-down-shooter
 Metal Slug Survival
 https://www.youtube.com/watch?v=cEATm-2cTYs
 
-Github para implementar videos (aparanetemente)
+Github para implementar videos (aparentemente)
 https://github.com/ree1261/pyvidplayer2
 
 Truco para evitar la publicidad en YouTube sin garpar
@@ -48,4 +48,6 @@ youtube.com##+js(conjunto, yt.config_.openPopupConfig.supportedPopups.adBlockMes
 
 --------------------------------------------------------------------------------
 
-Clase 22 - Jueves 16/11/23 
+APPS de escritorio para dibujar y trabajar con imagenes
+https://www.gimp.org/
+https://krita.org/
