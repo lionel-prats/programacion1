@@ -5,12 +5,12 @@ class Enemy(pygame.sprite.Sprite):
     def __init__(self, image, x, y):
         pygame.sprite.Sprite.__init__(self)
         # self.image = pygame.image.load('img/blob.png')
-        self.image = pygame.image.load(image)
-        self.rect = self.image.get_rect()
-        self.rect.x = x
-        self.rect.y = y
-        self.move_direction = 1
-        self.move_counter = 0
+        # self.image = pygame.image.load(image)
+        # self.rect = self.image.get_rect()
+        # self.rect.x = x
+        # self.rect.y = y
+        # self.move_direction = 1
+        # self.move_counter = 0
 
     # def update(self):
         

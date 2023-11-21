@@ -54,9 +54,11 @@ class World():
 
                     enemy_path_image = enemy_configs.get("lava").get("path_image")
                     enemy_height_image = enemy_configs.get("lava").get("height_image")
+                    coord_x = col_count * self.screen_configs.get("tile_size")
+                    coord_y = row_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size") // 2)
                     lava = Lava(enemy_path_image, 
-                                col_count * self.screen_configs.get("tile_size"), 
-                                row_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size") // 2),
+                                coord_x, 
+                                coord_y,
                                 self.screen_configs.get("tile_size")
                                 )
                     enemy_sprite_group.add(lava)
