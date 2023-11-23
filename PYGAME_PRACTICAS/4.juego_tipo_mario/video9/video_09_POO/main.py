@@ -46,8 +46,6 @@ world = World(configs.get("screen"),
               utilities_group=utilities_group,
               current_level=current_level)
 
-# print(enemies_group)
-print(utilities_group)
 
 # create buttons 
 restart_button = Button(configs.get("buttons").get("restart"))
@@ -57,6 +55,8 @@ exit_button = Button(configs.get("buttons").get("exit"))
 run = True
 while run:
 
+    print(current_level)
+    
     clock.tick(configs.get("fps"))
 
     for event in pygame.event.get():
@@ -92,6 +92,7 @@ while run:
         # check for collision between player and exit
         if pygame.sprite.spritecollide(player, utilities_group, False):
             game_over = 1
+           
 
         
         # if player has died
@@ -110,18 +111,38 @@ while run:
                 utilities_group.empty()
                 player.reset(configs.get("player1"))
                 # world_data = []
-                # world = reset_level(current_level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
+                world = world.reset_level(
+                    configs.get("screen"), 
+                    configs.get("enemies"), 
+                    enemy_sprite_group=enemies_group,
+                    utilities_configs=configs.get("utilities"),
+                    utilities_group=utilities_group,
+                    current_level=current_level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
-            # else: 
-            #     # restart game 
+            else: 
+                # restart game 
                 
-            #     if restart_button.draw():
-            #         level = 0
-            #         world_data = []
-            #         world = reset_level(level)
-            #         game_over = 0 # habilito que se siga moviendo el player y los enemigos
+                if restart_button.draw(screen):
+                    enemies_group.empty()
+                    utilities_group.empty()
+                    player.reset(configs.get("player1"))
 
-        print(current_level)
+                    current_level = 1
+                    # world_data = []
+                    world = world.reset_level(
+                    configs.get("screen"), 
+                    configs.get("enemies"), 
+                    enemy_sprite_group=enemies_group,
+                    utilities_configs=configs.get("utilities"),
+                    utilities_group=utilities_group,
+                    current_level=current_level)
+                    game_over = 0 # habilito que se siga moviendo el player y los enemigos
+                    print(game_over)
+                    # enemies_group.empty()
+                    # utilities_group.empty()
+
+        
+        # print(current_level)
 
         player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list, game_over=game_over)
 

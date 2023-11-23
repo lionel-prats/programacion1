@@ -92,12 +92,8 @@ class World():
 
     # function to reset level
     # @staticmethod
-    def reset_level(self, level, enemies_group, utilities_group):
-        # player.reset(100, screen_height - 50) # reseteo los atributos del platyer para que se blitee en la posicion inicial luego de pasar de nivel y ya en el nuevo escenario
-        # player.reset(850, 50)
-        # enemies_group.empty() # empty() -> metodo de la clase Group() que elimina todos los sprites de un objeto Group
-        # utilities_group.empty()
-        world = World(world_data) # nueva instancia de World con el mapa del nivel que corresponda
+    def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, current_level):
+        world = World(screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, current_level) # nueva instancia de World con el mapa del nivel que corresponda
         return world
     
 
