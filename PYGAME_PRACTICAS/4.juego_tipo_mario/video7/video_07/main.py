@@ -10,7 +10,7 @@ screen_width = 1000
 screen_height  = 1000
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("VIDEO 6 - PROFESOR")
+pygame.display.set_caption("VIDEO 7 - PROFESOR")
 
 # define game variables 
 tile_size = 50
@@ -272,8 +272,13 @@ class Lava(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        # self.move_direction = 1
-        # self.move_counter = 0
+        self.counter = 0
+
+    def update(self):
+        self.counter += 1
+        if self.counter > 15:
+            self.image = pygame.transform.flip(self.image, True, False)
+            self.counter = 0
 
 
 world_data = [
@@ -325,6 +330,7 @@ while run:
     if game_over == 0:
         # .update -> metodo de la clase Group que busca y ejecuta el metodo update() de los sprites que tenga dentro
         blob_group.update()
+        lava_group.update()
     
     # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprite)
     blob_group.draw(screen)

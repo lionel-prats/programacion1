@@ -5,6 +5,7 @@ from variables import *
 
 from modules.player import Player
 from modules.world import World
+from modules.button import Button
 
 
 limpiar_consola()
@@ -17,7 +18,7 @@ clock = pygame.time.Clock()
 
 screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("screen").get("screen_height"))
 screen = pygame.display.set_mode(screen_dimentions)
-pygame.display.set_caption("VIDEO 6 - POO")
+pygame.display.set_caption("VIDEO 7 - POO")
 
 game_over = 0
 
@@ -35,6 +36,10 @@ world = World(configs.get("screen"),
               enemy_sprite_group=enemies_group)
 
 print(enemies_group)
+
+# create button 
+# restart_button = Button(screen_width//2 - 50, screen_height//2 + 100, restart_img)
+restart_button = Button(configs.get("buttons").get("restart"))
 
 run = True
 while run:
@@ -61,6 +66,12 @@ while run:
     # check for collision with enemies
     if pygame.sprite.spritecollide(player, enemies_group, False):
         game_over = -1
+    
+    # if player has died
+    if game_over == -1:
+        if restart_button.draw(screen):
+            player.reset(configs.get("player1"))
+            game_over = 0
 
     player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list, game_over=game_over)
 
@@ -71,5 +82,5 @@ while run:
 
 pygame.quit()
 
-# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario/video6/video_06_POO
+# cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario/video7/video_07_POO
 # python main.py

@@ -62,6 +62,14 @@
             "width_image": 46,
             "height_image": 35
         }
+    },
+    "buttons": {
+        "restart": {
+            "path_image": "img/restart_btn.png",
+            "coord_x": 450,
+            "coord_y": 600
+
+        }
     }
 
 }
