@@ -21,19 +21,35 @@ screen_dimentions = (configs.get("screen").get("screen_width"),
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("POO - Version Final")
 
-# define game variables
-game_over = 0
-main_menu = True
-current_level = 1
-max_levels = 2
-score = 0 
+current_level, main_menu, max_levels, player_dead, player_win, playing, score = configs.get("game_variables").values()
 
-background_image_path, background_image_coord_x, background_image_coord_y = \
-    data_image_parsed(configs.get("screen").get("images").get("background_image"))
+print("current_level = ", current_level)
+print("main_menu = ", main_menu)
+print("max_levels = ", max_levels)
+print("player_dead = ", player_dead)
+print("player_win = ", player_win)
+print("playing = ", playing)
+print("score = ", score)
+
+
+# define game variables
+game_over = playing
+main_menu = True
+# current_level = current_level
+# max_levels = max_levels
+# score = score
+
+# define game variables
+# game_over = 0
+# main_menu = True
+# current_level = 1
+# max_levels = 2
+# score = 0 
+
+background_image_path, background_image_coord_x, background_image_coord_y = configs.get("screen").get("images").get("background_image").values()
 background_surface = pygame.image.load(background_image_path)
 
-sun_img_path, sun_img_coord_x, sun_img_coord_y = \
-    data_image_parsed(configs.get("screen").get("images").get("sun"))
+sun_img_path, sun_img_coord_x, sun_img_coord_y = configs.get("screen").get("images").get("sun").values()
 sun_surface = pygame.image.load(sun_img_path)
 
 player = Player(configs.get("player1"))
@@ -77,7 +93,7 @@ while run:
 
         world.draw(screen)
 
-        # group.draw() -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
+        # group.draw() -> metodo de la clase Group para blitear sprites de un objeto-instancia
         platform_group.draw(screen)
         enemies_group.draw(screen)
         coin_group.draw(screen)
