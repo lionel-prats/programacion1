@@ -1,7 +1,7 @@
 {   
     "fps": 60,
     "game_variables": {
-        "current_level": 1,
+        "initial_level": 1,
         "initial_score": 0, 
         "main_menu": true,
         "max_levels": 2,
@@ -146,7 +146,7 @@
             }
         }
     },
-    "player1": {
+    "player": {
         "path_image": "img/guy{num}.png",
         "dead_image": "img/ghost.png",
         "rect_width": 40,
