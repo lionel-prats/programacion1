@@ -207,6 +207,7 @@
     "coins": {
         "path_image": "img/coin.png",
         "coord_x": 650,
-        "coord_y": 500
+        "coord_y": 500,
+        "add_score": 10
     }
 }

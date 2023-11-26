@@ -112,7 +112,7 @@ while run:
             # check if a coin has been collected
             # True elimina de la pantalla el sprite colisionado
             if pygame.sprite.spritecollide(player, coin_group, True): 
-                score += 1
+                score += configs.get("coins").get("add_score")
                 coin_fx.play()
 
             # check for collision between player and exit
