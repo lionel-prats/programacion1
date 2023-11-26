@@ -1,0 +1,55 @@
+class Coin(pygame.sprite.Sprite):
+
+coin_group = pygame.sprite.Group()
+
+if tile == 7:
+
+coin_group.draw(screen)
+
+score = 0 # monedas capturadas
+
+# si hay colision entre el player y alguna coin, elimino la coin e incremento score en 1 
+#update score
+#check if a coin has been collected
+if pygame.sprite.spritecollide(player, coin_group, True):
+    score += 1
+draw_text("X " + str(score), font_score, white, tile_size-10, 10)
+
+# if player has died
+if game_over == -1:
+    if restart_button.draw():
+        # player.reset(100, screen_height - 50)
+        world_data = []
+        world = reset_level(level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
+        game_over = 0 # habilito que se siga moviendo el player y los enemigos
+        score = 0 
+
+# if player has completed the level
+    if game_over == 1: # el player llego a la puerta y paso de nivel
+        # reset game and go to the next level
+        level += 1
+        if level <= max_levels:
+            # reset level
+            world_data = []
+            world = reset_level(level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
+            game_over = 0 # habilito que se siga moviendo el player y los enemigos
+        else: 
+            # restart game 
+            if restart_button.draw():
+                level = 0
+                world_data = []
+                world = reset_level(level)
+                game_over = 0 # habilito que se siga moviendo el player y los enemigos
+                score = 0 
+
+def draw_text(text, font, text_col, x, y):
+
+# define font
+font_score = pygame.font.SysFont("Bauhaus 93", 30)
+
+# define colours 
+white = (255, 255, 255)
+
+# create a dummy coin for showing the score 
+score_coin = Coin(tile_size // 2, tile_size // 2) # (25,25) -> para que quede centrada en el tile 0,0, ya que la clase Coin le aplica a coin.png un transform de 25x25
+coin_group.add(score_coin) 
