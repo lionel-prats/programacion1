@@ -96,8 +96,17 @@
             ]
         },
         "images": {
-            "sky": "img/sky.png",
-            "sun": "img/sun.png",
+            "background_image": {
+                "path_image": "img/background_image.png",
+                "coord_x": 0,
+                "coord_y": 0
+            },
+            "sun": {
+                "path_image": "img/sun.png",
+                "coord_x": 100,
+                "coord_y": 100
+            },
+            "sun2": "img/sun.png",
             "dirt": "img/dirt.png",
             "grass": "img/grass.png"
         },

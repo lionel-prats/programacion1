@@ -16,3 +16,11 @@ def limpiar_consola():
 def open_configs() -> dict:
     with open(CONFIG_FILE_PATH, 'r', encoding='utf-8') as config:
         return json.load(config)
+    
+def data_image_parsed(data_image: dict):
+  result = []
+  for v in data_image.values():
+     result.append(v)
+  return tuple(result)
+   
+

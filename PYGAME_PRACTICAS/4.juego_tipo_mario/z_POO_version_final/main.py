@@ -1,8 +1,8 @@
 import pygame 
 from pygame.locals import * 
+
 from auxiliar import *
 from variables import *
-
 from modules.player import Player
 from modules.world import World
 from modules.button import Button
@@ -26,8 +26,12 @@ current_level = 1
 max_levels = 2
 score = 0 
 
-sun_img = pygame.image.load("img/sun.png")
-bg_img = pygame.image.load("img/sky.png")
+
+background_image_path, background_image_coord_x, background_image_coord_y = data_image_parsed(configs.get("screen").get("images").get("background_image"))
+background_surface = pygame.image.load(background_image_path)
+
+sun_img_path, sun_img_coord_x, sun_img_coord_y = data_image_parsed(configs.get("screen").get("images").get("sun"))
+sun_surface = pygame.image.load(sun_img_path)
 
 player = Player(configs.get("player1"))
 
@@ -63,8 +67,8 @@ while run:
             pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             run = False
 
-    screen.blit(bg_img, (0,0))
-    screen.blit(sun_img, (100,100))
+    screen.blit(background_surface, (background_image_coord_x, background_image_coord_y))
+    screen.blit(sun_surface, (sun_img_coord_x, sun_img_coord_y))
     
     if main_menu == True:
         if start_button.draw(screen):
