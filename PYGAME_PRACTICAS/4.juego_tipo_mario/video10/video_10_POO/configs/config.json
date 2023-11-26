@@ -81,21 +81,26 @@
         "texts": {
             "game_over": {
                 "text": "GAME OVER!",
+                "font": "Bauhaus 93",
+                "size": 70,
                 "color": "(0, 0, 255)",
-                "coord_x": 500,
+                "coord_x": 300,
                 "coord_y": 500
             },
             "score": {
-                
                 "text": "X {0}",
+                "font": "Bauhaus 93",
+                "size": 30,
                 "color": "(255, 255, 255)",
                 "coord_x": 40,
                 "coord_y": 10
             },
             "you_win": {
                 "text": "YOU WIN!",
+                "font": "Bauhaus 93",
+                "size": 70,
                 "color": "(0, 0, 255)",
-                "coord_x": 500,
+                "coord_x": 360,
                 "coord_y": 500
             }
         }

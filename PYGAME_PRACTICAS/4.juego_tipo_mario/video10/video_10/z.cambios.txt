@@ -1,8 +1,7 @@
-class Coin(pygame.sprite.Sprite):
 
-coin_group = pygame.sprite.Group()
 
-if tile == 7:
+
+
 
 coin_group.draw(screen)
 
@@ -42,13 +41,9 @@ if game_over == -1:
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
                 score = 0 
 
-def draw_text(text, font, text_col, x, y):
 
-# define font
-font_score = pygame.font.SysFont("Bauhaus 93", 30)
 
-# define colours 
-white = (255, 255, 255)
+
 
 # create a dummy coin for showing the score 
 score_coin = Coin(tile_size // 2, tile_size // 2) # (25,25) -> para que quede centrada en el tile 0,0, ya que la clase Coin le aplica a coin.png un transform de 25x25

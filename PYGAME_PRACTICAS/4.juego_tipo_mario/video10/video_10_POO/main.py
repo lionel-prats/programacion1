@@ -22,16 +22,9 @@ screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("VIDEO 10 - POO")
 
 # define font
-font = Font("Bauhaus 93", 70)
-
-font_score = Font("Bauhaus 93", 30)
-font_score_surface = font_score.surface_text
-
-
-# cacarulo = pygame.font.SysFont("Bauhaus 93", 70)
-# print(cacarulo)
-# img = cacarulo.render("text", True, (255,255,255))
-# print(img)
+# font = Font("Bauhaus 93", 70)
+# font_score = Font("Bauhaus 93", 30)
+# font_score_surface = font_score.surface_text
 
 # define game variables
 game_over = 0
@@ -103,10 +96,34 @@ while run:
             # si hay colision entre el player y alguna coin, elimino la coin e incremento score en 1 
             #update score
             #check if a coin has been collected
-            if pygame.sprite.spritecollide(player, coin_group, True): # True elimina de la pantalla el sprite colisionado
+            # True elimina de la pantalla el sprite colisionado
+            if pygame.sprite.spritecollide(player, coin_group, True): 
                 score += 1
-            world.draw_text(screen, "X " + str(score), font_score_surface, "white", 40, 10)
-            print(score)
+            world.draw_text(screen, ("score", score))
+
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
         enemies_group.draw(screen)
@@ -125,9 +142,11 @@ while run:
         
         # if player has died
         if game_over == -1:
+            world.draw_text(screen, ("game_over",))
             if restart_button.draw(screen):
                 player.reset(configs.get("player1"))
                 game_over = 0
+                score = 0 
 
         # if player has completed the level
         if game_over == 1: # el player llego a la puerta y paso de nivel
@@ -148,8 +167,8 @@ while run:
                     coin_group=coin_group,                    current_level=current_level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
             else: 
+                world.draw_text(screen, ("you_win",))
                 # restart game 
-                
                 if restart_button.draw(screen):
                     enemies_group.empty()
                     utilities_group.empty()
@@ -158,17 +177,16 @@ while run:
                     current_level = 1
                     # world_data = []
                     world = world.reset_level(
-                    configs.get("screen"), 
-                    configs.get("enemies"), 
-                    enemy_sprite_group=enemies_group,
-                    utilities_configs=configs.get("utilities"),
-                    utilities_group=utilities_group,
-                    coin_group=coin_group,
-                    current_level=current_level)
+                        configs.get("screen"), 
+                        configs.get("enemies"), 
+                        enemy_sprite_group=enemies_group,
+                        utilities_configs=configs.get("utilities"),
+                        utilities_group=utilities_group,
+                        coin_group=coin_group,
+                        current_level=current_level
+                    )
                     game_over = 0 # habilito que se siga moviendo el player y los enemigos
-                    print(game_over)
-                    # enemies_group.empty()
-                    # utilities_group.empty()
+                    score = 0 
 
         
         # print(current_level)

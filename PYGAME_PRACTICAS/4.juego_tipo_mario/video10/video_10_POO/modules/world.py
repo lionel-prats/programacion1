@@ -4,6 +4,7 @@ from modules.enemies.blob import Blob
 from modules.enemies.lava import Lava
 from modules.exit import Exit
 from modules.coin import Coin
+from modules.font import Font
 
 class World():
 
@@ -118,12 +119,38 @@ class World():
         # world = World(world_data) # nueva instancia de World con el mapa del nivel que corresponda
         # return world
 
-    def draw_text(self, screen, text, font, text_col, x, y):
-        type_text = "score"
-        score = 154
-        data = self.screen_configs.get("texts").get(type_text)
+    
+    def draw_text(self, screen, text_info: tuple):
+
+        tipo_texto_a_imprimir = text_info[0] # score|game_over|you_win
+
+        informacion_texto = self.screen_configs.get("texts").get(text_info[0])
+
+
+        if tipo_texto_a_imprimir == "score":
+            score = text_info[1] 
+            texto_a_imprimir = informacion_texto.get('text').format(str(score))
+        else:
+            texto_a_imprimir = informacion_texto.get('text')
+
+
+        tipo_fuente = informacion_texto.get('font')
+        tamanio_fuente = informacion_texto.get('size')
+        color = eval(informacion_texto.get('color'))
+        x = informacion_texto.get('coord_x')
+        y = informacion_texto.get('coord_y')
+
+        # print(informacion_texto)
+        
+
+
+        instancia_Font = Font(tipo_fuente, tamanio_fuente)
+        superficie = instancia_Font.surface_text
+        # print(font_score_surface)
+
+
 
         # antialias = True
-        img = font.render(data.get('text').format(str(score)), True, eval(data.get('color'))) 
+        img = superficie.render(texto_a_imprimir, True, color) 
         
         screen.blit(img, (x,y))
