@@ -1,0 +1,17 @@
+Movimiento de derecha a izquierda de un blob (Enemy.update())
+
+Ej. Arranca en 300 de x 
+
+def __init__ (self, x, y):
+    self.move_direction = 1
+    self.move_counter = 0
+
+
+def update(self):
+
+    self.rect.x += self.move_direction
+    self.move_counter += 1 
+
+        if abs(self.move_counter) > 4:
+            self.move_direction *= -1
+            self.move_counter *= -1
