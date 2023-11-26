@@ -21,13 +21,13 @@ screen_dimentions = (configs.get("screen").get("screen_width"),
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("POO - Version Final")
 
-fps, initial_level, initial_score, main_menu, max_levels, player_dead, player_win, playing, step_add_level = configs.get("game_variables").values()
+fps, initial_level, initial_score, max_levels, player_dead, player_win, playing, step_add_level = configs.get("game_variables").values()
 
 # define game variables
 main_menu = True
 current_level = initial_level
 score = initial_score
-game_status = playing
+player_status = playing
 
 background_image_path, background_image_coord_x, background_image_coord_y = configs.get("screen").get("images").get("background_image").values()
 background_surface = pygame.image.load(background_image_path)
@@ -82,14 +82,14 @@ while run:
         coin_group.draw(screen)
         exit_group.draw(screen)
 
-        if game_status == playing:
+        if player_status == playing:
 
             platform_group.update()
             enemies_group.update()
 
             # check for collision between player and enemies (blobs, lava)
             if pygame.sprite.spritecollide(player, enemies_group, False):
-                game_status = player_dead
+                player_status = player_dead
                 game_over_fx.play()
 
             # check if a coin has been collected
@@ -100,19 +100,19 @@ while run:
 
             # check for collision between player and exit
             if pygame.sprite.spritecollide(player, exit_group, False):
-                game_status = player_win
+                player_status = player_win
         
         # update score
         world.draw_text(screen, ("score", score, coin_group))
 
-        if game_status == player_dead: 
+        if player_status == player_dead: 
 
             world.draw_text(screen, ("game_over",))
             
             if restart_button.draw(screen): # restart button is pressed
                 
                 player.reset(configs.get("player"))
-                game_status = playing
+                player_status = playing
                 score = 0 
                 
                 enemies_group.empty()
@@ -124,11 +124,11 @@ while run:
                                           exit_group=exit_group, coin_group=coin_group,
                                           platform_group=platform_group, current_level=current_level)
 
-        if game_status == player_win:
+        if player_status == player_win:
 
             current_level += step_add_level
 
-            if current_level <= max_levels: # next level
+            if current_level <= max_levels: # go to the next level
                 
                 enemies_group.empty()
                 exit_group.empty()
@@ -141,7 +141,7 @@ while run:
                                           exit_group=exit_group, coin_group=coin_group,                    
                                           platform_group=platform_group, current_level=current_level) 
 
-                game_status = playing # habilito que se siga moviendo el player y los enemigos
+                player_status = playing # habilito que se siga moviendo el player y los enemigos
             
             else: 
 
@@ -164,11 +164,11 @@ while run:
                                               platform_group=platform_group, 
                                               current_level=current_level)
                     
-                    game_status = playing # habilito que se siga moviendo el player y los enemigos
+                    player_status = playing # habilito que se siga moviendo el player y los enemigos
                     score = 0 
 
         player.update(screen, configs.get("screen").get("screen_height"), 
-                      tile_list = world.tile_list, game_over=game_status,
+                      tile_list = world.tile_list, game_over=player_status,
                       jump_fx=jump_fx, platform_group=platform_group)
 
         world.draw_grid(screen)

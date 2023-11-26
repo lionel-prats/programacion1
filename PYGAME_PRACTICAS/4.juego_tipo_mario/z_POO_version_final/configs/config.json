@@ -3,7 +3,6 @@
         "fps": 60,
         "initial_level": 1,
         "initial_score": 0, 
-        "main_menu": true,
         "max_levels": 2,
         "player_dead": -1,
         "player_win": 1,
