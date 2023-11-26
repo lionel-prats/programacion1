@@ -2,12 +2,13 @@
     "fps": 60,
     "game_variables": {
         "current_level": 1,
+        "initial_score": 0, 
         "main_menu": true,
         "max_levels": 2,
         "player_dead": -1,
         "player_win": 1,
         "playing": 0,
-        "score": 0 
+        "step_add_level": 1 
     },
     "screen": {
         "screen_width": 1000,

@@ -21,30 +21,12 @@ screen_dimentions = (configs.get("screen").get("screen_width"),
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("POO - Version Final")
 
-current_level, main_menu, max_levels, player_dead, player_win, playing, score = configs.get("game_variables").values()
-
-print("current_level = ", current_level)
-print("main_menu = ", main_menu)
-print("max_levels = ", max_levels)
-print("player_dead = ", player_dead)
-print("player_win = ", player_win)
-print("playing = ", playing)
-print("score = ", score)
-
+current_level, initial_score, main_menu, max_levels, player_dead, player_win, playing, step_add_level = configs.get("game_variables").values()
 
 # define game variables
-game_status = playing
 main_menu = True
-# current_level = current_level
-# max_levels = max_levels
-# score = score
-
-# define game variables
-# game_over = 0
-# main_menu = True
-# current_level = 1
-# max_levels = 2
-# score = 0 
+score = initial_score
+game_status = playing
 
 background_image_path, background_image_coord_x, background_image_coord_y = configs.get("screen").get("images").get("background_image").values()
 background_surface = pygame.image.load(background_image_path)
@@ -143,7 +125,7 @@ while run:
 
         if game_status == player_win: # player has completed the level 
 
-            current_level += 1
+            current_level += step_add_level
 
             if current_level <= max_levels: # next level
                 
