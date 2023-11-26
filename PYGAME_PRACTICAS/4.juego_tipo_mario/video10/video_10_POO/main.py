@@ -7,7 +7,7 @@ from modules.player import Player
 from modules.world import World
 from modules.button import Button
 from modules.font import Font
-
+from modules.coin import Coin
 
 limpiar_consola()
 
@@ -99,11 +99,11 @@ while run:
             # True elimina de la pantalla el sprite colisionado
             if pygame.sprite.spritecollide(player, coin_group, True): 
                 score += 1
-            world.draw_text(screen, ("score", score))
+            world.draw_text(screen, ("score", score, coin_group))
             
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
-        enemies_group.draw(screen)
         coin_group.draw(screen)
+        enemies_group.draw(screen)
         utilities_group.draw(screen) # puertas de salida
 
         # check for collision between player and enemies

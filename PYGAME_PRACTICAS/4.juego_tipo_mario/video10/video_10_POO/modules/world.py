@@ -18,6 +18,10 @@ class World():
         dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
         grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
         
+        # agrego al coin_group una coin para que se blitee en el score, arriba a la izquierda en la pantalla
+        score_coin = Coin(25, 28, 45)
+        coin_group.add(score_coin) 
+        
         row_count = 0
         # for row in self.screen_configs.get("world_data"): 
         for row in self.screen_configs.get("levels").get(str(current_level)): 
