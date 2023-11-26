@@ -1,6 +1,6 @@
 {   
-    "fps": 60,
     "game_variables": {
+        "fps": 60,
         "initial_level": 1,
         "initial_score": 0, 
         "main_menu": true,

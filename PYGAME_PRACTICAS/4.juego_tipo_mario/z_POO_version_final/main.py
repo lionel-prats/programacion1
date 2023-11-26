@@ -21,7 +21,7 @@ screen_dimentions = (configs.get("screen").get("screen_width"),
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("POO - Version Final")
 
-initial_level, initial_score, main_menu, max_levels, player_dead, player_win, playing, step_add_level = configs.get("game_variables").values()
+fps, initial_level, initial_score, main_menu, max_levels, player_dead, player_win, playing, step_add_level = configs.get("game_variables").values()
 
 # define game variables
 main_menu = True
@@ -57,7 +57,7 @@ run = True
 
 while run:
     
-    clock.tick(configs.get("fps"))
+    clock.tick(fps)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT or (event.type == \
