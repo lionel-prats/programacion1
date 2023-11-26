@@ -106,7 +106,6 @@
                 "coord_x": 100,
                 "coord_y": 100
             },
-            "sun2": "img/sun.png",
             "dirt": "img/dirt.png",
             "grass": "img/grass.png"
         },

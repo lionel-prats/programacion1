@@ -132,45 +132,15 @@ class World():
             screen.blit(tile[0], tile[1])
 
     # function to reset level
-    # @staticmethod
-    def reset_level(
-            self, 
-            screen_configs, 
-            enemy_configs, 
-            enemy_sprite_group, 
-            exit_configs, 
-            exit_group, 
-            coin_group, 
-            platform_group, 
-            current_level):
+    def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, \
+                    exit_configs, exit_group, coin_group, platform_group, current_level):
         
-        world = World(
-                    screen_configs, 
-                    enemy_configs, 
-                    enemy_sprite_group, 
-                    exit_configs, 
-                    exit_group, 
-                    coin_group, 
-                    platform_group, 
-                    current_level) # nueva instancia de World con el mapa del nivel que corresponda
+        # nueva instancia de World con el mapa del nivel que corresponda
+        world = World(screen_configs, enemy_configs, enemy_sprite_group, 
+                      exit_configs, exit_group, coin_group, platform_group, current_level) 
         
         return world
-    
-
-
-        # player.reset(100, screen_height - 50) # reseteo los atributos del platyer para que se blitee en la posicion inicial luego de pasar de nivel y ya en el nuevo escenario
-        # # player.reset(850, 50)
-        # blob_group.empty() # empty() -> metodo de la clase Group() que elimina todos los sprites de un objeto Group
-        # lava_group.empty()
-        # exit_group.empty()
-        # if path.exists(f"level{level}_data"): # load in level data and create world
-        #     pickle_in = open(f"level{level}_data", "rb") # read binary
-        #     world_data = pickle.load(pickle_in)
-        #     pickle_in.close()
-        # world = World(world_data) # nueva instancia de World con el mapa del nivel que corresponda
-        # return world
-
-    
+     
     def draw_text(self, screen, text_info: tuple):
 
         tipo_texto_a_imprimir = text_info[0] # score|game_over|you_win

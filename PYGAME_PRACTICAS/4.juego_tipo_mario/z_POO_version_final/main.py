@@ -15,7 +15,9 @@ configs = open_configs()
 
 clock = pygame.time.Clock()
 
-screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("screen").get("screen_height"))
+screen_dimentions = (configs.get("screen").get("screen_width"), 
+                     configs.get("screen").get("screen_height"))
+
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("POO - Version Final")
 
@@ -26,11 +28,12 @@ current_level = 1
 max_levels = 2
 score = 0 
 
-
-background_image_path, background_image_coord_x, background_image_coord_y = data_image_parsed(configs.get("screen").get("images").get("background_image"))
+background_image_path, background_image_coord_x, background_image_coord_y = \
+    data_image_parsed(configs.get("screen").get("images").get("background_image"))
 background_surface = pygame.image.load(background_image_path)
 
-sun_img_path, sun_img_coord_x, sun_img_coord_y = data_image_parsed(configs.get("screen").get("images").get("sun"))
+sun_img_path, sun_img_coord_x, sun_img_coord_y = \
+    data_image_parsed(configs.get("screen").get("images").get("sun"))
 sun_surface = pygame.image.load(sun_img_path)
 
 player = Player(configs.get("player1"))
@@ -40,15 +43,9 @@ platform_group = pygame.sprite.Group()
 exit_group = pygame.sprite.Group()
 coin_group = pygame.sprite.Group()
 
-world = World(configs.get("screen"), 
-            configs.get("enemies"), 
-            enemy_sprite_group=enemies_group,
-            exit_configs=configs.get("exit"),
-            exit_group=exit_group,
-            coin_group=coin_group,
-            platform_group=platform_group,
-            current_level=current_level
-        )
+world = World(configs.get("screen"), configs.get("enemies"), enemy_sprite_group=enemies_group,
+              exit_configs=configs.get("exit"), exit_group=exit_group, coin_group=coin_group,
+              platform_group=platform_group, current_level=current_level)
 
 # create buttons 
 restart_button = Button(configs.get("buttons").get("restart"))
@@ -58,6 +55,7 @@ exit_button = Button(configs.get("buttons").get("exit"))
 coin_fx, jump_fx, game_over_fx = World.inicializar_sonidos()
 
 run = True
+
 while run:
     
     clock.tick(configs.get("fps"))
@@ -76,39 +74,44 @@ while run:
         if exit_button.draw(screen):
             run = False
     else:
+
         world.draw(screen)
 
-        if game_over == 0:
-            enemies_group.update()
-            platform_group.update()
+        # group.draw() -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
+        platform_group.draw(screen)
+        enemies_group.draw(screen)
+        coin_group.draw(screen)
+        exit_group.draw(screen)
 
-            # update score
+        if game_over == 0: # playing
+
+            platform_group.update()
+            enemies_group.update()
+
+            # check for collision between player and enemies (blobs, lava)
+            if pygame.sprite.spritecollide(player, enemies_group, False):
+                game_over = -1
+                game_over_fx.play()
+
             # check if a coin has been collected
             # True elimina de la pantalla el sprite colisionado
             if pygame.sprite.spritecollide(player, coin_group, True): 
                 score += 1
                 coin_fx.play()
-            world.draw_text(screen, ("score", score, coin_group))
-            
-            # check for collision between player and enemies
-            if pygame.sprite.spritecollide(player, enemies_group, False):
-                game_over = -1
-                game_over_fx.play()
-                
-        # group.draw() -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
-        coin_group.draw(screen)
-        enemies_group.draw(screen)
-        platform_group.draw(screen)
-        exit_group.draw(screen)
 
-        # check for collision between player and exit
-        if pygame.sprite.spritecollide(player, exit_group, False):
-            game_over = 1
+            # check for collision between player and exit
+            if pygame.sprite.spritecollide(player, exit_group, False):
+                game_over = 1
+        
+        # update score
+        world.draw_text(screen, ("score", score, coin_group))
 
-        # if player has died
-        if game_over == -1:
+        if game_over == -1: # player has died
+
             world.draw_text(screen, ("game_over",))
-            if restart_button.draw(screen):
+            
+            if restart_button.draw(screen): # restart button is pressed
+                
                 player.reset(configs.get("player1"))
                 game_over = 0
                 score = 0 
