@@ -43,6 +43,9 @@ player = Player(configs.get("player1"))
 # blob, lava, etc
 enemies_group = pygame.sprite.Group()
 
+# platforms
+platform_group = pygame.sprite.Group()
+
 # exit
 utilities_group = pygame.sprite.Group()
 
@@ -56,6 +59,7 @@ world = World(configs.get("screen"),
               utilities_configs=configs.get("utilities"),
               utilities_group=utilities_group,
               coin_group=coin_group,
+              platform_group=platform_group,
               current_level=current_level)
 
 
@@ -96,7 +100,7 @@ while run:
 
         if game_over == 0:
             enemies_group.update()
-
+            platform_group.update()
             # si hay colision entre el player y alguna coin, elimino la coin e incremento score en 1 
             #update score
             #check if a coin has been collected
@@ -109,12 +113,15 @@ while run:
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
         coin_group.draw(screen)
         enemies_group.draw(screen)
+        platform_group.draw(screen)
         utilities_group.draw(screen) # puertas de salida
 
+        # print(enemies_group)
         # check for collision between player and enemies
         if pygame.sprite.spritecollide(player, enemies_group, False):
             game_over = -1
             game_over_fx.play()
+            print("COLLISION")
 
         # check for collision between player and exit
         if pygame.sprite.spritecollide(player, utilities_group, False):
@@ -129,8 +136,11 @@ while run:
                 player.reset(configs.get("player1"))
                 game_over = 0
                 score = 0 
+                
                 enemies_group.empty()
                 utilities_group.empty()
+                platform_group.empty()
+
                 world = world.reset_level(
                     configs.get("screen"), 
                     configs.get("enemies"), 
@@ -138,17 +148,22 @@ while run:
                     utilities_configs=configs.get("utilities"),
                     utilities_group=utilities_group,
                     coin_group=coin_group,
+                    platform_group=platform_group,
                     current_level=current_level
                 )
 
         # if player has completed the level
         if game_over == 1: # el player llego a la puerta y paso de nivel
             # reset game and go to the next level
+
             current_level += 1
             if current_level <= max_levels:
                 # reset level
+
                 enemies_group.empty()
                 utilities_group.empty()
+                platform_group.empty()
+
                 player.reset(configs.get("player1"))
                 # world_data = []
                 world = world.reset_level(
@@ -158,6 +173,7 @@ while run:
                     utilities_configs=configs.get("utilities"),
                     utilities_group=utilities_group,
                     coin_group=coin_group,                    
+                    platform_group=platform_group,
                     current_level=current_level
                 ) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
@@ -165,8 +181,11 @@ while run:
                 world.draw_text(screen, ("you_win",))
                 # restart game 
                 if restart_button.draw(screen):
+
                     enemies_group.empty()
                     utilities_group.empty()
+                    platform_group.empty()
+
                     player.reset(configs.get("player1"))
 
                     current_level = 1
@@ -178,6 +197,7 @@ while run:
                         utilities_configs=configs.get("utilities"),
                         utilities_group=utilities_group,
                         coin_group=coin_group,
+                        platform_group=platform_group,
                         current_level=current_level
                     )
                     game_over = 0 # habilito que se siga moviendo el player y los enemigos

@@ -30,7 +30,7 @@ font_score = pygame.font.SysFont("Bauhaus 93", 30) # <pygame.font.Font object at
 tile_size = 50
 game_over = 0
 main_menu = True
-level = 3
+level = 7
 max_levels = 7
 score = 0 # monedas capturadas
 
@@ -46,15 +46,15 @@ start_img = pygame.image.load("img/start_btn.png")
 exit_img = pygame.image.load("img/exit_btn.png")
 
 # load sounds v11
-# pygame.mixer.music.load("img/music.wav")
-# pygame.mixer.music.play(-1, 0.0, 5000) # 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
-# pygame.mixer.music.set_volume(0.1)
+pygame.mixer.music.load("img/music.wav")
+pygame.mixer.music.play(-1, 0.0, 5000) # 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
+pygame.mixer.music.set_volume(0.05)
 coin_fx = pygame.mixer.Sound("img/coin.wav")
-coin_fx.set_volume(0)
+coin_fx.set_volume(0.1)
 jump_fx = pygame.mixer.Sound("img/jump.wav")
-jump_fx.set_volume(0)
+jump_fx.set_volume(0.1)
 game_over_fx = pygame.mixer.Sound("img/game_over.wav")
-game_over_fx.set_volume(0)
+game_over_fx.set_volume(0.1)
 
 
 def draw_text(text, font, text_col, x, y):

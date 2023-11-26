@@ -5,11 +5,21 @@ from modules.enemies.lava import Lava
 from modules.exit import Exit
 from modules.coin import Coin
 from modules.font import Font
+from modules.platform import Platform
 
 class World():
 
     # def __init__(self, data, tile_size):
-    def __init__(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, coin_group, current_level):
+    def __init__(
+            self, 
+            screen_configs, 
+            enemy_configs, 
+            enemy_sprite_group, 
+            utilities_configs, 
+            utilities_group, 
+            coin_group, 
+            platform_group, 
+            current_level):
         
         self.screen_configs = screen_configs
         self.tile_list = []
@@ -56,6 +66,24 @@ class World():
                                  row_count * self.screen_configs.get("tile_size") + compensation_y)
 
                     enemy_sprite_group.add(enemy)
+
+                if tile == 4: # plataformas con movimiento en eje X v12
+
+                    coord_x = col_count * self.screen_configs.get("tile_size")
+                    coord_y = row_count * self.screen_configs.get("tile_size")
+                    tile_size = self.screen_configs.get("tile_size")
+
+                    platform = Platform(coord_x, coord_y, tile_size, 1, 0)
+                    platform_group.add(platform)
+
+                if tile == 5: # plataformas con movimiento en eje Y v12
+
+                    coord_x = col_count * self.screen_configs.get("tile_size")
+                    coord_y = row_count * self.screen_configs.get("tile_size")
+                    tile_size = self.screen_configs.get("tile_size")
+
+                    platform = Platform(coord_x, coord_y, tile_size, 0, 1)
+                    platform_group.add(platform)
 
 
                 if tile == "lava":
@@ -105,8 +133,27 @@ class World():
 
     # function to reset level
     # @staticmethod
-    def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, coin_group, current_level):
-        world = World(screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, coin_group, current_level) # nueva instancia de World con el mapa del nivel que corresponda
+    def reset_level(
+            self, 
+            screen_configs, 
+            enemy_configs, 
+            enemy_sprite_group, 
+            utilities_configs, 
+            utilities_group, 
+            coin_group, 
+            platform_group, 
+            current_level):
+        
+        world = World(
+                    screen_configs, 
+                    enemy_configs, 
+                    enemy_sprite_group, 
+                    utilities_configs, 
+                    utilities_group, 
+                    coin_group, 
+                    platform_group, 
+                    current_level) # nueva instancia de World con el mapa del nivel que corresponda
+        
         return world
     
 
@@ -164,15 +211,12 @@ class World():
         pygame.mixer.music.load("img/music.wav")
         pygame.mixer.music.play(-1, 0.0, 5000) 
         # param 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
-        pygame.mixer.music.set_volume(0.1)
-        # coin_fx = pygame.mixer.Sound("img/coin.wav")
-        # coin_fx.set_volume(0.1)
-        # return coin_fx
+        pygame.mixer.music.set_volume(0.025)
     
         coin_fx = pygame.mixer.Sound("img/coin.wav")
-        coin_fx.set_volume(0.1)
+        coin_fx.set_volume(0.05)
         jump_fx = pygame.mixer.Sound("img/jump.wav")
-        jump_fx.set_volume(0.1)
+        jump_fx.set_volume(0.05)
         game_over_fx = pygame.mixer.Sound("img/game_over.wav")
-        game_over_fx.set_volume(0.1)
+        game_over_fx.set_volume(0.05)
         return (coin_fx, jump_fx, game_over_fx)
