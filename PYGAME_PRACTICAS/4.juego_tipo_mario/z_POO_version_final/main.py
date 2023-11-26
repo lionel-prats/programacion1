@@ -6,8 +6,6 @@ from variables import *
 from modules.player import Player
 from modules.world import World
 from modules.button import Button
-from modules.font import Font
-from modules.coin import Coin
 
 limpiar_consola()
 
@@ -19,45 +17,34 @@ clock = pygame.time.Clock()
 
 screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("screen").get("screen_height"))
 screen = pygame.display.set_mode(screen_dimentions)
-pygame.display.set_caption("VIDEO 13 - POO")
-
-
+pygame.display.set_caption("POO - Version Final")
 
 # define game variables
 game_over = 0
 main_menu = True
 current_level = 1
-max_levels = 4
+max_levels = 2
 score = 0 
-
 
 sun_img = pygame.image.load("img/sun.png")
 bg_img = pygame.image.load("img/sky.png")
 
 player = Player(configs.get("player1"))
 
-
 enemies_group = pygame.sprite.Group()
-
-
 platform_group = pygame.sprite.Group()
-
-# exit
 exit_group = pygame.sprite.Group()
-
-# coins
 coin_group = pygame.sprite.Group()
 
-
 world = World(configs.get("screen"), 
-              configs.get("enemies"), 
-              enemy_sprite_group=enemies_group,
-              exit_configs=configs.get("exit"),
-              exit_group=exit_group,
-              coin_group=coin_group,
-              platform_group=platform_group,
-              current_level=current_level)
-
+            configs.get("enemies"), 
+            enemy_sprite_group=enemies_group,
+            exit_configs=configs.get("exit"),
+            exit_group=exit_group,
+            coin_group=coin_group,
+            platform_group=platform_group,
+            current_level=current_level
+        )
 
 # create buttons 
 restart_button = Button(configs.get("buttons").get("restart"))
@@ -65,8 +52,6 @@ start_button = Button(configs.get("buttons").get("start"))
 exit_button = Button(configs.get("buttons").get("exit"))
 
 coin_fx, jump_fx, game_over_fx = World.inicializar_sonidos()
-
-print(jump_fx)
 
 run = True
 while run:
@@ -80,10 +65,7 @@ while run:
 
     screen.blit(bg_img, (0,0))
     screen.blit(sun_img, (100,100))
-    # world.draw_backgroung(screen)
     
-    
-
     if main_menu == True:
         if start_button.draw(screen):
             main_menu = False
@@ -95,34 +77,30 @@ while run:
         if game_over == 0:
             enemies_group.update()
             platform_group.update()
-            # si hay colision entre el player y alguna coin, elimino la coin e incremento score en 1 
-            #update score
-            #check if a coin has been collected
+
+            # update score
+            # check if a coin has been collected
             # True elimina de la pantalla el sprite colisionado
             if pygame.sprite.spritecollide(player, coin_group, True): 
                 score += 1
                 coin_fx.play()
             world.draw_text(screen, ("score", score, coin_group))
             
-            # print(enemies_group)
             # check for collision between player and enemies
             if pygame.sprite.spritecollide(player, enemies_group, False):
                 game_over = -1
                 game_over_fx.play()
                 
-        # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
+        # group.draw() -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
         coin_group.draw(screen)
         enemies_group.draw(screen)
         platform_group.draw(screen)
-        exit_group.draw(screen) # puertas de salida
-
-        
+        exit_group.draw(screen)
 
         # check for collision between player and exit
         if pygame.sprite.spritecollide(player, exit_group, False):
             game_over = 1
 
-        
         # if player has died
         if game_over == -1:
             world.draw_text(screen, ("game_over",))
@@ -146,20 +124,20 @@ while run:
                     current_level=current_level
                 )
 
-        # if player has completed the level
-        if game_over == 1: # el player llego a la puerta y paso de nivel
+        # if player has completed the level (el player llego a la puerta y paso de nivel)
+        if game_over == 1: 
             # reset game and go to the next level
-
             current_level += 1
             if current_level <= max_levels:
-                # reset level
-
+                
+                # next level
                 enemies_group.empty()
                 exit_group.empty()
                 platform_group.empty()
 
                 player.reset(configs.get("player1"))
-                # world_data = []
+
+                # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
                 world = world.reset_level(
                     configs.get("screen"), 
                     configs.get("enemies"), 
@@ -169,11 +147,14 @@ while run:
                     coin_group=coin_group,                    
                     platform_group=platform_group,
                     current_level=current_level
-                ) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
+                ) 
+
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
+            
             else: 
                 world.draw_text(screen, ("you_win",))
-                # restart game 
+
+                # restart game (level 1)
                 if restart_button.draw(screen):
 
                     enemies_group.empty()
@@ -183,7 +164,7 @@ while run:
                     player.reset(configs.get("player1"))
 
                     current_level = 1
-                    # world_data = []
+                    
                     world = world.reset_level(
                         configs.get("screen"), 
                         configs.get("enemies"), 
@@ -197,9 +178,6 @@ while run:
                     game_over = 0 # habilito que se siga moviendo el player y los enemigos
                     score = 0 
 
-        
-        # print(current_level)
-
         player.update(
                 screen, 
                 configs.get("screen").get("screen_height"), 
@@ -208,7 +186,6 @@ while run:
                 jump_fx=jump_fx,
                 platform_group=platform_group
             )
-
 
         world.draw_grid(screen)
 
