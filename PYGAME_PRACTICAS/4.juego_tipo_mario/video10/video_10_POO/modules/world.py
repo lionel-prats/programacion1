@@ -3,11 +3,12 @@ import pygame
 from modules.enemies.blob import Blob
 from modules.enemies.lava import Lava
 from modules.exit import Exit
+from modules.coin import Coin
 
 class World():
 
     # def __init__(self, data, tile_size):
-    def __init__(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, current_level):
+    def __init__(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, coin_group, current_level):
         
         self.screen_configs = screen_configs
         self.tile_list = []
@@ -64,6 +65,13 @@ class World():
                                 self.screen_configs.get("tile_size")
                                 )
                     enemy_sprite_group.add(lava)
+                
+                if tile == 7:
+                    coord_x = col_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size")//2)
+                    coord_y = row_count * self.screen_configs.get("tile_size") +  (self.screen_configs.get("tile_size")//2)
+                    coin = Coin(coord_x, coord_y, self.screen_configs.get("tile_size"))
+                    coin_group.add(coin)
+
 
                 if tile == 8:
                     exit_path_image = utilities_configs.get("exit").get("path_image")
@@ -92,8 +100,8 @@ class World():
 
     # function to reset level
     # @staticmethod
-    def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, current_level):
-        world = World(screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, current_level) # nueva instancia de World con el mapa del nivel que corresponda
+    def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, coin_group, current_level):
+        world = World(screen_configs, enemy_configs, enemy_sprite_group, utilities_configs, utilities_group, coin_group, current_level) # nueva instancia de World con el mapa del nivel que corresponda
         return world
     
 
@@ -109,3 +117,13 @@ class World():
         #     pickle_in.close()
         # world = World(world_data) # nueva instancia de World con el mapa del nivel que corresponda
         # return world
+
+    def draw_text(self, screen, text, font, text_col, x, y):
+        type_text = "score"
+        score = 154
+        data = self.screen_configs.get("texts").get(type_text)
+
+        # antialias = True
+        img = font.render(data.get('text').format(str(score)), True, eval(data.get('color'))) 
+        
+        screen.blit(img, (x,y))

@@ -6,6 +6,7 @@ from variables import *
 from modules.player import Player
 from modules.world import World
 from modules.button import Button
+from modules.font import Font
 
 
 limpiar_consola()
@@ -20,11 +21,24 @@ screen_dimentions = (configs.get("screen").get("screen_width"), configs.get("scr
 screen = pygame.display.set_mode(screen_dimentions)
 pygame.display.set_caption("VIDEO 10 - POO")
 
-# game variables
+# define font
+font = Font("Bauhaus 93", 70)
+
+font_score = Font("Bauhaus 93", 30)
+font_score_surface = font_score.surface_text
+
+
+# cacarulo = pygame.font.SysFont("Bauhaus 93", 70)
+# print(cacarulo)
+# img = cacarulo.render("text", True, (255,255,255))
+# print(img)
+
+# define game variables
 game_over = 0
 main_menu = True
 current_level = 1
 max_levels = 3
+score = 0 # monedas capturadas
 
 # load images 
 # sun_img = pygame.image.load(configs.get("screen").get("images").get("sky"))
@@ -40,7 +54,7 @@ enemies_group = pygame.sprite.Group()
 utilities_group = pygame.sprite.Group()
 
 # coins
-coins_group = pygame.sprite.Group()
+coin_group = pygame.sprite.Group()
 
 
 world = World(configs.get("screen"), 
@@ -48,6 +62,7 @@ world = World(configs.get("screen"),
               enemy_sprite_group=enemies_group,
               utilities_configs=configs.get("utilities"),
               utilities_group=utilities_group,
+              coin_group=coin_group,
               current_level=current_level)
 
 
@@ -84,9 +99,18 @@ while run:
 
         if game_over == 0:
             enemies_group.update()
+
+            # si hay colision entre el player y alguna coin, elimino la coin e incremento score en 1 
+            #update score
+            #check if a coin has been collected
+            if pygame.sprite.spritecollide(player, coin_group, True): # True elimina de la pantalla el sprite colisionado
+                score += 1
+            world.draw_text(screen, "X " + str(score), font_score_surface, "white", 40, 10)
+            print(score)
             
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
         enemies_group.draw(screen)
+        coin_group.draw(screen)
         utilities_group.draw(screen)
 
         # check for collision between player and enemies
@@ -121,7 +145,7 @@ while run:
                     enemy_sprite_group=enemies_group,
                     utilities_configs=configs.get("utilities"),
                     utilities_group=utilities_group,
-                    current_level=current_level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
+                    coin_group=coin_group,                    current_level=current_level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
             else: 
                 # restart game 
@@ -139,6 +163,7 @@ while run:
                     enemy_sprite_group=enemies_group,
                     utilities_configs=configs.get("utilities"),
                     utilities_group=utilities_group,
+                    coin_group=coin_group,
                     current_level=current_level)
                     game_over = 0 # habilito que se siga moviendo el player y los enemigos
                     print(game_over)
