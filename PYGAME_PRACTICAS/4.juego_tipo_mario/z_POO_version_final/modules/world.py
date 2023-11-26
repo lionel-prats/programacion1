@@ -15,7 +15,7 @@ class World():
             screen_configs, 
             enemy_configs, 
             enemy_sprite_group, 
-            utilities_configs, 
+            exit_configs, 
             exit_group, 
             coin_group, 
             platform_group, 
@@ -107,7 +107,7 @@ class World():
 
 
                 if tile == 8:
-                    exit_path_image = utilities_configs.get("exit").get("path_image")
+                    exit_path_image = exit_configs.get("path_image")
                     coord_x = col_count * self.screen_configs.get("tile_size")
                     coord_y = row_count * self.screen_configs.get("tile_size") - (self.screen_configs.get("tile_size") // 2)
                     exit = Exit(exit_path_image, coord_x, coord_y, self.screen_configs.get("tile_size"))
@@ -138,7 +138,7 @@ class World():
             screen_configs, 
             enemy_configs, 
             enemy_sprite_group, 
-            utilities_configs, 
+            exit_configs, 
             exit_group, 
             coin_group, 
             platform_group, 
@@ -148,7 +148,7 @@ class World():
                     screen_configs, 
                     enemy_configs, 
                     enemy_sprite_group, 
-                    utilities_configs, 
+                    exit_configs, 
                     exit_group, 
                     coin_group, 
                     platform_group, 
