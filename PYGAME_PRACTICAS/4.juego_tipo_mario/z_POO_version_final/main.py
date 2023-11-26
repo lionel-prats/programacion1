@@ -111,7 +111,7 @@ while run:
             
             if restart_button.draw(screen): # restart button is pressed
                 
-                player.reset(configs.get("player"))
+                player.initialize(configs.get("player"))
                 player_status = playing
                 score = 0 
                 
@@ -134,7 +134,7 @@ while run:
                 exit_group.empty()
                 platform_group.empty()
 
-                player.reset(configs.get("player"))
+                player.initialize(configs.get("player"))
 
                 world = world.reset_level(configs.get("screen"), configs.get("enemies"), 
                                           enemy_sprite_group=enemies_group, exit_configs=configs.get("exit"),
@@ -155,7 +155,7 @@ while run:
                     exit_group.empty()
                     platform_group.empty()
 
-                    player.reset(configs.get("player"))
+                    player.initialize(configs.get("player"))
 
                     world = world.reset_level(configs.get("screen"), configs.get("enemies"), 
                                               enemy_sprite_group=enemies_group, 
@@ -167,9 +167,12 @@ while run:
                     player_status = playing # habilito que se siga moviendo el player y los enemigos
                     score = 0 
 
-        player.update(screen, configs.get("screen").get("screen_height"), 
-                      tile_list = world.tile_list, game_over=player_status,
-                      jump_fx=jump_fx, platform_group=platform_group)
+        player.update(screen, 
+                      configs.get("screen").get("screen_height"), 
+                      tile_list = world.tile_list, 
+                      game_over=player_status,
+                      jump_fx=jump_fx, 
+                      platform_group=platform_group)
 
         world.draw_grid(screen)
 

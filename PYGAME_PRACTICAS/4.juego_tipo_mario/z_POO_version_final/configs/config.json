@@ -146,17 +146,21 @@
         }
     },
     "player": {
-        "animation": {
-            "dx": 5,
+        "animation_settings": {
+            "delta_x": 5,
+            "first_sprite": 1,
+            "total_sprites": 4,
             "vel_y": -15,
             "walk_cooldown": 5
         },
-        "coord_x": 100,
-        "coord_y": 870,
-        "path_dead_image": "img/ghost.png",
-        "path_main_image": "img/guy{0}.png",
-        "rect_height": 80,
-        "rect_width": 40
+        "image_settings": {
+            "initial_coord_x": 100,
+            "initial_coord_y": 870,
+            "path_dead_image": "img/ghost.png",
+            "path_main_image": "img/guy{0}.png",
+            "height": 80,
+            "width": 40
+        }
     },
     "enemies": {
         "blob": {

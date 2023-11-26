@@ -3,30 +3,30 @@ import pygame
 class Player():
     
     def __init__(self, player_configs: dict):
-        self.reset(player_configs)
+        self.initialize(player_configs)
 
     def update(self, screen, screen_height, tile_list: list[tuple], game_over, jump_fx, platform_group):
         
-        dx = 0
+        delta_x = 0
         dy = 0
-        walk_cooldown = self.player_configs.get("animation").get("walk_cooldown") # 5
+        walk_cooldown = self.player_configs.get("animation_settings").get("walk_cooldown") # 5
         col_thresh = 20 # collision with platforms
         
         if game_over == 0:
             key = pygame.key.get_pressed()
 
             if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
-                self.vel_y = self.player_configs.get("animation").get("vel_y") # -15
+                self.vel_y = self.player_configs.get("animation_settings").get("vel_y") # -15
                 self.jumped = True
                 jump_fx.play()
             if key[pygame.K_SPACE] == False:
                 self.jumped = False
             if key[pygame.K_LEFT]:
-                dx -= self.player_configs.get("animation").get("dx") # 5
+                delta_x -= self.player_configs.get("animation_settings").get("delta_x") # 5
                 self.counter += 1
                 self.direction = -1
             if key[pygame.K_RIGHT]:
-                dx += self.player_configs.get("animation").get("dx") # 5
+                delta_x += self.player_configs.get("animation_settings").get("delta_x") # 5
                 self.counter += 1
                 self.direction = 1
             if not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
@@ -60,8 +60,8 @@ class Player():
             self.in_air = True
             for tile in tile_list: 
                 # check for collision in x direction 
-                if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height): # dx = +/-5 or 0
-                    dx = 0
+                if tile[1].colliderect(self.rect.x + delta_x, self.rect.y, self.width, self.height): # delta_x = +/-5 or 0
+                    delta_x = 0
 
                 # if tile[1].colliderect(self.rect): 
                 # tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>)
@@ -81,8 +81,8 @@ class Player():
 
             # check for collision with platform
             for platform in platform_group:
-                if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
-                    dx = 0
+                if platform.rect.colliderect(self.rect.x + delta_x, self.rect.y, self.width, self.height):
+                    delta_x = 0
                 
                 # collision in the y direction
                 # self.rect.y + dy -> coord_y del player en todo momento
@@ -107,7 +107,7 @@ class Player():
                         self.rect.x += platform.move_direction
 
             # update rect player coordinates
-            self.rect.x += dx # +/-5 or 0
+            self.rect.x += delta_x # +/-5 or 0
             self.rect.y += dy 
 
         # el player perdio la vida, animacion del fantasma subiendo
@@ -119,24 +119,30 @@ class Player():
         screen.blit(self.image, self.rect) # draw player onto screen    
         pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
-    def reset(self, player_configs: dict):
-        print(player_configs.get("path_main_image"))
+    def initialize(self, player_configs: dict):
+
         self.player_configs = player_configs
         self.images_right = []
         self.images_left = []
         self.index = 0
         self.counter = 0 # frames counter
-        for num in range(1,5):
-            img_right = pygame.image.load(player_configs.get("path_main_image").format(num))
-            img_right = pygame.transform.scale(img_right, (self.player_configs.get("rect_width"), self.player_configs.get("rect_height")))
+
+        first_sprite = self.player_configs.get("animation_settings").get("first_sprite")
+        total_sprites = self.player_configs.get("animation_settings").get("total_sprites")
+
+        for num_sprite in range(first_sprite, total_sprites + 1):
+
+            img_right = pygame.image.load(player_configs.get("image_settings").get("path_main_image").format(num_sprite))
+
+            img_right = pygame.transform.scale(img_right, (self.player_configs.get("image_settings").get("width"), self.player_configs.get("image_settings").get("height")))
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
             self.images_left.append(img_left)
-        self.dead_image = pygame.image.load(self.player_configs.get("path_dead_image"))
+        self.dead_image = pygame.image.load(self.player_configs.get("image_settings").get("path_dead_image"))
         self.image = self.images_right[self.index]     
         self.rect = self.image.get_rect()
-        self.rect.x = player_configs.get("coord_x") # 100
-        self.rect.y = player_configs.get("coord_y") # 870
+        self.rect.x = player_configs.get("image_settings").get("initial_coord_x") 
+        self.rect.y = player_configs.get("image_settings").get("initial_coord_y") 
         self.width = self.rect.width 
         self.height = self.rect.height 
         self.vel_y = 0
