@@ -99,14 +99,14 @@ while run:
         coin_group.draw(screen)
         exit_group.draw(screen)
 
-        if game_over == 0: # playing
+        if game_over == playing: # playing
 
             platform_group.update()
             enemies_group.update()
 
             # check for collision between player and enemies (blobs, lava)
             if pygame.sprite.spritecollide(player, enemies_group, False):
-                game_over = -1
+                game_over = player_dead
                 game_over_fx.play()
 
             # check if a coin has been collected
@@ -117,19 +117,19 @@ while run:
 
             # check for collision between player and exit
             if pygame.sprite.spritecollide(player, exit_group, False):
-                game_over = 1
+                game_over = player_win
         
         # update score
         world.draw_text(screen, ("score", score, coin_group))
 
-        if game_over == -1: # player has died
+        if game_over == player_dead: # player has died
 
             world.draw_text(screen, ("game_over",))
             
             if restart_button.draw(screen): # restart button is pressed
                 
                 player.reset(configs.get("player1"))
-                game_over = 0
+                game_over = playing
                 score = 0 
                 
                 enemies_group.empty()
@@ -141,7 +141,7 @@ while run:
                                           exit_group=exit_group, coin_group=coin_group,
                                           platform_group=platform_group, current_level=current_level)
 
-        if game_over == 1: # player has completed the level 
+        if game_over == player_win: # player has completed the level 
 
             current_level += 1
 
@@ -158,7 +158,7 @@ while run:
                                           exit_group=exit_group, coin_group=coin_group,                    
                                           platform_group=platform_group, current_level=current_level) 
 
-                game_over = 0 # habilito que se siga moviendo el player y los enemigos
+                game_over = playing # habilito que se siga moviendo el player y los enemigos
             
             else: 
 
@@ -179,7 +179,7 @@ while run:
                                               exit_group=exit_group, coin_group=coin_group,
                                               platform_group=platform_group, current_level=current_level)
                     
-                    game_over = 0 # habilito que se siga moviendo el player y los enemigos
+                    game_over = playing # habilito que se siga moviendo el player y los enemigos
                     score = 0 
 
         player.update(screen, configs.get("screen").get("screen_height"), 
