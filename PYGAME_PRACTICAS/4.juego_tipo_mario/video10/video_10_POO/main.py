@@ -100,35 +100,11 @@ while run:
             if pygame.sprite.spritecollide(player, coin_group, True): 
                 score += 1
             world.draw_text(screen, ("score", score))
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
         enemies_group.draw(screen)
         coin_group.draw(screen)
-        utilities_group.draw(screen)
+        utilities_group.draw(screen) # puertas de salida
 
         # check for collision between player and enemies
         if pygame.sprite.spritecollide(player, enemies_group, False):
@@ -147,6 +123,17 @@ while run:
                 player.reset(configs.get("player1"))
                 game_over = 0
                 score = 0 
+                enemies_group.empty()
+                utilities_group.empty()
+                world = world.reset_level(
+                    configs.get("screen"), 
+                    configs.get("enemies"), 
+                    enemy_sprite_group=enemies_group,
+                    utilities_configs=configs.get("utilities"),
+                    utilities_group=utilities_group,
+                    coin_group=coin_group,
+                    current_level=current_level
+                )
 
         # if player has completed the level
         if game_over == 1: # el player llego a la puerta y paso de nivel
@@ -164,7 +151,9 @@ while run:
                     enemy_sprite_group=enemies_group,
                     utilities_configs=configs.get("utilities"),
                     utilities_group=utilities_group,
-                    coin_group=coin_group,                    current_level=current_level) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
+                    coin_group=coin_group,                    
+                    current_level=current_level
+                ) # en la variable que guarda el objeto World, cargo una nueva instancia de World cada vez que el player supera un nivel
                 game_over = 0 # habilito que se siga moviendo el player y los enemigos
             else: 
                 world.draw_text(screen, ("you_win",))
@@ -197,7 +186,7 @@ while run:
         world.draw_grid(screen)
 
     pygame.display.update()
-
+    
 pygame.quit()
 
 # cd /Users/User/Desktop/utn/cuatrimestre1/programacion_1/PYGAME_PRACTICAS/4.juego_tipo_mario/video10/video_10_POO
