@@ -110,23 +110,23 @@ while run:
                 coin_fx.play()
             world.draw_text(screen, ("score", score, coin_group))
             
+            # print(enemies_group)
+            # check for collision between player and enemies
+            if pygame.sprite.spritecollide(player, enemies_group, False):
+                game_over = -1
+                game_over_fx.play()
+                
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
         coin_group.draw(screen)
         enemies_group.draw(screen)
         platform_group.draw(screen)
         utilities_group.draw(screen) # puertas de salida
 
-        # print(enemies_group)
-        # check for collision between player and enemies
-        if pygame.sprite.spritecollide(player, enemies_group, False):
-            game_over = -1
-            game_over_fx.play()
-            print("COLLISION")
+        
 
         # check for collision between player and exit
         if pygame.sprite.spritecollide(player, utilities_group, False):
             game_over = 1
-           
 
         
         # if player has died
