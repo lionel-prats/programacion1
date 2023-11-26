@@ -5,7 +5,7 @@ class Player():
     def __init__(self, player_configs: dict):
         self.reset(player_configs)
 
-    def update(self, screen, screen_height, tile_list: list[tuple], game_over):
+    def update(self, screen, screen_height, tile_list: list[tuple], game_over, jump_fx):
         
         dx = 0
         dy = 0
@@ -18,6 +18,7 @@ class Player():
             if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
                 self.vel_y = self.player_configs.get("animation").get("vel_y") # -15
                 self.jumped = True
+                jump_fx.play()
             if key[pygame.K_SPACE] == False:
                 self.jumped = False
             if key[pygame.K_LEFT]:

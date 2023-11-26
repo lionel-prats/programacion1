@@ -158,3 +158,21 @@ class World():
         img = superficie.render(texto_a_imprimir, True, color) 
         
         screen.blit(img, (x,y))
+
+    @staticmethod
+    def inicializar_sonidos():
+        pygame.mixer.music.load("img/music.wav")
+        pygame.mixer.music.play(-1, 0.0, 5000) 
+        # param 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
+        pygame.mixer.music.set_volume(0.1)
+        # coin_fx = pygame.mixer.Sound("img/coin.wav")
+        # coin_fx.set_volume(0.1)
+        # return coin_fx
+    
+        coin_fx = pygame.mixer.Sound("img/coin.wav")
+        coin_fx.set_volume(0.1)
+        jump_fx = pygame.mixer.Sound("img/jump.wav")
+        jump_fx.set_volume(0.1)
+        game_over_fx = pygame.mixer.Sound("img/game_over.wav")
+        game_over_fx.set_volume(0.1)
+        return (coin_fx, jump_fx, game_over_fx)

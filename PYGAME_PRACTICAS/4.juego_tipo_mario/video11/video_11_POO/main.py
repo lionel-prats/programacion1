@@ -64,6 +64,10 @@ restart_button = Button(configs.get("buttons").get("restart"))
 start_button = Button(configs.get("buttons").get("start"))
 exit_button = Button(configs.get("buttons").get("exit"))
 
+coin_fx, jump_fx, game_over_fx = World.inicializar_sonidos()
+
+print(jump_fx)
+
 run = True
 while run:
     # print(utilities_group)
@@ -99,6 +103,7 @@ while run:
             # True elimina de la pantalla el sprite colisionado
             if pygame.sprite.spritecollide(player, coin_group, True): 
                 score += 1
+                coin_fx.play()
             world.draw_text(screen, ("score", score, coin_group))
             
         # .draw -> metodo de la clase Group para blitear los elementos de un objeto de tipo Group (sprites)
@@ -109,6 +114,7 @@ while run:
         # check for collision between player and enemies
         if pygame.sprite.spritecollide(player, enemies_group, False):
             game_over = -1
+            game_over_fx.play()
 
         # check for collision between player and exit
         if pygame.sprite.spritecollide(player, utilities_group, False):
@@ -180,7 +186,13 @@ while run:
         
         # print(current_level)
 
-        player.update(screen, configs.get("screen").get("screen_height"), tile_list = world.tile_list, game_over=game_over)
+        player.update(
+                screen, 
+                configs.get("screen").get("screen_height"), 
+                tile_list = world.tile_list, 
+                game_over=game_over,
+                jump_fx=jump_fx
+            )
 
 
         world.draw_grid(screen)
