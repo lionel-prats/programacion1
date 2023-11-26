@@ -211,7 +211,8 @@ while run:
                 configs.get("screen").get("screen_height"), 
                 tile_list = world.tile_list, 
                 game_over=game_over,
-                jump_fx=jump_fx
+                jump_fx=jump_fx,
+                platform_group=platform_group
             )
 
 
