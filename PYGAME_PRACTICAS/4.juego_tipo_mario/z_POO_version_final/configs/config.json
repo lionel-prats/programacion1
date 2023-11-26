@@ -146,17 +146,17 @@
         }
     },
     "player": {
-        "path_image": "img/guy{num}.png",
-        "dead_image": "img/ghost.png",
-        "rect_width": 40,
-        "rect_height": 80,
-        "coord_x": 100,
-        "coord_y": 870,
         "animation": {
             "dx": 5,
             "vel_y": -15,
             "walk_cooldown": 5
-        }
+        },
+        "coord_x": 100,
+        "coord_y": 870,
+        "path_dead_image": "img/ghost.png",
+        "path_main_image": "img/guy{0}.png",
+        "rect_height": 80,
+        "rect_width": 40
     },
     "enemies": {
         "blob": {

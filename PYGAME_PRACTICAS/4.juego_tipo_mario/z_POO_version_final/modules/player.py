@@ -10,10 +10,10 @@ class Player():
         dx = 0
         dy = 0
         walk_cooldown = self.player_configs.get("animation").get("walk_cooldown") # 5
-        col_thresh = 20 # v13
+        col_thresh = 20 # collision with platforms
         
         if game_over == 0:
-            key = pygame.key.get_pressed() # get kypresses
+            key = pygame.key.get_pressed()
 
             if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
                 self.vel_y = self.player_configs.get("animation").get("vel_y") # -15
@@ -72,21 +72,15 @@ class Player():
                     if self.vel_y < 0: # el player esta durante la curva de un salto, entonces la colision es entre rl bottom del tile y el top del player
                         dy = tile[1].bottom - self.rect.top # 0
                         self.vel_y = 0
-                    # check if above the ground i.e falling
-                    elif self.vel_y >= 0: # el player esta en reposo, entonces la colision es entre el bottom del player y el top del tile
-                        dy = tile[1].top - self.rect.bottom # 0
+
+                    # check if player is above the ground 
+                    elif self.vel_y >= 0: 
+                        dy = tile[1].top - self.rect.bottom 
                         self.vel_y = 0
                         self.in_air = False
 
-            # v13
             # check for collision with platform
-            # si el player colisiona contra alguno de los latearles de alguna de las plataformas mientras salta, detengo el movimiento del player generando un tope
-            # si el player colisiona contra el top o el bottom de alguna de las plataformas mientras salta, o genero un tope si el player colisiona con la cabeza, o me paro sobre la platarma si colisiona con los pies
             for platform in platform_group:
-                # collision in the x direction
-                # if self.rect.colliderect(400,900,50,50): 
-                # if objeto1.colliderect(rect(400, 900, 50, 50)) -> podemos chequear colision entre el player y cualquier coordenada de la pantalla, no necesariamente con otro objeto
-                # if platform.rect.colliderect(self): # objeto1.colliderect(objeto2) -> True si hay colision entre ambos objetos, False en caso contrario
                 if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
                     dx = 0
                 
@@ -116,9 +110,6 @@ class Player():
             self.rect.x += dx # +/-5 or 0
             self.rect.y += dy 
 
-    
-        
-        
         # el player perdio la vida, animacion del fantasma subiendo
         if game_over == -1:
             self.image = self.dead_image
@@ -128,64 +119,20 @@ class Player():
         screen.blit(self.image, self.rect) # draw player onto screen    
         pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
-        # print(self.vel_y, self.rect.y)
-        # self.rect.y when start the game vvv
-        # self.vel_y=1 self.rect.y=871
-        # self.vel_y=2 self.rect.y=873
-        # self.vel_y=3 self.rect.y=876
-        # self.vel_y=4 self.rect.y=880
-        # self.vel_y=5 self.rect.y=885
-        # self.vel_y=6 self.rect.y=891
-        # self.vel_y=7 self.rect.y=898
-        # self.vel_y=8 self.rect.y=906
-        # self.vel_y=9 self.rect.y=915
-        # self.vel_y=10 self.rect.y=920...
-        
-        # self.rect.y when player jump vvv
-        # self.vel_y=-14 self.rect.y=906 UP
-        # self.vel_y=-13 self.rect.y=893 UP
-        # self.vel_y=-12 self.rect.y=881 UP
-        # self.vel_y=-11 self.rect.y=870 UP
-        # self.vel_y=-10 self.rect.y=860 UP
-        # self.vel_y=-9 self.rect.y=851 UP
-        # self.vel_y=-8 self.rect.y=843 UP
-        # self.vel_y=-7 self.rect.y=836 UP
-        # self.vel_y=-6 self.rect.y=830 UP
-        # self.vel_y=-5 self.rect.y=825 UP
-        # self.vel_y=-4 self.rect.y=821 UP
-        # self.vel_y=-3 self.rect.y=818 UP
-        # self.vel_y=-2 self.rect.y=816 UP
-        # self.vel_y=-1 self.rect.y=815 UP
-        # self.vel_y=0 self.rect.y=815 -
-        # self.vel_y=1 self.rect.y=816 DOWN
-        # self.vel_y=2 self.rect.y=818 DOWN
-        # self.vel_y=3 self.rect.y=821 DOWN
-        # self.vel_y=4 self.rect.y=825 DOWN
-        # self.vel_y=5 self.rect.y=830 DOWN
-        # self.vel_y=6 self.rect.y=836 DOWN
-        # self.vel_y=7 self.rect.y=843 DOWN
-        # self.vel_y=8 self.rect.y=851 DOWN
-        # self.vel_y=9 self.rect.y=860 DOWN
-        # self.vel_y=10 self.rect.y=870 DOWN
-        # self.vel_y=10 self.rect.y=880 DOWN
-        # self.vel_y=10 self.rect.y=890 DOWN
-        # self.vel_y=10 self.rect.y=900 DOWN
-        # self.vel_y=10 self.rect.y=910 DOWN
-        # self.vel_y=10 self.rect.y=920...
-
     def reset(self, player_configs: dict):
+        print(player_configs.get("path_main_image"))
         self.player_configs = player_configs
         self.images_right = []
         self.images_left = []
         self.index = 0
         self.counter = 0 # frames counter
         for num in range(1,5):
-            img_right = pygame.image.load(f"img/guy{num}.png")
+            img_right = pygame.image.load(player_configs.get("path_main_image").format(num))
             img_right = pygame.transform.scale(img_right, (self.player_configs.get("rect_width"), self.player_configs.get("rect_height")))
             img_left = pygame.transform.flip(img_right, True, False)
             self.images_right.append(img_right)
             self.images_left.append(img_left)
-        self.dead_image = pygame.image.load(self.player_configs.get("dead_image"))
+        self.dead_image = pygame.image.load(self.player_configs.get("path_dead_image"))
         self.image = self.images_right[self.index]     
         self.rect = self.image.get_rect()
         self.rect.x = player_configs.get("coord_x") # 100
