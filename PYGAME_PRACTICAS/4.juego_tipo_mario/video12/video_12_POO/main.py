@@ -30,7 +30,7 @@ pygame.display.set_caption("VIDEO 12 - POO")
 game_over = 0
 main_menu = True
 current_level = 1
-max_levels = 3
+max_levels = 4
 score = 0 # monedas capturadas
 
 # load images 
