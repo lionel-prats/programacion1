@@ -10,7 +10,7 @@ class Player():
         delta_x = 0
         delta_y = 0
         velocity_animation = self.player_configs.get("animation_settings").get("velocity_animation") 
-        col_thresh = 20 # collision with platforms in Y
+        col_thresh = 20 # useful in collision with platforms in Y
         
         if player_status == playing_value:
             key = pygame.key.get_pressed()

@@ -1,5 +1,4 @@
 import pygame 
-# from modules.enemies.enemy import Enemy
 from modules.enemies.blob import Blob
 from modules.enemies.lava import Lava
 from modules.exit import Exit
@@ -9,24 +8,16 @@ from modules.platform import Platform
 
 class World():
 
-    # def __init__(self, data, tile_size):
-    def __init__(
-            self, 
-            screen_configs, 
-            enemy_configs, 
-            enemy_sprite_group, 
-            exit_configs, 
-            exit_group, 
-            coin_group, 
-            platform_group, 
-            current_level):
+    def __init__(self, screen_configs, enemy_configs, 
+                 enemy_sprite_group, exit_configs, exit_group, 
+                 coin_group, platform_group, current_level):
         
         self.screen_configs = screen_configs
         self.tile_list = []
 
         #load images 
-        dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
-        grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
+        # dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
+        # grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
         
         # agrego al coin_group una coin para que se blitee en el score, arriba a la izquierda en la pantalla
         score_coin = Coin(25, 28, 45)
@@ -37,14 +28,16 @@ class World():
         for row in self.screen_configs.get("levels").get(str(current_level)): 
             col_count = 0
             for tile in row: 
-                if tile == 1:
+                if tile == 1: # dirt
+                    dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
                     img = pygame.transform.scale(dirt_img, (self.screen_configs.get("tile_size"), self.screen_configs.get("tile_size")))
                     img_rect = img.get_rect() 
                     img_rect.x = col_count * img_rect.width
                     img_rect.y = row_count * img_rect.height
                     tile = (img, img_rect) 
                     self.tile_list.append(tile)
-                if tile == 2:
+                if tile == 2: # grass
+                    grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
                     img = pygame.transform.scale(grass_img, (self.screen_configs.get("tile_size"), self.screen_configs.get("tile_size")))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * img_rect.width
@@ -53,7 +46,7 @@ class World():
                     self.tile_list.append(tile)
                 
                 
-                if tile == "blob":
+                if tile == "blob": # blob
                     enemy_path_image = enemy_configs.get("blob").get("path_image")
                     enemy_height_image = enemy_configs.get("blob").get("height_image")
                     compensation_y = self.screen_configs.get("tile_size") - enemy_height_image
@@ -112,8 +105,6 @@ class World():
                     coord_y = row_count * self.screen_configs.get("tile_size") - (self.screen_configs.get("tile_size") // 2)
                     exit = Exit(exit_path_image, coord_x, coord_y, self.screen_configs.get("tile_size"))
                     exit_group.add(exit)
-                    # exit = Exit(col_count * tile_size, row_count * tile_size - (tile_size // 2))
-                    # exit_group.add(exit)
                     
                 col_count += 1
             row_count += 1
@@ -161,18 +152,10 @@ class World():
         x = informacion_texto.get('coord_x')
         y = informacion_texto.get('coord_y')
 
-        # print(informacion_texto)
-        
-
-
         instancia_Font = Font(tipo_fuente, tamanio_fuente)
         superficie = instancia_Font.surface_text
-        # print(font_score_surface)
 
-
-
-        # antialias = True
-        img = superficie.render(texto_a_imprimir, True, color) 
+        img = superficie.render(texto_a_imprimir, True, color) # antialias = True
         
         screen.blit(img, (x,y))
 
@@ -180,7 +163,7 @@ class World():
     def inicializar_sonidos():
         pygame.mixer.music.load("img/music.wav")
         pygame.mixer.music.play(-1, 0.0, 5000) 
-        # param 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
+        # param == 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
         pygame.mixer.music.set_volume(0.025)
     
         coin_fx = pygame.mixer.Sound("img/coin.wav")
