@@ -3,8 +3,11 @@ from modules.enemies.enemy import Enemy
 class Blob(Enemy):
     def __init__(self, path_image, x, y, tile_size):
         Enemy.__init__(self, path_image, x, y)
+        
+        # pongo a los blobs sobre el suelo si su altura es menor a la de las baldosas
         if self.rect.height < tile_size:
-            self.rect.y += abs(self.rect.height - tile_size) # pongo a los blobs sobre el suelo si su altura es menor a la de las baldosas
+            self.rect.y += abs(self.rect.height - tile_size) 
+        
         self.move_direction = 1
         self.move_counter = 0
 

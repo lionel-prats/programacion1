@@ -61,20 +61,16 @@ class World():
 
                 if tile == 6: # lava
                     enemy_path_image = enemy_configs.get("lava").get("path_image")
-                    mono_coord_y = row_count * self.tile_size + (self.tile_size // 2)
-
-                    lava = Lava(enemy_path_image, coord_x, mono_coord_y, self.tile_size)
+                    lava = Lava(enemy_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(lava)
                 
                 if tile == 7: # coins
-                    mono_coord_y = row_count * self.tile_size +  (self.tile_size//2)
-                    coin = Coin(coord_x, mono_coord_y, self.tile_size)
+                    coin = Coin(coord_x, coord_y, self.tile_size)
                     coin_group.add(coin)
 
                 if tile == 8: # exit door
                     exit_path_image = exit_configs.get("path_image")
-                    mono_coord_y = row_count * self.tile_size - (self.tile_size // 2)
-                    exit = Exit(exit_path_image, coord_x, mono_coord_y, self.tile_size)
+                    exit = Exit(exit_path_image, coord_x, coord_y, self.tile_size)
                     exit_group.add(exit)
                     
                 col_count += 1
