@@ -7,24 +7,17 @@ from modules.font import Font
 from modules.platform import Platform
 
 class World():
-
     def __init__(self, screen_configs, enemy_configs, 
                  enemy_sprite_group, exit_configs, exit_group, 
                  coin_group, platform_group, current_level):
         
         self.screen_configs = screen_configs
         self.tile_list = []
-
-        #load images 
-        # dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
-        # grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
         
-        # agrego al coin_group una coin para que se blitee en el score, arriba a la izquierda en la pantalla
-        score_coin = Coin(25, 28, 45)
+        score_coin = Coin(25, 28, 45) # coin para el scpre arriba a la izquierda
         coin_group.add(score_coin) 
         
         row_count = 0
-        # for row in self.screen_configs.get("world_data"): 
         for row in self.screen_configs.get("levels").get(str(current_level)): 
             col_count = 0
             for tile in row: 
@@ -36,6 +29,7 @@ class World():
                     img_rect.y = row_count * img_rect.height
                     tile = (img, img_rect) 
                     self.tile_list.append(tile)
+
                 if tile == 2: # grass
                     grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
                     img = pygame.transform.scale(grass_img, (self.screen_configs.get("tile_size"), self.screen_configs.get("tile_size")))
@@ -45,32 +39,22 @@ class World():
                     tile = (img, img_rect) 
                     self.tile_list.append(tile)
                 
-                
-                if tile == "blob": # blob
+                if tile == 3: # blob
                     enemy_path_image = enemy_configs.get("blob").get("path_image")
                     enemy_height_image = enemy_configs.get("blob").get("height_image")
                     compensation_y = self.screen_configs.get("tile_size") - enemy_height_image
-                    # enemy = Enemy(enemy_path_image, 
-                    #              col_count * self.screen_configs.get("tile_size"), 
-                    #              row_count * self.screen_configs.get("tile_size") + compensation_y)
-                    
-                    enemy = Blob(enemy_path_image, 
-                                 col_count * self.screen_configs.get("tile_size"), 
+                    enemy = Blob(enemy_path_image, col_count * self.screen_configs.get("tile_size"), 
                                  row_count * self.screen_configs.get("tile_size") + compensation_y)
-
                     enemy_sprite_group.add(enemy)
 
-                if tile == 4: # plataformas con movimiento en eje X v12
-
+                if tile == 4: # plataformas con movimiento en eje X 
                     coord_x = col_count * self.screen_configs.get("tile_size")
                     coord_y = row_count * self.screen_configs.get("tile_size")
                     tile_size = self.screen_configs.get("tile_size")
-
                     platform = Platform(coord_x, coord_y, tile_size, 1, 0)
                     platform_group.add(platform)
 
-                if tile == 5: # plataformas con movimiento en eje Y v12
-
+                if tile == 5: # plataformas con movimiento en eje Y 
                     coord_x = col_count * self.screen_configs.get("tile_size")
                     coord_y = row_count * self.screen_configs.get("tile_size")
                     tile_size = self.screen_configs.get("tile_size")
@@ -78,28 +62,22 @@ class World():
                     platform = Platform(coord_x, coord_y, tile_size, 0, 1)
                     platform_group.add(platform)
 
-
-                if tile == "lava":
-
+                if tile == 6: # lava
                     enemy_path_image = enemy_configs.get("lava").get("path_image")
                     enemy_height_image = enemy_configs.get("lava").get("height_image")
                     coord_x = col_count * self.screen_configs.get("tile_size")
                     coord_y = row_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size") // 2)
-                    lava = Lava(enemy_path_image, 
-                                coord_x, 
-                                coord_y,
-                                self.screen_configs.get("tile_size")
-                                )
+
+                    lava = Lava(enemy_path_image, coord_x, coord_y, self.screen_configs.get("tile_size"))
                     enemy_sprite_group.add(lava)
                 
-                if tile == 7:
+                if tile == 7: # coins
                     coord_x = col_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size")//2)
                     coord_y = row_count * self.screen_configs.get("tile_size") +  (self.screen_configs.get("tile_size")//2)
                     coin = Coin(coord_x, coord_y, self.screen_configs.get("tile_size"))
                     coin_group.add(coin)
 
-
-                if tile == 8:
+                if tile == 8: # exit door
                     exit_path_image = exit_configs.get("path_image")
                     coord_x = col_count * self.screen_configs.get("tile_size")
                     coord_y = row_count * self.screen_configs.get("tile_size") - (self.screen_configs.get("tile_size") // 2)
@@ -122,7 +100,6 @@ class World():
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
 
-    # function to reset level
     def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, \
                     exit_configs, exit_group, coin_group, platform_group, current_level):
         
@@ -161,15 +138,15 @@ class World():
 
     @staticmethod
     def inicializar_sonidos():
-        pygame.mixer.music.load("img/music.wav")
+        pygame.mixer.music.load("assets/sounds/music.wav")
         pygame.mixer.music.play(-1, 0.0, 5000) 
         # param == 5000 -> volumen musica de fondo in crescendo durante 5 segs hasta llegar al 100% del volumen seteado
         pygame.mixer.music.set_volume(0.025)
     
-        coin_fx = pygame.mixer.Sound("img/coin.wav")
+        coin_fx = pygame.mixer.Sound("assets/sounds/coin.wav")
         coin_fx.set_volume(0.05)
-        jump_fx = pygame.mixer.Sound("img/jump.wav")
+        jump_fx = pygame.mixer.Sound("assets/sounds/jump.wav")
         jump_fx.set_volume(0.05)
-        game_over_fx = pygame.mixer.Sound("img/game_over.wav")
+        game_over_fx = pygame.mixer.Sound("assets/sounds/game_over.wav")
         game_over_fx.set_volume(0.05)
         return (coin_fx, jump_fx, game_over_fx)
