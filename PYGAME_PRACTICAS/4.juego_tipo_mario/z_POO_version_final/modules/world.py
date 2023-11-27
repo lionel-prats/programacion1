@@ -14,7 +14,7 @@ class World():
         self.screen_configs = screen_configs
         self.tile_list = []
         
-        score_coin = Coin(25, 28, 45) # coin para el scpre arriba a la izquierda
+        score_coin = Coin(25, 28, 45) # coin para el score arriba a la izquierda
         coin_group.add(score_coin) 
         
         self.tile_size = self.screen_configs.get("tile_size") # lado de las baldozas (son cuadradas)
@@ -24,6 +24,9 @@ class World():
         for row in self.screen_configs.get("levels").get(str(current_level)): 
             col_count = 0
             for tile in row: 
+
+                coord_x = col_count * self.tile_size
+
                 if tile == 1: # dirt
                     dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
                     img = pygame.transform.scale(dirt_img, (self.tile_size, self.tile_size))
@@ -44,19 +47,18 @@ class World():
                 
                 if tile == 3: # blob
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    coord_x = col_count * self.tile_size
                     coord_y = row_count * self.tile_size
+
                     enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(enemy)
 
                 if tile == 4: # plataformas con movimiento en eje X 
-                    coord_x = col_count * self.tile_size
                     coord_y = row_count * self.tile_size
+
                     platform = Platform(coord_x, coord_y, self.tile_size, 1, 0)
                     platform_group.add(platform)
 
                 if tile == 5: # plataformas con movimiento en eje Y 
-                    coord_x = col_count * self.tile_size
                     coord_y = row_count * self.tile_size
 
                     platform = Platform(coord_x, coord_y, self.tile_size, 0, 1)
@@ -64,22 +66,18 @@ class World():
 
                 if tile == 6: # lava
                     enemy_path_image = enemy_configs.get("lava").get("path_image")
-                    enemy_height_image = enemy_configs.get("lava").get("height_image")
-                    coord_x = col_count * self.tile_size
                     coord_y = row_count * self.tile_size + (self.tile_size // 2)
 
                     lava = Lava(enemy_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(lava)
                 
                 if tile == 7: # coins
-                    coord_x = col_count * self.tile_size + (self.tile_size//2)
                     coord_y = row_count * self.tile_size +  (self.tile_size//2)
                     coin = Coin(coord_x, coord_y, self.tile_size)
                     coin_group.add(coin)
 
                 if tile == 8: # exit door
                     exit_path_image = exit_configs.get("path_image")
-                    coord_x = col_count * self.tile_size
                     coord_y = row_count * self.tile_size - (self.tile_size // 2)
                     exit = Exit(exit_path_image, coord_x, coord_y, self.tile_size)
                     exit_group.add(exit)

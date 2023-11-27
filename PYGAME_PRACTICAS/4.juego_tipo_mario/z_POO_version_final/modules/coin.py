@@ -6,5 +6,5 @@ class Coin(pygame.sprite.Sprite):
         img = pygame.image.load('img/coin.png')
         self.image = pygame.transform.scale(img, (tile_size//2, tile_size//2))
         self.rect = self.image.get_rect()
-        self.rect.center = (x,y)
+        self.rect.center = (x+tile_size//2, y)
         

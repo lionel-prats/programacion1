@@ -118,6 +118,7 @@ while run:
                 enemies_group.empty()
                 exit_group.empty()
                 platform_group.empty()
+                coin_group.empty()
 
                 world = world.reset_level(configs.get("screen"), configs.get("enemies"), 
                                           enemy_sprite_group=enemies_group, exit_configs=configs.get("exit"),
@@ -133,6 +134,7 @@ while run:
                 enemies_group.empty()
                 exit_group.empty()
                 platform_group.empty()
+                coin_group.empty()
 
                 player.initialize(configs.get("player"))
 
@@ -154,6 +156,7 @@ while run:
                     enemies_group.empty()
                     exit_group.empty()
                     platform_group.empty()
+                    coin_group.empty()
 
                     player.initialize(configs.get("player"))
 
