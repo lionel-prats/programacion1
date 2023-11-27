@@ -168,7 +168,6 @@ while run:
                     score = 0 
 
         player.update(screen, 
-                      configs.get("screen").get("screen_height"), 
                       tile_list = world.tile_list, 
                       game_over=player_status,
                       jump_fx=jump_fx, 

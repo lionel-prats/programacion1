@@ -147,11 +147,11 @@
     },
     "player": {
         "animation_settings": {
-            "delta_x": 5,
+            "velocity_x": 5,
             "first_sprite": 1,
             "total_sprites": 4,
-            "vel_y": -15,
-            "walk_cooldown": 5
+            "jumping_capacity": -15,
+            "velocity_animation": 5
         },
         "image_settings": {
             "initial_coord_x": 100,
