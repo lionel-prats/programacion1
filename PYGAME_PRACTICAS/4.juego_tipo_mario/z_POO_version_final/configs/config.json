@@ -106,18 +106,18 @@
         },
         "images": {
             "background_image": {
-                "path_image": "img/background_image.png",
+                "path_image": "assets/img/background_image.png",
                 "coord_x": 0,
                 "coord_y": 0
             },
             "sun": {
-                "path_image": "img/sun.png",
+                "path_image": "assets/img/sun.png",
                 "coord_x": 100,
                 "coord_y": 100
             },
-            "dirt": "img/dirt.png",
-            "grass": "img/grass.png",
-            "platform": "img/platform.png"
+            "dirt": "assets/img/dirt.png",
+            "grass": "assets/img/grass.png",
+            "platform": "assets/img/platform.png"
             
         },
         "texts": {
@@ -158,60 +158,60 @@
         "image_settings": {
             "initial_coord_x": 100,
             "initial_coord_y": 870,
-            "path_dead_image": "img/ghost.png",
-            "path_main_image": "img/guy{0}.png",
+            "path_dead_image": "assets/img/ghost.png",
+            "path_main_image": "assets/img/guy{0}.png",
             "height": 80,
             "width": 40
         }
     },
     "enemies": {
         "blob": {
-            "path_image": "img/blob.png",
+            "path_image": "assets/img/blob.png",
             "width_image": 46,
             "height_image": 35
         },
         "lava": {
-            "path_image": "img/lava.png",
+            "path_image": "assets/img/lava.png",
             "width_image": 21,
             "height_image": 12
         },
         "bomb": {
-            "path_image": "img/bomb.png",
+            "path_image": "assets/img/bomb.png",
             "width_image": 46,
             "height_image": 35
         }
     },
     "utilities": {
         "exit": {
-            "path_image": "img/exit.png",
+            "path_image": "assets/img/exit.png",
             "width_image": 21,
             "height_image": 30
         }
     },
     "exit": {
-        "path_image": "img/exit.png",
+        "path_image": "assets/img/exit.png",
         "width_image": 21,
         "height_image": 30
     },
     "buttons": {
         "exit": {
-            "path_image": "img/exit_btn.png",
+            "path_image": "assets/img/exit_btn.png",
             "coord_x": 650,
             "coord_y": 500
         },
         "restart": {
-            "path_image": "img/restart_btn.png",
+            "path_image": "assets/img/restart_btn.png",
             "coord_x": 450,
             "coord_y": 600
         },
         "start": {
-            "path_image": "img/start_btn.png",
+            "path_image": "assets/img/start_btn.png",
             "coord_x": 150,
             "coord_y": 500
         }
     },
     "coins": {
-        "path_image": "img/coin.png",
+        "path_image": "assets/img/coin.png",
         "add_score": 10
     }
 }
