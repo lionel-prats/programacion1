@@ -44,7 +44,8 @@ coin_group = pygame.sprite.Group()
 
 world = World(configs.get("screen"), configs.get("enemies"), enemy_sprite_group=enemies_group,
               exit_configs=configs.get("exit"), exit_group=exit_group, coin_group=coin_group,
-              platform_group=platform_group, current_level=current_level)
+              platform_group=platform_group, current_level=current_level,
+              coin_path_image=configs.get("coins").get("path_image"))
 
 # create buttons 
 restart_button = Button(configs.get("buttons").get("restart"))
@@ -123,7 +124,8 @@ while run:
                 world = world.reset_level(configs.get("screen"), configs.get("enemies"), 
                                           enemy_sprite_group=enemies_group, exit_configs=configs.get("exit"),
                                           exit_group=exit_group, coin_group=coin_group,
-                                          platform_group=platform_group, current_level=current_level)
+                                          platform_group=platform_group, current_level=current_level,
+                                          coin_path_image=configs.get("coins").get("path_image"))
 
         if player_status == player_win:
 
@@ -141,7 +143,8 @@ while run:
                 world = world.reset_level(configs.get("screen"), configs.get("enemies"), 
                                           enemy_sprite_group=enemies_group, exit_configs=configs.get("exit"),
                                           exit_group=exit_group, coin_group=coin_group,                    
-                                          platform_group=platform_group, current_level=current_level) 
+                                          platform_group=platform_group, current_level=current_level,
+                                          coin_path_image=configs.get("coins").get("path_image")) 
 
                 player_status = playing # habilito que se siga moviendo el player y los enemigos
             
@@ -165,7 +168,8 @@ while run:
                                               exit_configs=configs.get("exit"),
                                               exit_group=exit_group, coin_group=coin_group,
                                               platform_group=platform_group, 
-                                              current_level=current_level)
+                                              current_level=current_level,
+                                              coin_path_image=configs.get("coins").get("path_image"))
                     
                     player_status = playing # habilito que se siga moviendo el player y los enemigos
                     score = initial_score

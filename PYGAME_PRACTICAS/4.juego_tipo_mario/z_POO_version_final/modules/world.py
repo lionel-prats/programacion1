@@ -9,13 +9,11 @@ from modules.platform import Platform
 class World():
     def __init__(self, screen_configs, enemy_configs, 
                  enemy_sprite_group, exit_configs, exit_group, 
-                 coin_group, platform_group, current_level):
+                 coin_group, platform_group, current_level, coin_path_image):
         
         self.screen_configs = screen_configs
         self.tile_list = []
         
-        coin_path_image = "img/coin.png"
-
         score_coin = Coin(coin_path_image, 7, 7, 40) # coin para el score arriba a la izquierda
         coin_group.add(score_coin) 
         
@@ -54,18 +52,12 @@ class World():
                     enemy_sprite_group.add(enemy)
 
                 if tile == 4: # plataformas con movimiento en eje X 
-
-                    # platform_path_image = enemy_configs.get("platform").get("path_image")
-                    platform_path_image = "img/platform.png"
-
+                    platform_path_image = self.screen_configs.get("images").get("platform") 
                     platform = Platform(platform_path_image, coord_x, coord_y, self.tile_size, 1, 0)
                     platform_group.add(platform)
 
                 if tile == 5: # plataformas con movimiento en eje Y 
-
-                    # platform_path_image = enemy_configs.get("platform").get("path_image")
-                    platform_path_image = "img/platform.png"
-
+                    platform_path_image = self.screen_configs.get("images").get("platform") 
                     platform = Platform(platform_path_image, coord_x, coord_y, self.tile_size, 0, 1)
                     platform_group.add(platform)
 
@@ -100,12 +92,11 @@ class World():
             screen.blit(tile[0], tile[1])
 
     def reset_level(self, screen_configs, enemy_configs, enemy_sprite_group, \
-                    exit_configs, exit_group, coin_group, platform_group, current_level):
-        
+                    exit_configs, exit_group, coin_group, platform_group, current_level, coin_path_image):
         # nueva instancia de World con el mapa del nivel que corresponda
         world = World(screen_configs, enemy_configs, enemy_sprite_group, 
-                      exit_configs, exit_group, coin_group, platform_group, current_level) 
-        
+                      exit_configs, exit_group, coin_group, platform_group, current_level,
+                      coin_path_image) 
         return world
      
     def draw_text(self, screen, text_info: tuple):
