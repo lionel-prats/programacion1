@@ -14,7 +14,9 @@ class World():
         self.screen_configs = screen_configs
         self.tile_list = []
         
-        score_coin = Coin(7, 7, 40) # coin para el score arriba a la izquierda
+        coin_path_image = "img/coin.png"
+        
+        score_coin = Coin(coin_path_image, 7, 7, 40) # coin para el score arriba a la izquierda
         coin_group.add(score_coin) 
         
         self.tile_size = self.screen_configs.get("tile_size") # lado de las baldozas (son cuadradas)
@@ -60,12 +62,12 @@ class World():
                     platform_group.add(platform)
 
                 if tile == 6: # lava
-                    enemy_path_image = enemy_configs.get("lava").get("path_image")
-                    lava = Lava(enemy_path_image, coord_x, coord_y, self.tile_size)
+                    lava_path_image = enemy_configs.get("lava").get("path_image")
+                    lava = Lava(lava_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(lava)
                 
                 if tile == 7: # coins
-                    coin = Coin(coord_x, coord_y, self.tile_size)
+                    coin = Coin(coin_path_image, coord_x, coord_y, self.tile_size)
                     coin_group.add(coin)
 
                 if tile == 8: # exit door
