@@ -14,7 +14,7 @@ class World():
         self.screen_configs = screen_configs
         self.tile_list = []
         
-        score_coin = Coin(25, 28, 45) # coin para el score arriba a la izquierda
+        score_coin = Coin(7, 7, 40) # coin para el score arriba a la izquierda
         coin_group.add(score_coin) 
         
         self.tile_size = self.screen_configs.get("tile_size") # lado de las baldozas (son cuadradas)

@@ -129,7 +129,7 @@
                 "coord_y": 500
             },
             "score": {
-                "text": "X {0}",
+                "text": "={0}",
                 "font": "Bauhaus 93",
                 "size": 30,
                 "color": "(255, 255, 255)",
