@@ -19,7 +19,6 @@ class World():
         
         self.tile_size = self.screen_configs.get("tile_size") # lado de las baldozas (son cuadradas)
 
-        
         row_count = 0
         for row in self.screen_configs.get("levels").get(str(current_level)): 
             col_count = 0
@@ -37,7 +36,7 @@ class World():
                     tile = (img, img_rect) 
                     self.tile_list.append(tile)
 
-                if tile == 2: # grass
+                elif tile == 2: # grass
                     grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
                     img = pygame.transform.scale(grass_img, (self.tile_size, self.tile_size))
                     img_rect = img.get_rect()
@@ -46,41 +45,37 @@ class World():
                     tile = (img, img_rect) 
                     self.tile_list.append(tile)
                 
-                if tile == 3: # blob
+                elif tile == 3: # blob
                     blob_path_image = enemy_configs.get("blob").get("path_image")
                     enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(enemy)
 
-                if tile == 4: # plataformas con movimiento en eje X 
+                elif tile == 4: # plataformas con movimiento en eje X 
                     platform_path_image = self.screen_configs.get("images").get("platform") 
                     platform = Platform(platform_path_image, coord_x, coord_y, self.tile_size, 1, 0)
                     platform_group.add(platform)
 
-                if tile == 5: # plataformas con movimiento en eje Y 
+                elif tile == 5: # plataformas con movimiento en eje Y 
                     platform_path_image = self.screen_configs.get("images").get("platform") 
                     platform = Platform(platform_path_image, coord_x, coord_y, self.tile_size, 0, 1)
                     platform_group.add(platform)
 
-                if tile == 6: # lava
+                elif tile == 6: # lava
                     lava_path_image = enemy_configs.get("lava").get("path_image")
                     lava = Lava(lava_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(lava)
                 
-                if tile == 7: # coins
+                elif tile == 7: # coins
                     coin = Coin(coin_path_image, coord_x, coord_y, self.tile_size)
                     coin_group.add(coin)
 
-                if tile == 8: # exit door
+                elif tile == 8: # exit door
                     exit_path_image = exit_configs.get("path_image")
                     exit = Exit(exit_path_image, coord_x, coord_y, self.tile_size)
                     exit_group.add(exit)
                     
                 col_count += 1
             row_count += 1
-
-    def draw_backgroung(self, screen):
-        screen.blit(pygame.image.load(self.screen_configs.get("images").get("sky")) , (0,0))
-        screen.blit(pygame.image.load(self.screen_configs.get("images").get("sun")) , (100,100))
         
     def draw_grid(self, screen):
         for line in range(0, int(self.screen_configs.get("screen_width")/self.tile_size)):
@@ -105,13 +100,11 @@ class World():
 
         informacion_texto = self.screen_configs.get("texts").get(text_info[0])
 
-
         if tipo_texto_a_imprimir == "score":
             score = text_info[1] 
             texto_a_imprimir = informacion_texto.get('text').format(str(score))
         else:
             texto_a_imprimir = informacion_texto.get('text')
-
 
         tipo_fuente = informacion_texto.get('font')
         tamanio_fuente = informacion_texto.get('size')

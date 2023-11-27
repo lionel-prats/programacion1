@@ -19,6 +19,6 @@ class Platform(pygame.sprite.Sprite):
         self.rect.y += self.move_direction * self.move_y # si self.move_y == 1 se movera sobre el eje Y, si 0 no lo hara
         self.move_counter += 1 
 
-        if abs(self.move_counter) > 50: # 50f tor, 100f tol, 100f tor, 100f tol
+        if abs(self.move_counter) > 50: # infinite loop -> 50f to right, 100f to left, 100f to right, 100f to left...
             self.move_direction *= -1
             self.move_counter *= -1

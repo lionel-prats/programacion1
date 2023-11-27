@@ -119,7 +119,7 @@ class Player():
                 self.rect.y -= 5
 
         screen.blit(self.image, self.rect) # draw player onto screen    
-        pygame.draw.rect(screen, (255,0,0), self.rect, 2)
+        # pygame.draw.rect(screen, (255,0,0), self.rect, 2)
 
     def initialize(self, player_configs: dict):
 

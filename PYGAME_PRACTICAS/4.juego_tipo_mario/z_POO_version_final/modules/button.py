@@ -16,11 +16,9 @@ class Button():
         verifica si el usuario hace click sobre el boton restart cuando el player pierde una vida\n
         en base a eso setea en True o False self.clicked
         """
-        
         action =  False
 
-        # get mouse position
-        pos = pygame.mouse.get_pos()
+        pos = pygame.mouse.get_pos() # get mouse position
 
         # collidepoint() -> metodo de la clase Rect que nos indica si el mouse pasa por encima de un objeto Rect
         # check mouseover and clicked condition

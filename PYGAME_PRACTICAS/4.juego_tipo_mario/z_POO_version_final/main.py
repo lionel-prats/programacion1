@@ -177,7 +177,7 @@ while run:
         player.update(screen, world.tile_list, player_status,
                       jump_fx, platform_group, player_dead, playing)
 
-        world.draw_grid(screen)
+        # world.draw_grid(screen)
 
     pygame.display.update()
     
