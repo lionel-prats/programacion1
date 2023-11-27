@@ -19,14 +19,14 @@ class World():
         
         self.tile_size = self.screen_configs.get("tile_size") # lado de las baldozas (son cuadradas)
 
-
+        
         row_count = 0
         for row in self.screen_configs.get("levels").get(str(current_level)): 
             col_count = 0
             for tile in row: 
                 if tile == 1: # dirt
                     dirt_img = pygame.image.load(self.screen_configs.get("images").get("dirt")) 
-                    img = pygame.transform.scale(dirt_img, (self.screen_configs.get("tile_size"), self.screen_configs.get("tile_size")))
+                    img = pygame.transform.scale(dirt_img, (self.tile_size, self.tile_size))
                     img_rect = img.get_rect() 
                     img_rect.x = col_count * img_rect.width
                     img_rect.y = row_count * img_rect.height
@@ -35,7 +35,7 @@ class World():
 
                 if tile == 2: # grass
                     grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
-                    img = pygame.transform.scale(grass_img, (self.tile_size, self.screen_configs.get("tile_size")))
+                    img = pygame.transform.scale(grass_img, (self.tile_size, self.tile_size))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * img_rect.width
                     img_rect.y = row_count * img_rect.height
@@ -44,47 +44,44 @@ class World():
                 
                 if tile == 3: # blob
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    coord_x = col_count * self.screen_configs.get("tile_size")
-                    coord_y = row_count * self.screen_configs.get("tile_size")
-
-                    enemy = Blob(blob_path_image, coord_x, coord_y, tile_size)
+                    coord_x = col_count * self.tile_size
+                    coord_y = row_count * self.tile_size
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(enemy)
 
                 if tile == 4: # plataformas con movimiento en eje X 
-                    coord_x = col_count * self.screen_configs.get("tile_size")
-                    coord_y = row_count * self.screen_configs.get("tile_size")
-                    tile_size = self.screen_configs.get("tile_size")
-                    platform = Platform(coord_x, coord_y, tile_size, 1, 0)
+                    coord_x = col_count * self.tile_size
+                    coord_y = row_count * self.tile_size
+                    platform = Platform(coord_x, coord_y, self.tile_size, 1, 0)
                     platform_group.add(platform)
 
                 if tile == 5: # plataformas con movimiento en eje Y 
-                    coord_x = col_count * self.screen_configs.get("tile_size")
-                    coord_y = row_count * self.screen_configs.get("tile_size")
-                    tile_size = self.screen_configs.get("tile_size")
+                    coord_x = col_count * self.tile_size
+                    coord_y = row_count * self.tile_size
 
-                    platform = Platform(coord_x, coord_y, tile_size, 0, 1)
+                    platform = Platform(coord_x, coord_y, self.tile_size, 0, 1)
                     platform_group.add(platform)
 
                 if tile == 6: # lava
                     enemy_path_image = enemy_configs.get("lava").get("path_image")
                     enemy_height_image = enemy_configs.get("lava").get("height_image")
-                    coord_x = col_count * self.screen_configs.get("tile_size")
-                    coord_y = row_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size") // 2)
+                    coord_x = col_count * self.tile_size
+                    coord_y = row_count * self.tile_size + (self.tile_size // 2)
 
-                    lava = Lava(enemy_path_image, coord_x, coord_y, self.screen_configs.get("tile_size"))
+                    lava = Lava(enemy_path_image, coord_x, coord_y, self.tile_size)
                     enemy_sprite_group.add(lava)
                 
                 if tile == 7: # coins
-                    coord_x = col_count * self.screen_configs.get("tile_size") + (self.screen_configs.get("tile_size")//2)
-                    coord_y = row_count * self.screen_configs.get("tile_size") +  (self.screen_configs.get("tile_size")//2)
-                    coin = Coin(coord_x, coord_y, self.screen_configs.get("tile_size"))
+                    coord_x = col_count * self.tile_size + (self.tile_size//2)
+                    coord_y = row_count * self.tile_size +  (self.tile_size//2)
+                    coin = Coin(coord_x, coord_y, self.tile_size)
                     coin_group.add(coin)
 
                 if tile == 8: # exit door
                     exit_path_image = exit_configs.get("path_image")
-                    coord_x = col_count * self.screen_configs.get("tile_size")
-                    coord_y = row_count * self.screen_configs.get("tile_size") - (self.screen_configs.get("tile_size") // 2)
-                    exit = Exit(exit_path_image, coord_x, coord_y, self.screen_configs.get("tile_size"))
+                    coord_x = col_count * self.tile_size
+                    coord_y = row_count * self.tile_size - (self.tile_size // 2)
+                    exit = Exit(exit_path_image, coord_x, coord_y, self.tile_size)
                     exit_group.add(exit)
                     
                 col_count += 1
@@ -95,9 +92,9 @@ class World():
         screen.blit(pygame.image.load(self.screen_configs.get("images").get("sun")) , (100,100))
         
     def draw_grid(self, screen):
-        for line in range(0, int(self.screen_configs.get("screen_width")/self.screen_configs.get("tile_size"))):
-            pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(0, line * self.screen_configs.get("tile_size")), end_pos=(self.screen_configs.get("screen_width"), line * self.screen_configs.get("tile_size")), width=1)
-            pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(line * self.screen_configs.get("tile_size"), 0), end_pos=(line * self.screen_configs.get("tile_size"), self.screen_configs.get("screen_height")), width=1)
+        for line in range(0, int(self.screen_configs.get("screen_width")/self.tile_size)):
+            pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(0, line * self.tile_size), end_pos=(self.screen_configs.get("screen_width"), line * self.tile_size), width=1)
+            pygame.draw.line(surface=screen, color=(255, 255, 255), start_pos=(line * self.tile_size, 0), end_pos=(line * self.tile_size, self.screen_configs.get("screen_height")), width=1)
           
     def draw(self, screen):
         for tile in self.tile_list:
