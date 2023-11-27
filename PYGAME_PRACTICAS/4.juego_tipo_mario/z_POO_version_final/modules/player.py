@@ -57,56 +57,59 @@ class Player():
             
             # check for collision with tiles
             self.in_air = True
-            for tile in tile_list: 
+            for tile in tile_list: # tile == (<Surface(50x50x24 SW)>, <rect(coord_x, coord_y, width, hright)>)
+
                 # check for collision in x direction 
-                if tile[1].colliderect(self.rect.x + delta_x, self.rect.y, self.width, self.height): # delta_x = +/-5 or 0
+                if tile[1].colliderect(self.rect.x + delta_x, self.rect.y, self.width, self.height): 
                     delta_x = 0
 
-                # if tile[1].colliderect(self.rect): 
-                # tile == (<Surface(50x50x24 SW)>, <rect(400, 900, 50, 50)>)
                 # check for collision in y direction 
                 if tile[1].colliderect(self.rect.x, self.rect.y + delta_y, self.width, self.height): 
-                    # check if below the ground i.e jumping 
-                    # self.vel_y toma valores entre de entr -14 y 1 (durante la curva de un salto), y de entre 0 y 10 con  el player en reposo
-                    if self.vel_y < 0: # el player esta durante la curva de un salto, entonces la colision es entre rl bottom del tile y el top del player
-                        delta_y = tile[1].bottom - self.rect.top # 0
+                    # check if player is below the tile 
+                    # self.vel_y toma valores entre de entre -14 y 1 cuando el player esta en el aire (durante un salto)
+                    # si la colision se da en ese momento, entonces la colision es entre el bottom del tile y el top del player
+                    if self.vel_y < 0: 
+                        delta_y = tile[1].bottom - self.rect.top
                         self.vel_y = 0
 
-                    # check if player is above the ground 
+                    # check if player is above the tile 
+                    # self.vel_y toma valores entre entre 0 y 10 con el player en reposo
+                    # si la colision se da en ese momento, entonces la colision es entre el bottom del player y el top del tile (player parado)
                     elif self.vel_y >= 0: 
                         delta_y = tile[1].top - self.rect.bottom 
                         self.vel_y = 0
-                        self.in_air = False
+                        self.in_air = False # habilito que el player pueda volver a saltar una vez parado 
 
             # check for collision with platform
             for platform in platform_group:
+
+                # check for collision in x direction 
                 if platform.rect.colliderect(self.rect.x + delta_x, self.rect.y, self.width, self.height):
                     delta_x = 0
                 
-                # collision in the y direction
-                # self.rect.y + delta_y -> coord_y del player en todo momento
+                # check for collision in y direction
                 if platform.rect.colliderect(self.rect.x, self.rect.y + delta_y, self.width, self.height):
                     # hubo colision entre el player y alguna de las plataformas por arriba o por abajo
-                    # check if below platform 
+
+                    # check if player is below platform 
                     if abs((self.rect.top + delta_y) - platform.rect.bottom) < col_thresh:
-                        # el player collisiono con una plataforma desde abajo (con la cabeza)
-                        # self.vel_y toma valores entre de entr -14 y 1 (durante la curva de un salto), y de entre 0 y 10 con  el player en reposo
-                        self.vel_y = 0 # FUNCIONA PERO NO ENTIENDO v13
-                        delta_y = platform.rect.bottom - self.rect.top # FUNCIONA PERO NO ENTIENDO v13
+                        self.vel_y = 0
+                        delta_y = platform.rect.bottom - self.rect.top
 
-                    # check if above platform 
+                    # check if player is above platform 
                     elif abs((self.rect.bottom + delta_y) - platform.rect.top) < col_thresh:
-                        # el player collisiono con una plataforma desde arriba (con los pies)
-                        self.rect.bottom = platform.rect.top - 1 # FUNCIONA PERO NO ENTIENDO v13
-                        self.in_air = False # habilito que el player pueda volver a salt una vez parado en alguna plataforma
-                        delta_y = 0 # FUNCIONA PERO NO ENTIENDO v13
+                        self.rect.bottom = platform.rect.top - 1 
+                        delta_y = 0
+                        self.in_air = False # habilito que el player pueda volver a saltar ya que esta parado 
 
-                    # move sideways with the platform || el player parado en una plataforma se mueve en el eje x junto a las plataformas que se muevan horizontalmente
-                    if platform.move_x != 0:
-                        self.rect.x += platform.move_direction
+                    # el player parado en una plataforma se mueve en el eje x junto a la plataforma en la que esta parado
+                    if platform.move_x: # move_x = 1 indicate an x direction plataform moving 
+                        self.rect.x += platform.move_direction 
+                        # move_direction = 1 indicate platform moving to right
+                        # = -1 platform moving to left
 
             # update rect player coordinates
-            self.rect.x += delta_x # +/-5 or 0
+            self.rect.x += delta_x 
             self.rect.y += delta_y 
 
         # el player perdio la vida, animacion del fantasma subiendo
