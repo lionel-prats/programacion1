@@ -15,7 +15,7 @@ class World():
         self.tile_list = []
         
         coin_path_image = "img/coin.png"
-        
+
         score_coin = Coin(coin_path_image, 7, 7, 40) # coin para el score arriba a la izquierda
         coin_group.add(score_coin) 
         
@@ -54,11 +54,19 @@ class World():
                     enemy_sprite_group.add(enemy)
 
                 if tile == 4: # plataformas con movimiento en eje X 
-                    platform = Platform(coord_x, coord_y, self.tile_size, 1, 0)
+
+                    # platform_path_image = enemy_configs.get("platform").get("path_image")
+                    platform_path_image = "img/platform.png"
+
+                    platform = Platform(platform_path_image, coord_x, coord_y, self.tile_size, 1, 0)
                     platform_group.add(platform)
 
                 if tile == 5: # plataformas con movimiento en eje Y 
-                    platform = Platform(coord_x, coord_y, self.tile_size, 0, 1)
+
+                    # platform_path_image = enemy_configs.get("platform").get("path_image")
+                    platform_path_image = "img/platform.png"
+
+                    platform = Platform(platform_path_image, coord_x, coord_y, self.tile_size, 0, 1)
                     platform_group.add(platform)
 
                 if tile == 6: # lava
