@@ -78,8 +78,8 @@ while run:
 
         # group.draw() -> metodo de la clase Group para blitear sprites de un grupo instancia de la clase
         platform_group.draw(screen)
-        enemies_group.draw(screen)
         coin_group.draw(screen)
+        enemies_group.draw(screen)
         exit_group.draw(screen)
 
         if player_status == playing:
@@ -113,7 +113,7 @@ while run:
                 
                 player.initialize(configs.get("player"))
                 player_status = playing
-                score = 0 
+                score = initial_score
                 
                 enemies_group.empty()
                 exit_group.empty()
@@ -165,13 +165,10 @@ while run:
                                               current_level=current_level)
                     
                     player_status = playing # habilito que se siga moviendo el player y los enemigos
-                    score = 0 
+                    score = initial_score
 
-        player.update(screen, 
-                      tile_list = world.tile_list, 
-                      game_over=player_status,
-                      jump_fx=jump_fx, 
-                      platform_group=platform_group)
+        player.update(screen, world.tile_list, player_status,
+                      jump_fx, platform_group, player_dead, playing)
 
         world.draw_grid(screen)
 

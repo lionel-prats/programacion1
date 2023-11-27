@@ -5,14 +5,14 @@ class Player():
     def __init__(self, player_configs: dict):
         self.initialize(player_configs)
 
-    def update(self, screen, tile_list: list[tuple], game_over, jump_fx, platform_group):
+    def update(self, screen, tile_list: list[tuple], player_status, jump_fx, platform_group, dead_value, playing_value):
         
         delta_x = 0
         delta_y = 0
         velocity_animation = self.player_configs.get("animation_settings").get("velocity_animation") 
-        col_thresh = 20 # collision with platforms
+        col_thresh = 20 # collision with platforms in Y
         
-        if game_over == 0:
+        if player_status == playing_value:
             key = pygame.key.get_pressed()
 
             if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
@@ -32,22 +32,21 @@ class Player():
             if not key[pygame.K_LEFT] and not key[pygame.K_RIGHT]:
                 self.frames_in_movement_x = 0
                 self.index = 0
-                if self.direction == 1: # player moving to the right
+                if self.direction == 1: # player was moving to the right
                     self.image = self.images_right[self.index]
-                if self.direction == -1: # player moving to the right
+                if self.direction == -1: # player was moving to the left
                     self.image = self.images_left[self.index]
 
-            # handle animation
-            if self.frames_in_movement_x > velocity_animation:
+            # handle velocity of animation
+            if self.frames_in_movement_x > velocity_animation: # player is moving
                 self.frames_in_movement_x = 0
                 self.index += 1
                 if self.index >= len(self.images_right) - 1:
                     self.index = 0
-                if self.direction == 1: # player moving to the right
+                if self.direction == 1: # player is moving to the right
                     self.image = self.images_right[self.index]
-                if self.direction == -1: # player moving to the right
+                if self.direction == -1: # player is moving to the right
                     self.image = self.images_left[self.index]
-                # self.image = self.images_right[self.index]
                 
             # add gravity 
             self.vel_y += 1 # -14|-13|-12...9|10|10|10
@@ -56,7 +55,7 @@ class Player():
 
             delta_y += self.vel_y
             
-           # check for collision with tiles
+            # check for collision with tiles
             self.in_air = True
             for tile in tile_list: 
                 # check for collision in x direction 
@@ -111,9 +110,9 @@ class Player():
             self.rect.y += delta_y 
 
         # el player perdio la vida, animacion del fantasma subiendo
-        if game_over == -1:
+        if player_status == dead_value:
             self.image = self.dead_image
-            if self.rect.y > 200:
+            if self.rect.y > -50:
                 self.rect.y -= 5
 
         screen.blit(self.image, self.rect) # draw player onto screen    
