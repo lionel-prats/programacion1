@@ -40,11 +40,12 @@ class World():
                     self.tile_list.append(tile)
                 
                 if tile == 3: # blob
-                    enemy_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy_height_image = enemy_configs.get("blob").get("height_image")
-                    compensation_y = self.screen_configs.get("tile_size") - enemy_height_image
-                    enemy = Blob(enemy_path_image, col_count * self.screen_configs.get("tile_size"), 
-                                 row_count * self.screen_configs.get("tile_size") + compensation_y)
+                    blob_path_image = enemy_configs.get("blob").get("path_image")
+                    coord_x = col_count * self.screen_configs.get("tile_size")
+                    coord_y = row_count * self.screen_configs.get("tile_size")
+                    tile_size = self.screen_configs.get("tile_size")
+
+                    enemy = Blob(blob_path_image, coord_x, coord_y, tile_size)
                     enemy_sprite_group.add(enemy)
 
                 if tile == 4: # plataformas con movimiento en eje X 

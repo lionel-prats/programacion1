@@ -164,11 +164,6 @@
         }
     },
     "enemies": {
-        "3": {
-            "path_image": "img/blob.png",
-            "width_image": 46,
-            "height_image": 35
-        },
         "blob": {
             "path_image": "img/blob.png",
             "width_image": 46,
