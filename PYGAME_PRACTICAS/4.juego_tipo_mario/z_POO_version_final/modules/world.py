@@ -17,6 +17,9 @@ class World():
         score_coin = Coin(25, 28, 45) # coin para el scpre arriba a la izquierda
         coin_group.add(score_coin) 
         
+        self.tile_size = self.screen_configs.get("tile_size") # lado de las baldozas (son cuadradas)
+
+
         row_count = 0
         for row in self.screen_configs.get("levels").get(str(current_level)): 
             col_count = 0
@@ -32,7 +35,7 @@ class World():
 
                 if tile == 2: # grass
                     grass_img = pygame.image.load(self.screen_configs.get("images").get("grass")) 
-                    img = pygame.transform.scale(grass_img, (self.screen_configs.get("tile_size"), self.screen_configs.get("tile_size")))
+                    img = pygame.transform.scale(grass_img, (self.tile_size, self.screen_configs.get("tile_size")))
                     img_rect = img.get_rect()
                     img_rect.x = col_count * img_rect.width
                     img_rect.y = row_count * img_rect.height
@@ -43,7 +46,6 @@ class World():
                     blob_path_image = enemy_configs.get("blob").get("path_image")
                     coord_x = col_count * self.screen_configs.get("tile_size")
                     coord_y = row_count * self.screen_configs.get("tile_size")
-                    tile_size = self.screen_configs.get("tile_size")
 
                     enemy = Blob(blob_path_image, coord_x, coord_y, tile_size)
                     enemy_sprite_group.add(enemy)
