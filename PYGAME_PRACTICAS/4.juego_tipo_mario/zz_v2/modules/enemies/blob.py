@@ -30,13 +30,14 @@ class Blob(Enemy):
 
     def update(self):
         
+        # self.rect.y += 1 
         for tile in self.tile_list: 
             if tile[1].colliderect(self.rect.x,self.rect.y,self.rect.width,self.rect.height): 
                 self.move_direction *= -1
+            
         
         for sprite in self.enemy_sprite_group:
             if sprite != self and self.rect.colliderect(sprite.rect):
                 self.move_direction *= -1 
 
         self.rect.x += self.move_direction
-

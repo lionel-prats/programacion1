@@ -1,70 +1,70 @@
 import pygame
 import sys
 
-# Initialize Pygame
+# Inicializar Pygame
 pygame.init()
 
-# Define colors
-red = (255, 0, 0)
-white = (255, 255, 255)
+# Definir colores
+blanco = (255, 255, 255)
+negro = (0, 0, 0)
 
-# Create the window
-width, height = 800, 600
-window = pygame.display.set_mode((width, height))
-pygame.display.set_caption("Collision of Sprites in the Same Group")
+# Crear la ventana
+ancho, alto = 800, 400
+ventana = pygame.display.set_mode((ancho, alto))
+pygame.display.set_caption("Elemento en Plataforma")
 
-# Define the sprite class
-class MySprite(pygame.sprite.Sprite):
-    def __init__(self, color, x, y, width, height, velocity):
+# Definir la clase del sprite
+class MiSprite(pygame.sprite.Sprite):
+    def __init__(self, color, x, y, ancho, alto, velocidad):
         super().__init__()
-        self.image = pygame.Surface((width, height))
+        self.image = pygame.Surface((ancho, alto))
         self.image.fill(color)
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-        self.velocity = velocity
+        self.velocidad = velocidad
 
     def update(self):
-        # Move the sprite
-        self.rect.x += self.velocity
+        # Mover el sprite solo a lo largo de la plataforma
+        self.rect.x += self.velocidad
 
-        # Check collision with the window boundaries
-        if self.rect.left < 0 or self.rect.right > width:
-            self.velocity *= -1  # Change direction when colliding with the sides
+        # Cambiar dirección al llegar a los bordes de la plataforma
+        if self.rect.left < 250 or self.rect.right > 750:  # Limitar a los bordes de la plataforma
+            self.velocidad *= -1
 
-# Create a sprite group
-sprite_group = pygame.sprite.Group()
+# Crear grupo de sprites
+grupo_sprites = pygame.sprite.Group()
 
-# Create sprites and add them to the group with the same velocity
-sprite1 = MySprite(red, 50, 200, 50, 50, 5)
-sprite2 = MySprite(white, 500, 200, 50, 50, 5)
-sprite_group.add(sprite1, sprite2)
+# Dibujar la plataforma
+plataforma = pygame.Surface((500, 50))
+plataforma.fill(blanco)
+rect_plataforma = plataforma.get_rect(center=(ancho // 2, alto - 25))
 
-# Main loop
+# Crear sprite y agregarlo al grupo
+elemento = MiSprite(blanco, 250, alto - 75, 50, 50, 3)  # Iniciar en la posición inicial dentro de la plataforma
+grupo_sprites.add(elemento)
+
+# Bucle principal
 while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
 
-    # Check collisions between sprites in the group
-    for sprite in sprite_group:
-        sprite_group.remove(sprite)  # Remove the sprite temporarily to avoid self-collision
-        if pygame.sprite.spritecollide(sprite, sprite_group, False):
-            sprite.velocity *= -1  # Change direction upon collision
-        sprite_group.add(sprite)  # Add the sprite back to the group
+    # Actualizar todos los sprites en el grupo
+    grupo_sprites.update()
 
-    # Update all sprites in the group
-    sprite_group.update()
+    # Limpiar la pantalla
+    ventana.fill(negro)
 
-    # Clear the screen
-    window.fill((0, 0, 0))
+    # Dibujar la plataforma en la pantalla
+    ventana.blit(plataforma, rect_plataforma)
 
-    # Draw the sprites on the screen
-    sprite_group.draw(window)
+    # Dibujar los sprites en la pantalla
+    grupo_sprites.draw(ventana)
 
-    # Update the display
+    # Actualizar la pantalla
     pygame.display.flip()
 
-    # Control the update speed
+    # Controlar la velocidad de actualización
     pygame.time.Clock().tick(60)
