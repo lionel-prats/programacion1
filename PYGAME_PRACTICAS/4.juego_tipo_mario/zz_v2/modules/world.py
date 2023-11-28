@@ -47,7 +47,7 @@ class World():
                 
                 elif tile == 3: # blob RIGHT 40
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, 1, 40)
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, 1, 42, self.tile_list)
                     enemy_sprite_group.add(enemy)
 
                 elif tile == 4: # plataformas X RIGHT 40
@@ -86,27 +86,27 @@ class World():
 
                 elif tile == 12: # blob RIGHT 80
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, 1, 80)
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, 1, 80, self.tile_list)
                     enemy_sprite_group.add(enemy)
                 
                 elif tile == 13: # blob RIGHT 120
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, 1, 120)
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, 1, 120, self.tile_list)
                     enemy_sprite_group.add(enemy)
                 
                 elif tile == 14: # blob LEFT 40
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, -1, 40)
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, -1, 40, self.tile_list)
                     enemy_sprite_group.add(enemy)
                 
                 elif tile == 15: # blob LEFT 80
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, -1, 80)
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, -1, 80, self.tile_list)
                     enemy_sprite_group.add(enemy)
                 
                 elif tile == 16: # blob LEFT 120
                     blob_path_image = enemy_configs.get("blob").get("path_image")
-                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, -1, 120)
+                    enemy = Blob(blob_path_image, coord_x, coord_y, self.tile_size, -1, 120, self.tile_list)
                     enemy_sprite_group.add(enemy)
 
                 elif tile == 17: # plataformas X RIGHT 80
