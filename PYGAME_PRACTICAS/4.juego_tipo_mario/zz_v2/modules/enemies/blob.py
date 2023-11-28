@@ -3,7 +3,7 @@ import random
 from modules.enemies.enemy import Enemy
 
 class Blob(Enemy):
-    def __init__(self, path_image, x, y, tile_size, move_direction, amplitud, tile_list):
+    def __init__(self, path_image, x, y, tile_size, move_direction, amplitud, tile_list, enemy_sprite_group):
         Enemy.__init__(self, path_image, x, y)
         
         self.image = pygame.transform.scale(self.image, (40, 35))
@@ -18,6 +18,7 @@ class Blob(Enemy):
         self.move_counter = 0
 
         self.tile_list = tile_list
+        self.enemy_sprite_group = enemy_sprite_group
 
 
     # def update(self):
@@ -30,9 +31,12 @@ class Blob(Enemy):
     def update(self):
         
         for tile in self.tile_list: 
-        # tile == (<Surface(50x50x24 SW)>, <rect(coord_x, coord_y, width, hright)>)
-            if tile[1].colliderect(self): 
-                self.move_direction * -1
+            if tile[1].colliderect(self.rect.x,self.rect.y,self.rect.width,self.rect.height): 
+                self.move_direction *= -1
+        
+        for sprite in self.enemy_sprite_group:
+            if sprite != self and self.rect.colliderect(sprite.rect):
+                self.move_direction *= -1 
+
         self.rect.x += self.move_direction
-        print(self.rect)
 
